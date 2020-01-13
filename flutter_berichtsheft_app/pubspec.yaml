@@ -18,3 +18,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/bh_logo_dark.png
+    - assets/images/bh_logo_hell.png
