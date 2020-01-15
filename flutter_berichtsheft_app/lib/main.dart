@@ -1,4 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_berichtsheft_app/my_app.dart';
+import 'package:flutter_berichtsheft_app/MyApp.dart';
+import 'package:flutter_berichtsheft_app/provider/provider.dart';
+import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(Main());
+
+class Main extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<LoginProvider>(
+          create: (_) => LoginProvider(),
+        ),
+        ChangeNotifierProvider<StylingProvider>(
+          create: (_) => StylingProvider(),
+        ),
+      ],
+      child: MaterialApp(
+        home: MyApp(),
+      ),
+    );
+  }
+}
