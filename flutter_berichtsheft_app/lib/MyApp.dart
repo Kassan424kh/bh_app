@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
           children: <Widget>[
             Expanded(
               child: AnimatedContainer(
-                duration: Duration(milliseconds: 350),
-                color: _selectedTheme[_isLoggedIn ? ElementStylingParameters.primaryColor : ElementStylingParameters.primaryAccentColor],
+                duration: Duration(milliseconds: Styling.durationAnimation),
+                color: _selectedTheme[ElementStylingParameters.primaryColor],
                 child: StartSite(),
               ),
             ),

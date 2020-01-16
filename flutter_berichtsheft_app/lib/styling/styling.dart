@@ -24,7 +24,7 @@ class Styling {
     ElementStylingParameters.textColor: Color(0xff262626),
     ElementStylingParameters.headerTextColor: Color(0xff25CEBB),
     ElementStylingParameters.inputHintTextColor: Color(0xff48F4DE).withOpacity(.63),
-    ElementStylingParameters.boxShadowColor: Color(0xff6DDFFF),
+    ElementStylingParameters.boxShadowColor: Color(0xffA2EEFF),
     ElementStylingParameters.logoImage: "assets/images/bh_logo_hell.png",
     ElementStylingParameters.avatarImage: "assets/avatars/avatar_hell.png",
     ElementStylingParameters.logoutButtonColor: Colors.red,
@@ -40,7 +40,7 @@ class Styling {
     ElementStylingParameters.textColor: Color(0xffA5FFE2),
     ElementStylingParameters.headerTextColor: Color(0xff00C0A7),
     ElementStylingParameters.inputHintTextColor: Color(0xff00C0A7).withOpacity(.63),
-    ElementStylingParameters.boxShadowColor: Color(0xff006E66),
+    ElementStylingParameters.boxShadowColor: Color(0xff004C46),
     ElementStylingParameters.logoImage: "assets/images/bh_logo_dark.png",
     ElementStylingParameters.avatarImage: "assets/avatars/avatar_dark.png",
     ElementStylingParameters.logoutButtonColor: Colors.redAccent,
@@ -52,6 +52,8 @@ class Styling {
   };
 
   static var selectedTheme = lightTheme;
+
+  static int durationAnimation = 500;
 
   static double biggestPhoneSize = 577.0;
 }

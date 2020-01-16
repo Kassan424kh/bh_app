@@ -68,7 +68,7 @@ class Button extends StatelessWidget {
         highlightElevation: 0,
         disabledElevation: 0,
         focusElevation: 0,
-        animationDuration: Duration(milliseconds: 350),
+        animationDuration: Duration(milliseconds: Styling.durationAnimation),
         color: color.withOpacity(_selectedTheme[ElementStylingParameters.buttonsBackgroundColorOpacity]),
         splashColor: color.withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
         focusColor: Colors.transparent,

@@ -67,12 +67,15 @@ class _LoginState extends State<Login> {
                         SizedBox(height: 15),
                         _loginForm,
                         SizedBox(height: 15),
-                        UICircleButton(
-                          onPressed: () {
-                            Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(
-                              Provider.of<LoginProvider>(context, listen: false).isLoggedIn ? false : true,
-                            );
-                          },
+                        Hero(
+                          tag: "login_button_to_sites_container_component",
+                          child: UICircleButton(
+                            onPressed: () {
+                              Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(
+                                Provider.of<LoginProvider>(context, listen: false).isLoggedIn ? false : true,
+                              );
+                            },
+                          ),
                         ),
                       ],
                     ),

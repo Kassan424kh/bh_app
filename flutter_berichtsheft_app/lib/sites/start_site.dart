@@ -15,6 +15,9 @@ class _StartSiteState extends State<StartSite> {
   Size _loginAndNavigationBoxSize = Size(0, 0);
   Offset _loginAndNavigationBoxOffset = Offset(0, 0);
 
+  bool _showLoginComponents = LoginProvider().isLoggedIn ? false : true;
+  bool _showNavigationComponents = LoginProvider().isLoggedIn ? true : false;
+
   _renderBox(_) {
     final RenderBox renderBox = _loginAndNavigationBoxKey.currentContext.findRenderObject();
     setState(() {
@@ -47,13 +50,13 @@ class _StartSiteState extends State<StartSite> {
     bool _isLoggedIn = Provider.of<LoginProvider>(context).isLoggedIn;
     Size size = MediaQuery.of(context).size;
     return AnimatedAlign(
-      duration: Duration(milliseconds: 350),
+      duration: Duration(milliseconds: Styling.durationAnimation),
       curve: Curves.easeInOutCubic,
       alignment: _isLoggedIn ? Alignment.centerLeft : Alignment.center,
       child: AnimatedContainer(
-        duration: Duration(milliseconds: 350),
+        duration: Duration(milliseconds: Styling.durationAnimation),
         curve: Curves.easeInOutCubic,
-        color: _selectedTheme[_isLoggedIn ? ElementStylingParameters.primaryAccentColor : ElementStylingParameters.primaryColor],
+        color: _selectedTheme[ElementStylingParameters.primaryAccentColor ],
         key: _loginAndNavigationBoxKey,
         width: _isLoggedIn ? 350 : 300,
         margin: EdgeInsets.only(
@@ -61,12 +64,31 @@ class _StartSiteState extends State<StartSite> {
           left: 10,
           bottom: 10,
         ),
-        height: _isLoggedIn ? size.height : 300,
+        height: _isLoggedIn ? size.height : 320,
         child: Align(
           alignment: Alignment.center,
           child: Stack(
             children: <Widget>[
-              !_isLoggedIn ? Login(title: "Login") : Navigation(),
+              AnimatedOpacity(
+                opacity: !_isLoggedIn && _showLoginComponents ? 1 : 0,
+                duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
+                curve: Curves.easeInOutCubic,
+                child: _showLoginComponents ? Login(title: "Login") : Container(),
+                onEnd: () => setState(() {
+                  _showLoginComponents = _isLoggedIn ? false : true;
+                  _showNavigationComponents = _isLoggedIn ? true : false;
+                }),
+              ),
+              AnimatedOpacity(
+                opacity: _isLoggedIn && _showNavigationComponents ? 1 : 0,
+                duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
+                curve: Curves.easeInOutCubic,
+                child: _showNavigationComponents ? Navigation() : Container(),
+                onEnd: () => setState(() {
+                  _showLoginComponents = _isLoggedIn ? false : true;
+                  _showNavigationComponents = _isLoggedIn ? true : false;
+                }),
+              ),
             ],
           ),
         ),
