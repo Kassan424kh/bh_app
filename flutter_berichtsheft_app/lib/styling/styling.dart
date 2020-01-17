@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 
 enum ElementStylingParameters {
   primaryColor,
@@ -30,7 +31,7 @@ class Styling {
     ElementStylingParameters.logoutButtonColor: Colors.red,
     ElementStylingParameters.editButtonColor: Color(0xff00C0A7),
     ElementStylingParameters.lightDarkButtonColor: Colors.orangeAccent,
-    ElementStylingParameters.lightDarkButtonIcon: Icons.wb_sunny,
+    ElementStylingParameters.lightDarkButtonIcon: OMIcons.wbSunny,
     ElementStylingParameters.splashOpacity: .5,
     ElementStylingParameters.buttonsBackgroundColorOpacity: .1,
   };
@@ -40,13 +41,13 @@ class Styling {
     ElementStylingParameters.textColor: Color(0xffA5FFE2),
     ElementStylingParameters.headerTextColor: Color(0xff00C0A7),
     ElementStylingParameters.inputHintTextColor: Color(0xff00C0A7).withOpacity(.63),
-    ElementStylingParameters.boxShadowColor: Color(0xff004C46),
+    ElementStylingParameters.boxShadowColor: Colors.black38,
     ElementStylingParameters.logoImage: "assets/images/bh_logo_dark.png",
     ElementStylingParameters.avatarImage: "assets/avatars/avatar_dark.png",
     ElementStylingParameters.logoutButtonColor: Colors.redAccent,
     ElementStylingParameters.editButtonColor: Color(0xff48F4DE),
     ElementStylingParameters.lightDarkButtonColor: Colors.deepPurpleAccent,
-    ElementStylingParameters.lightDarkButtonIcon: Icons.brightness_2,
+    ElementStylingParameters.lightDarkButtonIcon: OMIcons.brightness2,
     ElementStylingParameters.splashOpacity: .2,
     ElementStylingParameters.buttonsBackgroundColorOpacity: .3,
   };

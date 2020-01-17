@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 
 class BottomButtons extends StatelessWidget {
@@ -8,37 +9,39 @@ class BottomButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
     double _widgetWidget = Provider.of<LoginProvider>(context).loginAndNavigationComponentSize.width * 70 / 100;
-    return Flexible(
-      fit: FlexFit.loose,
-      child: Container(
-        width: _widgetWidget,
-        margin: EdgeInsets.only(top: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Button(
-              color: _selectedTheme[ElementStylingParameters.logoutButtonColor],
-              icon: Icons.power_settings_new,
-              onClick: () {
-                Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(
-                  Provider.of<LoginProvider>(context, listen: false).isLoggedIn ? false : true,
-                );
-              },
-            ),
-            Button(
-              color: _selectedTheme[ElementStylingParameters.editButtonColor],
-              icon: Icons.edit,
-              onClick: () {},
-            ),
-            Button(
-              color: _selectedTheme[ElementStylingParameters.lightDarkButtonColor],
-              icon: _selectedTheme[ElementStylingParameters.lightDarkButtonIcon],
-              onClick: () {
-                Provider.of<StylingProvider>(context, listen: false).changeTheme();
-              },
-            ),
-          ],
-        ),
+    return Container(
+      width: _widgetWidget,
+      margin: EdgeInsets.only(top: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Button(
+            color: _selectedTheme[ElementStylingParameters.logoutButtonColor],
+            icon: Icons.power_settings_new,
+            onClick: () {
+              Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(
+                Provider.of<LoginProvider>(context, listen: false).isLoggedIn ? false : true,
+              );
+            },
+          ),
+          Button(
+            color: _selectedTheme[ElementStylingParameters.editButtonColor],
+            icon: OMIcons.print,
+            onClick: () {},
+          ),
+          Button(
+            color: _selectedTheme[ElementStylingParameters.editButtonColor],
+            icon: Icons.save_alt,
+            onClick: () {},
+          ),
+          Button(
+            color: _selectedTheme[ElementStylingParameters.lightDarkButtonColor],
+            icon: _selectedTheme[ElementStylingParameters.lightDarkButtonIcon],
+            onClick: () {
+              Provider.of<StylingProvider>(context, listen: false).changeTheme();
+            },
+          ),
+        ],
       ),
     );
   }
@@ -59,28 +62,19 @@ class Button extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
-    return SizedBox(
-      width: 51,
-      height: 51,
-      child: RaisedButton(
-        elevation: 0,
-        hoverElevation: 0,
-        highlightElevation: 0,
-        disabledElevation: 0,
-        focusElevation: 0,
-        animationDuration: Duration(milliseconds: Styling.durationAnimation),
+    return Container(
+      decoration: BoxDecoration(
         color: color.withOpacity(_selectedTheme[ElementStylingParameters.buttonsBackgroundColorOpacity]),
-        splashColor: color.withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
+        shape: BoxShape.circle,
+      ),
+      child: IconButton(
+        color: color.withOpacity(_selectedTheme[ElementStylingParameters.buttonsBackgroundColorOpacity]),
         focusColor: Colors.transparent,
-        textColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-        disabledTextColor: Colors.transparent,
+        splashColor: color.withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
+        highlightColor: color.withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
         disabledColor: Colors.transparent,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(100)),
-        ),
         onPressed: onClick,
-        child: Icon(
+        icon: Icon(
           icon,
           color: color,
           size: 20,

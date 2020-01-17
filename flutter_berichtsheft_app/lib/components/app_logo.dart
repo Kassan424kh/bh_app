@@ -14,17 +14,12 @@ class AppLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
-    return Expanded(
-      child: LayoutBuilder(
-        builder: (BuildContext context, BoxConstraints boxConstraints) => AnimatedContainer(
-          duration: Duration(milliseconds: Styling.durationAnimation),
-          padding: padding,
-          constraints: BoxConstraints.expand(),
-          child: Image.asset(
-            _selectedTheme[ElementStylingParameters.logoImage],
-            fit: BoxFit.fitWidth,
-          ),
-        ),
+    return AnimatedContainer(
+      duration: Duration(milliseconds: Styling.durationAnimation),
+      margin: padding,
+      child: Image.asset(
+        _selectedTheme[ElementStylingParameters.logoImage],
+        fit: BoxFit.fitWidth,
       ),
     );
   }

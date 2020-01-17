@@ -8,6 +8,7 @@ class UITextField extends StatelessWidget {
   final Icon icon;
   final onSubmitted;
   final onChanged;
+  final int maxLines;
   final double marginLeft;
 
   UITextField({
@@ -17,28 +18,34 @@ class UITextField extends StatelessWidget {
     this.icon,
     this.marginLeft = 20,
     this.onChanged,
+    this.maxLines,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    return TextField(
-      onSubmitted: onSubmitted,
-      onChanged: onChanged,
-      style: TextStyle(color: _selectedTheme[ElementStylingParameters.headerTextColor]),
-      decoration: InputDecoration(
-        border: InputBorder.none,
-        focusedBorder: InputBorder.none,
-        enabledBorder: InputBorder.none,
-        hintText: hintText,
-        hintStyle: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor]),
-        filled: true,
-        isDense: true,
-        contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
-        fillColor: _selectedTheme[ElementStylingParameters.primaryColor],
-        icon: Container(
-          padding: EdgeInsets.only(left: marginLeft),
-          child: icon,
+    return Container(
+      margin: EdgeInsets.only(left: marginLeft),
+      color: _selectedTheme[ElementStylingParameters.primaryColor],
+      child: TextField(
+        onSubmitted: onSubmitted,
+        onChanged: onChanged,
+        maxLines: maxLines,
+        style: TextStyle(color: _selectedTheme[ElementStylingParameters.headerTextColor]),
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          focusedBorder: InputBorder.none,
+          enabledBorder: InputBorder.none,
+          hintText: hintText,
+          hintStyle: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor]),
+          filled: true,
+          isDense: true,
+          contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+          fillColor: _selectedTheme[ElementStylingParameters.primaryColor],
+          icon: icon != null ? Container(
+            padding: EdgeInsets.only(left: 20),
+            child: icon,
+          ): null,
         ),
       ),
     );
