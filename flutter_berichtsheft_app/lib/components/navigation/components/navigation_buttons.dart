@@ -10,14 +10,14 @@ import 'package:provider/provider.dart';
 class NavigationButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-      fit: FlexFit.loose,
-      child: Container(
+    return LayoutBuilder(
+      builder:(BuildContext context, BoxConstraints boxConstraints)=>  Container(
         margin: EdgeInsets.only(
           left: 30,
         ),
         child: ListView(
           scrollDirection: Axis.vertical,
+          shrinkWrap: true,
           children: <Widget>[
             SearchInputField(),
             NavigationButton(

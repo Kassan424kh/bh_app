@@ -17,7 +17,7 @@ class HeaderText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
+    final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
 
     return Container(
       margin: margin,

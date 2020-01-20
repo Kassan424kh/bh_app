@@ -27,7 +27,7 @@ class UITextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
+    final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     return Container(
       margin: EdgeInsets.only(bottom: borderBottom ? 15 : 0),
       decoration: BoxDecoration(

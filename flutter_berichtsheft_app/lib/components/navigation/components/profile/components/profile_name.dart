@@ -7,13 +7,13 @@ import 'package:provider/provider.dart';
 class ProfileName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
+    final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
 
     return Flexible(
       child: Container(
         padding: EdgeInsets.all(10),
         child: Text(
-          "Khalil Khalil",
+          "Test Test",
           style: TextStyle(
             color: _selectedTheme[ElementStylingParameters.headerTextColor],
             fontSize: 30,

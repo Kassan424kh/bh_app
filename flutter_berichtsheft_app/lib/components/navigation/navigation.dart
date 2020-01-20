@@ -6,11 +6,11 @@ import 'package:flutter_berichtsheft_app/components/navigation/components/profil
 class Navigation extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Flex(
-      direction: Axis.vertical,
+    return Column(
+      mainAxisSize: MainAxisSize.max,
       children: <Widget>[
         ProfileInfos(),
-        NavigationButtons(),
+        Flexible(fit: FlexFit.loose,flex: 5,child: NavigationButtons()),
       ],
     );
   }

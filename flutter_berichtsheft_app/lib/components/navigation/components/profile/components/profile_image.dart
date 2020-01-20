@@ -6,13 +6,12 @@ import 'package:provider/provider.dart';
 class ProfileImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    double _widgetWidget = Provider.of<LoginProvider>(context).loginAndNavigationComponentSize.width * 35 / 100;
-    final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
+    final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     return ClipRRect(
-      borderRadius: BorderRadius.all(Radius.circular(_widgetWidget * 2)),
+      borderRadius: BorderRadius.all(Radius.circular((350 * 35 / 100) * 2)),
       child: Container(
-        height: _widgetWidget,
-        width: _widgetWidget,
+        height: (350 * 35 / 100),
+        width: (350 * 35 / 100),
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(

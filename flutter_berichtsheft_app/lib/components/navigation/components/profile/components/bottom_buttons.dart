@@ -7,10 +7,9 @@ import 'package:provider/provider.dart';
 class BottomButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
-    double _widgetWidget = Provider.of<LoginProvider>(context).loginAndNavigationComponentSize.width * 70 / 100;
+    final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     return Container(
-      width: _widgetWidget,
+      width: 350 * 70 / 100,
       margin: EdgeInsets.only(top: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -61,7 +60,7 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
+    final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     return Container(
       decoration: BoxDecoration(
         color: color.withOpacity(_selectedTheme[ElementStylingParameters.buttonsBackgroundColorOpacity]),
