@@ -3,6 +3,7 @@ import 'package:flutter_berichtsheft_app/components/go_and_back_ui_buttons.dart'
 import 'package:flutter_berichtsheft_app/components/site.dart';
 import 'package:flutter_berichtsheft_app/components/ui_button.dart';
 import 'package:flutter_berichtsheft_app/components/ui_date_picker.dart';
+import 'package:flutter_berichtsheft_app/components/ui_switch_list_tile.dart';
 import 'package:flutter_berichtsheft_app/components/ui_text_field.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
@@ -102,18 +103,9 @@ class _CreateNewReportState extends State<CreateNewReport> {
               ],
             ),
             SizedBox(height: 20),
-            Container(
-              height: 50,
-              width: 200,
-              margin: EdgeInsets.only(left: 50),
-              child: SwitchListTile(
-                activeColor: _selectedTheme[ElementStylingParameters.headerTextColor],
-                  inactiveThumbColor: _selectedTheme[ElementStylingParameters.inputHintTextColor],
-                  inactiveTrackColor: (_selectedTheme[ElementStylingParameters.inputHintTextColor] as Color).withOpacity(_selectedTheme[ElementStylingParameters.buttonsBackgroundColorOpacity]),
-                  activeTrackColor: (_selectedTheme[ElementStylingParameters.headerTextColor] as Color).withOpacity(_selectedTheme[ElementStylingParameters.buttonsBackgroundColorOpacity]),
-                  onChanged: (value) => setState(() => areMoreThenOneDay = value),
-                  value: areMoreThenOneDay,
-                  title: Text("Multi Days", style: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor]))),
+            UISwitchListTile(
+              onChanged: (value) => setState(() => areMoreThenOneDay = value),
+              value: areMoreThenOneDay,
             ),
             SizedBox(height: 20),
             UITextField(
@@ -127,7 +119,7 @@ class _CreateNewReportState extends State<CreateNewReport> {
               icon: Icon(Icons.short_text, color: _selectedTheme[ElementStylingParameters.headerTextColor]),
               onChanged: (s) {},
               marginLeft: 50,
-              hintText: "Report",
+              hintText: "Report Text",
               maxLines: 10,
             ),
           ],
