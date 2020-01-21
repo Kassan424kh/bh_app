@@ -9,6 +9,7 @@ class UIButton extends StatelessWidget {
   final bool isActive, hiddenText, withoutLeftWidgetSpace, disableButtonEffects;
   final onPressed;
   final Color textColor;
+  final MainAxisAlignment itemsAlignment;
 
   UIButton({
     Key key,
@@ -20,13 +21,14 @@ class UIButton extends StatelessWidget {
     this.disableButtonEffects = false,
     this.withoutLeftWidgetSpace = false,
     this.textColor,
+    this.itemsAlignment = MainAxisAlignment.center,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     return AnimatedContainer(
-      height: 50,
+      constraints: BoxConstraints(minHeight: 50),
       width: text == null && leftWidget != null && withoutLeftWidgetSpace ? 60 : null,
       duration: Duration(milliseconds: Styling.durationAnimation),
       curve: Curves.easeInOutCubic,
@@ -39,7 +41,7 @@ class UIButton extends StatelessWidget {
         highlightColor: disableButtonEffects ? Colors.transparent : null,
         padding: EdgeInsets.symmetric(horizontal: text == null && leftWidget != null && withoutLeftWidgetSpace ? 0 : 20),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: itemsAlignment,
           children: <Widget>[
             leftWidget != null ? leftWidget : Container(),
             SizedBox(width: leftWidget != null && !withoutLeftWidgetSpace ? 10 : 0),

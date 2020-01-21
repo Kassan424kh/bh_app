@@ -17,22 +17,18 @@ class StartSite extends StatefulWidget {
 
 class _StartSiteState extends State<StartSite> {
   GlobalKey _showSitesComponentGKey = GlobalKey();
-  Size _showSitesComponentSize = Size(0, 0);
-  Offset _showSitesComponentOffset = Offset(0, 0);
 
   bool _showLoginComponents = LoginProvider().isLoggedIn ? false : true;
   bool _showNavigationComponents = LoginProvider().isLoggedIn ? true : false;
 
   _renderBox(_) {
-    Timer(Duration(milliseconds: 100), () {
-      if (_showSitesComponentGKey.currentContext != null) {
-        final RenderBox renderBox = _showSitesComponentGKey.currentContext.findRenderObject();
-        setState(() {
-          _showSitesComponentSize = renderBox.size;
-          _showSitesComponentOffset = renderBox.localToGlobal(Offset.zero);
-        });
-      }
-    });
+    if (_showSitesComponentGKey.currentContext != null) {
+      final RenderBox renderBox = _showSitesComponentGKey.currentContext.findRenderObject();
+      Provider.of<StylingProvider>(context, listen: false).setShowSitesCardComponentData(
+        renderBox.size,
+        renderBox.localToGlobal(Offset.zero),
+      );
+    }
   }
 
   @override
@@ -55,15 +51,10 @@ class _StartSiteState extends State<StartSite> {
 
   @override
   Widget build(BuildContext context) {
-    final _selectedTheme = Provider
-        .of<StylingProvider>(context, listen: false)
-        .selectedTheme;
-    bool _isLoggedIn = Provider
-        .of<LoginProvider>(context)
-        .isLoggedIn;
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
+    final _showSitesCardComponentSize = Provider.of<StylingProvider>(context).showSitesCardComponentSize;
+    bool _isLoggedIn = Provider.of<LoginProvider>(context).isLoggedIn;
+    Size size = MediaQuery.of(context).size;
     return Container(
       width: size.width,
       height: size.height,
@@ -80,49 +71,36 @@ class _StartSiteState extends State<StartSite> {
               curve: Curves.easeInOutCubic,
               child: _showNavigationComponents
                   ? Container(
-                width: size.width - 350,
-                height: size.height,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Flex(
-                    direction: Axis.vertical,
-                    mainAxisSize: MainAxisSize.min,
-                    children: <Widget>[
-                      Flexible(
-                        fit: FlexFit.loose,
-                        child: Container(
-                          key: _showSitesComponentGKey,
-                          margin: EdgeInsets.symmetric(horizontal: 150, vertical: 10),
-                          decoration: BoxDecoration(
-                            color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
-                            boxShadow: [
-                              _isLoggedIn && _showNavigationComponents
-                                  ? BoxShadow(
-                                color: _selectedTheme[ElementStylingParameters.boxShadowColor],
-                                offset: Offset(15, 20),
-                                blurRadius: 50,
-                              )
-                                  : BoxShadow(
-                                color: Colors.transparent,
-                                offset: Offset(0, 0),
-                                blurRadius: 0,
-                              ),
-                            ],
-                          ),
-                          child: Flex(
-                            direction: Axis.horizontal,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              //ImportReports(),
-                              Home(parentSize: _showSitesComponentSize),
-                            ],
+                      width: size.width - 350,
+                      height: size.height,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: LayoutBuilder(
+                          builder:(BuildContext context, BoxConstraints constraints) =>  Container(
+                            key: _showSitesComponentGKey,
+                            width: constraints.maxWidth - (constraints.maxWidth * 10 / 100),
+                            margin: EdgeInsets.symmetric(horizontal: (constraints.maxWidth * 10 / 100), vertical: 10),
+                            decoration: BoxDecoration(
+                              color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
+                              boxShadow: [
+                                _isLoggedIn && _showNavigationComponents
+                                    ? BoxShadow(
+                                        color: _selectedTheme[ElementStylingParameters.boxShadowColor],
+                                        offset: Offset(15, 20),
+                                        blurRadius: 50,
+                                      )
+                                    : BoxShadow(
+                                        color: Colors.transparent,
+                                        offset: Offset(0, 0),
+                                        blurRadius: 0,
+                                      ),
+                              ],
+                            ),
+                            child: Home(),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              )
+                    )
                   : Container(),
             ),
           ),
@@ -147,22 +125,20 @@ class _StartSiteState extends State<StartSite> {
                       duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
                       curve: Curves.easeInOutCubic,
                       child: _showLoginComponents ? Login(title: "Login") : Container(),
-                      onEnd: () =>
-                          setState(() {
-                            _showLoginComponents = _isLoggedIn ? false : true;
-                            _showNavigationComponents = _isLoggedIn ? true : false;
-                          }),
+                      onEnd: () => setState(() {
+                        _showLoginComponents = _isLoggedIn ? false : true;
+                        _showNavigationComponents = _isLoggedIn ? true : false;
+                      }),
                     ),
                     AnimatedOpacity(
                       opacity: _isLoggedIn && _showNavigationComponents ? 1 : 0,
                       duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
                       curve: Curves.easeInOutCubic,
                       child: _showNavigationComponents ? Navigation() : Container(),
-                      onEnd: () =>
-                          setState(() {
-                            _showLoginComponents = _isLoggedIn ? false : true;
-                            _showNavigationComponents = _isLoggedIn ? true : false;
-                          }),
+                      onEnd: () => setState(() {
+                        _showLoginComponents = _isLoggedIn ? false : true;
+                        _showNavigationComponents = _isLoggedIn ? true : false;
+                      }),
                     ),
                   ],
                 ),

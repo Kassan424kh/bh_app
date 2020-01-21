@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/components/report_list_tile.dart';
 import 'package:flutter_berichtsheft_app/components/site.dart';
@@ -9,10 +11,6 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
-  final Size parentSize;
-
-  Home({Key key, this.parentSize}) : super(key: key);
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -22,16 +20,49 @@ class _HomeState extends State<Home> {
   DateTime _toDate = DateTime.now();
   DateFormat _dateFormat = DateFormat("dd-MM-yyyy");
 
+  GlobalKey _homeSiteGKey = GlobalKey();
+
+  _renderBox(_) {
+    if (_homeSiteGKey.currentContext != null) {
+      final RenderBox renderBox = _homeSiteGKey.currentContext.findRenderObject();
+      Provider.of<StylingProvider>(context, listen: false).setShowSitesCardComponentData(
+        renderBox.size,
+        renderBox.localToGlobal(Offset.zero),
+      );
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback(_renderBox);
+  }
+
+  @override
+  void didUpdateWidget(Home oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    WidgetsBinding.instance.addPostFrameCallback(_renderBox);
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    WidgetsBinding.instance.addPostFrameCallback(_renderBox);
+  }
+
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
+    final _showSitesCardComponentSize = Provider.of<StylingProvider>(context).showSitesCardComponentSize;
 
     return Site(
+      key: _homeSiteGKey,
       title: "Home",
       children: <Widget>[
-        // Top Field Buttons
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             // Delete reports button
             UIButton(
@@ -89,6 +120,7 @@ class _HomeState extends State<Home> {
           height: 50,
           color: _selectedTheme[ElementStylingParameters.primaryColor],
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               UIButton(
                 isActive: true,
@@ -139,26 +171,21 @@ class _HomeState extends State<Home> {
           ),
         ),
         SizedBox(height: 20),
-        Flexible(
-          fit: FlexFit.loose,
-          child: ListView(
-            shrinkWrap: true,
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              ReportListTile(reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",),
-              ReportListTile(),
-              ReportListTile(),
-              ReportListTile(),
-              ReportListTile(),
-              ReportListTile(),
-              ReportListTile(),
-              ReportListTile(),
-            ],
-          ),
+        ListView(
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          children: <Widget>[
+            ReportListTile(reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut  elitr, sed diam nonumy eirmod tempor invidunt ut "),
+            ReportListTile(),
+            ReportListTile(),
+            ReportListTile(),
+            ReportListTile(),
+            ReportListTile(),
+            ReportListTile(),
+            ReportListTile(),
+          ],
         ),
       ],
     );
   }
 }
-
-

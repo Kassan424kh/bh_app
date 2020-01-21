@@ -20,4 +20,15 @@ class StylingProvider extends ChangeNotifier {
       selectedTheme = Styling.darkTheme;
     notifyListeners();
   }
+
+  Size showSitesCardComponentSize = Size(0, 0);
+  Offset showSitesCardComponentOffset = Offset(0, 0);
+
+  void setShowSitesCardComponentData(Size size, Offset offset){
+    showSitesCardComponentSize = size;
+    showSitesCardComponentOffset = offset;
+
+    notifyListeners();
+  }
+
 }
