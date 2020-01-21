@@ -15,6 +15,7 @@ class BottomButtons extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Button(
+            toolTipMessage: "Logout",
             color: _selectedTheme[ElementStylingParameters.logoutButtonColor],
             icon: Icons.power_settings_new,
             onClick: () {
@@ -24,16 +25,19 @@ class BottomButtons extends StatelessWidget {
             },
           ),
           Button(
+            toolTipMessage: "Import Reports",
             color: _selectedTheme[ElementStylingParameters.editButtonColor],
-            icon: OMIcons.print,
+            icon: OMIcons.cloudUpload,
             onClick: () {},
           ),
           Button(
+            toolTipMessage: "Export/Save Reports as JSON",
             color: _selectedTheme[ElementStylingParameters.editButtonColor],
             icon: Icons.save_alt,
             onClick: () {},
           ),
           Button(
+            toolTipMessage: Provider.of<StylingProvider>(context).selectedTheme == Styling.darkTheme ? "Darkmode" : "Nightmode",
             color: _selectedTheme[ElementStylingParameters.lightDarkButtonColor],
             icon: _selectedTheme[ElementStylingParameters.lightDarkButtonIcon],
             onClick: () {
@@ -50,33 +54,38 @@ class Button extends StatelessWidget {
   final Color color;
   final icon;
   final onClick;
+  final String toolTipMessage;
 
   Button({
     Key key,
     this.color,
     this.icon,
     this.onClick,
+    this.toolTipMessage = "",
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    return Container(
-      decoration: BoxDecoration(
-        color: color.withOpacity(_selectedTheme[ElementStylingParameters.buttonsBackgroundColorOpacity]),
-        shape: BoxShape.circle,
-      ),
-      child: IconButton(
-        color: color.withOpacity(_selectedTheme[ElementStylingParameters.buttonsBackgroundColorOpacity]),
-        focusColor: Colors.transparent,
-        splashColor: color.withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
-        highlightColor: color.withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
-        disabledColor: Colors.transparent,
-        onPressed: onClick,
-        icon: Icon(
-          icon,
-          color: color,
-          size: 20,
+    return Tooltip(
+      message: toolTipMessage,
+      child: Container(
+        decoration: BoxDecoration(
+          color: color.withOpacity(_selectedTheme[ElementStylingParameters.buttonsBackgroundColorOpacity]),
+          shape: BoxShape.circle,
+        ),
+        child: IconButton(
+          color: color.withOpacity(_selectedTheme[ElementStylingParameters.buttonsBackgroundColorOpacity]),
+          focusColor: Colors.transparent,
+          splashColor: color.withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
+          highlightColor: color.withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
+          disabledColor: Colors.transparent,
+          onPressed: onClick,
+          icon: Icon(
+            icon,
+            color: color,
+            size: 20,
+          ),
         ),
       ),
     );
