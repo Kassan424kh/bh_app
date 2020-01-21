@@ -71,7 +71,9 @@ class _HomeState extends State<Home> {
           children: <Widget>[
             // Delete reports button
             UIButton(
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<MessageProvider>(context, listen: false).showMessage(true);
+              },
               leftWidget: Icon(Icons.delete_outline),
               isActive: true,
               withoutLeftWidgetSpace: true,

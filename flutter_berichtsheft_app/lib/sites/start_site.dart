@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_berichtsheft_app/components/message.dart';
 import 'package:flutter_berichtsheft_app/components/navigation/navigation.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/sites/create_new_report.dart';
@@ -152,6 +153,7 @@ class _StartSiteState extends State<StartSite> {
               ),
             ),
           ),
+          Message()
         ],
       ),
     );
