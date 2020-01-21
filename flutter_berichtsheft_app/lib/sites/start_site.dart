@@ -100,8 +100,8 @@ class _StartSiteState extends State<StartSite> {
                               alignment: Alignment.center,
                               children: <Widget>[
                                 //ImportReports(),
-                                //Home(),
-                                CreateNewReport(),
+                                Home(siteIsLoaded: true),
+                                //CreateNewReport(),
                               ],
                             ),
                           ),

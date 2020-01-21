@@ -8,16 +8,16 @@ import 'package:flutter_berichtsheft_app/styling/styling.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class Home extends StatefulWidget {
+class DeletedReports extends StatefulWidget {
   final bool siteIsLoaded;
 
-  Home({Key key, this.siteIsLoaded = false}) : super(key: key);
+  DeletedReports({Key key, this.siteIsLoaded = false}) : super(key: key);
 
   @override
-  _HomeState createState() => _HomeState();
+  _DeletedReportsState createState() => _DeletedReportsState();
 }
 
-class _HomeState extends State<Home> {
+class _DeletedReportsState extends State<DeletedReports> {
   DateTime _fromDate = DateTime.now();
   DateTime _toDate = DateTime.now();
   DateFormat _dateFormat = DateFormat("dd-MM-yyyy");
@@ -44,7 +44,7 @@ class _HomeState extends State<Home> {
   }
 
   @override
-  void didUpdateWidget(Home oldWidget) {
+  void didUpdateWidget(DeletedReports oldWidget) {
     super.didUpdateWidget(oldWidget);
     WidgetsBinding.instance.addPostFrameCallback(_renderBox);
   }
@@ -189,15 +189,15 @@ class _HomeState extends State<Home> {
           constraints: BoxConstraints(maxHeight: widget.siteIsLoaded ? 600 : 0),
           child: widget.siteIsLoaded
               ? ListView.builder(
-                  itemCount: 30,
-                  //shrinkWrap: true,
-                  physics: AlwaysScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, int id) => ReportListTile(
-                      reportId: id,
-                      isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(id) ? true : false,
-                      reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut  elitr, sed diam nonumy "),
-                )
+            itemCount: 30,
+            //shrinkWrap: true,
+            physics: AlwaysScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context, int id) => ReportListTile(
+                reportId: id,
+                isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(id) ? true : false,
+                reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut  elitr, sed diam nonumy "),
+          )
               : Container(),
         ),
       ],
