@@ -62,7 +62,7 @@ class _DeletedReportsState extends State<DeletedReports> {
 
     return Site(
       key: _homeSiteGKey,
-      title: "Home",
+      title: "Deleted reports",
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

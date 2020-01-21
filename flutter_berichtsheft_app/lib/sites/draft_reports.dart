@@ -63,7 +63,7 @@ class _DraftReportsState extends State<DraftReports> {
 
     return Site(
       key: _homeSiteGKey,
-      title: "Home",
+      title: "Draft reports",
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
