@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/components/navigation/navigation.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
+import 'package:flutter_berichtsheft_app/sites/create_new_report.dart';
 import 'package:flutter_berichtsheft_app/sites/home.dart';
 import 'package:flutter_berichtsheft_app/sites/import_reports.dart';
 import 'package:flutter_berichtsheft_app/sites/login.dart';
@@ -99,7 +100,8 @@ class _StartSiteState extends State<StartSite> {
                               alignment: Alignment.center,
                               children: <Widget>[
                                 //ImportReports(),
-                                Home(),
+                                //Home(),
+                                CreateNewReport(),
                               ],
                             ),
                           ),
