@@ -78,8 +78,7 @@ class _StartSiteState extends State<StartSite> {
                         child: LayoutBuilder(
                           builder:(BuildContext context, BoxConstraints constraints) =>  Container(
                             key: _showSitesComponentGKey,
-                            width: constraints.maxWidth - (constraints.maxWidth * 10 / 100),
-                            margin: EdgeInsets.symmetric(horizontal: (constraints.maxWidth * 10 / 100), vertical: 10),
+                            width: constraints.maxWidth - (constraints.maxWidth * 15 / 100),
                             decoration: BoxDecoration(
                               color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
                               boxShadow: [
@@ -96,7 +95,14 @@ class _StartSiteState extends State<StartSite> {
                                       ),
                               ],
                             ),
-                            child: Home(),
+                            child: Stack(
+                              fit: StackFit.passthrough,
+                              overflow: Overflow.clip,
+                              alignment: Alignment.center,
+                              children: <Widget>[
+                                Home(),
+                              ],
+                            ),
                           ),
                         ),
                       ),
