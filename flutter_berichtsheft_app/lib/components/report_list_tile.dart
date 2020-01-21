@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 class ReportListTile extends StatelessWidget {
   final String date, hours, reportText;
   final bool isSelected;
+  final int reportId;
 
   ReportListTile({
     Key key,
@@ -15,6 +16,7 @@ class ReportListTile extends StatelessWidget {
     this.date = "date",
     this.hours = "hours",
     this.reportText = "report text",
+    this.reportId,
   }) : super(key: key);
 
   @override
@@ -31,7 +33,10 @@ class ReportListTile extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               UIButton(
-                onPressed: () {},
+                onPressed: () {
+                  Provider.of<ReportsProvider>(context, listen: false).addReportToSelectingList(reportId);
+                  print("selected $reportId");
+                },
                 leftWidget: Icon(
                   Icons.check_box,
                   color: _selectedTheme[isSelected ? ElementStylingParameters.headerTextColor : ElementStylingParameters.primaryColor],
@@ -49,7 +54,9 @@ class ReportListTile extends StatelessWidget {
               ),
               SizedBox(width: 20),
               UIButton(
-                onPressed: () {},
+                onPressed: () {
+
+                },
                 disableButtonEffects: true,
                 leftWidget: Text(
                   "|",

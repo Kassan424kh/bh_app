@@ -24,11 +24,45 @@ class StylingProvider extends ChangeNotifier {
   Size showSitesCardComponentSize = Size(0, 0);
   Offset showSitesCardComponentOffset = Offset(0, 0);
 
-  void setShowSitesCardComponentData(Size size, Offset offset){
+  void setShowSitesCardComponentData(Size size, Offset offset) {
     showSitesCardComponentSize = size;
     showSitesCardComponentOffset = offset;
 
     notifyListeners();
   }
+}
 
+class ReportsProvider extends ChangeNotifier {
+  List<int> reportIds = [];
+  setReportsIds(List<int> _reportIds){
+    reportIds.clear();
+    reportIds.addAll(_reportIds);
+  }
+
+
+  List<int> listOfSelectedReports = [];
+  bool areAllReportsSelected = true;
+
+  addReportToSelectingList(int reportId) {
+    print(reportId);
+    if (!listOfSelectedReports.contains(reportId)) listOfSelectedReports.add(reportId);
+    else listOfSelectedReports.remove(reportId);
+
+    areAllReportsSelected = !reportIds.every((reportId) => listOfSelectedReports.contains(reportId));
+
+    notifyListeners();
+  }
+
+  selectAllReports(List<int> _reportIds) {
+    bool _areAllReportsSelected = false;
+
+    _areAllReportsSelected = _reportIds.every((reportId) => listOfSelectedReports.contains(reportId));
+
+    if (!_areAllReportsSelected) listOfSelectedReports.addAll(_reportIds);
+    else listOfSelectedReports.clear();
+
+    areAllReportsSelected = _areAllReportsSelected;
+
+    notifyListeners();
+  }
 }

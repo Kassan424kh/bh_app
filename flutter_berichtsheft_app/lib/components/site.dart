@@ -31,6 +31,7 @@ class Site extends StatelessWidget {
       width: _showSitesCardComponentSize!= Size(0,0)?  _showSitesCardComponentSize.width - 60 : null,
       padding: EdgeInsets.only(left: 60, top: 60, bottom: children.length != 0 ? 60 : 0),
       child: ListView(
+        physics: NeverScrollableScrollPhysics(),
         shrinkWrap: true,
         children: <Widget>[
           Column(

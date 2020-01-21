@@ -16,6 +16,9 @@ class Main extends StatelessWidget {
         ChangeNotifierProvider<StylingProvider>(
           create: (_) => StylingProvider(),
         ),
+        ChangeNotifierProvider<ReportsProvider>(
+          create: (_) => ReportsProvider(),
+        ),
       ],
       child: MaterialApp(
         home: MyApp(),

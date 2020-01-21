@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/components/navigation/navigation.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/sites/home.dart';
 import 'package:flutter_berichtsheft_app/sites/import_reports.dart';
 import 'package:flutter_berichtsheft_app/sites/login.dart';
-import 'package:flutter_berichtsheft_app/components/site.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
 import 'package:provider/provider.dart';
 
@@ -76,9 +73,10 @@ class _StartSiteState extends State<StartSite> {
                       child: Align(
                         alignment: Alignment.center,
                         child: LayoutBuilder(
-                          builder:(BuildContext context, BoxConstraints constraints) =>  Container(
+                          builder: (BuildContext context, BoxConstraints constraints) => Container(
                             key: _showSitesComponentGKey,
                             width: constraints.maxWidth - (constraints.maxWidth * 15 / 100),
+                            margin: EdgeInsets.symmetric(vertical: 10),
                             decoration: BoxDecoration(
                               color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
                               boxShadow: [
@@ -100,6 +98,7 @@ class _StartSiteState extends State<StartSite> {
                               overflow: Overflow.clip,
                               alignment: Alignment.center,
                               children: <Widget>[
+                                //ImportReports(),
                                 Home(),
                               ],
                             ),

@@ -7,7 +7,7 @@ class UIButton extends StatelessWidget {
   final text;
   final Widget leftWidget;
   final bool isActive, hiddenText, withoutLeftWidgetSpace, disableButtonEffects;
-  final onPressed;
+  final onPressed, onLongPress;
   final Color textColor;
   final MainAxisAlignment itemsAlignment;
 
@@ -21,6 +21,7 @@ class UIButton extends StatelessWidget {
     this.disableButtonEffects = false,
     this.withoutLeftWidgetSpace = false,
     this.textColor,
+    this.onLongPress,
     this.itemsAlignment = MainAxisAlignment.center,
   }) : super(key: key);
 
@@ -37,6 +38,7 @@ class UIButton extends StatelessWidget {
         color: Colors.transparent,
         textColor: _selectedTheme[ElementStylingParameters.headerTextColor],
         onPressed: onPressed,
+        onLongPress: onLongPress,
         splashColor: disableButtonEffects ? Colors.transparent : null,
         highlightColor: disableButtonEffects ? Colors.transparent : null,
         padding: EdgeInsets.symmetric(horizontal: text == null && leftWidget != null && withoutLeftWidgetSpace ? 0 : 20),

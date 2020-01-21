@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/components/report_list_tile.dart';
 import 'package:flutter_berichtsheft_app/components/site.dart';
@@ -35,6 +33,9 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+    List<int> _listOfReportsIds = [];
+    for (var i = 0; i < 30; i++) _listOfReportsIds.add(i);
+    Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
     WidgetsBinding.instance.addPostFrameCallback(_renderBox);
   }
 
@@ -124,16 +125,21 @@ class _HomeState extends State<Home> {
             children: <Widget>[
               UIButton(
                 isActive: true,
-                onPressed: () {},
+                onPressed: () {
+                  List<int> _listOfReportsIds = [];
+                  for (var i = 0; i < 30; i++) _listOfReportsIds.add(i);
+                  Provider.of<ReportsProvider>(context, listen: false).selectAllReports(_listOfReportsIds);
+                },
                 leftWidget: Icon(
                   Icons.check_box,
-                  color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
+                  color: _selectedTheme[Provider.of<ReportsProvider>(context).areAllReportsSelected ? ElementStylingParameters.primaryAccentColor : ElementStylingParameters.headerTextColor],
                 ),
                 text: "Select all",
               ),
               SizedBox(width: 20),
               UIButton(
                 isActive: true,
+                disableButtonEffects: true,
                 onPressed: () {},
                 leftWidget: Text(
                   "|",
@@ -146,6 +152,7 @@ class _HomeState extends State<Home> {
               SizedBox(width: 20),
               UIButton(
                 isActive: true,
+                disableButtonEffects: true,
                 onPressed: () {},
                 leftWidget: Text(
                   "|",
@@ -158,6 +165,7 @@ class _HomeState extends State<Home> {
               SizedBox(width: 20),
               UIButton(
                 isActive: true,
+                disableButtonEffects: true,
                 onPressed: () {},
                 leftWidget: Text(
                   "|",
@@ -171,19 +179,18 @@ class _HomeState extends State<Home> {
           ),
         ),
         SizedBox(height: 20),
-        ListView(
-          shrinkWrap: true,
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            ReportListTile(reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut  elitr, sed diam nonumy eirmod tempor invidunt ut "),
-            ReportListTile(),
-            ReportListTile(),
-            ReportListTile(),
-            ReportListTile(),
-            ReportListTile(),
-            ReportListTile(),
-            ReportListTile(),
-          ],
+        Container(
+          constraints: BoxConstraints(maxHeight: 600),
+          child: ListView.builder(
+            itemCount: 30,
+            //shrinkWrap: true,
+            physics: AlwaysScrollableScrollPhysics(),
+            scrollDirection: Axis.vertical,
+            itemBuilder: (BuildContext context, int id) => ReportListTile(
+                reportId: id,
+                isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(id) ? true : false,
+                reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut  elitr, sed diam nonumy "),
+          ),
         ),
       ],
     );
