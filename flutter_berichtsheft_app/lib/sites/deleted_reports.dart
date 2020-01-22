@@ -189,15 +189,18 @@ class _DeletedReportsState extends State<DeletedReports> {
           constraints: BoxConstraints(maxHeight: widget.siteIsLoaded ? 600 : 0),
           child: widget.siteIsLoaded
               ? ListView.builder(
-            itemCount: 30,
-            //shrinkWrap: true,
-            physics: AlwaysScrollableScrollPhysics(),
-            scrollDirection: Axis.vertical,
-            itemBuilder: (BuildContext context, int id) => ReportListTile(
-                reportId: id,
-                isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(id) ? true : false,
-                reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut  elitr, sed diam nonumy "),
-          )
+                  itemCount: 30,
+                  cacheExtent: 10,
+                  itemExtent: 60,
+                  addAutomaticKeepAlives: true,
+                  reverse: true,
+                  physics: AlwaysScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
+                  itemBuilder: (BuildContext context, int id) => ReportListTile(
+                      reportId: id,
+                      isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(id) ? true : false,
+                      reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut  elitr, sed diam nonumy "),
+                )
               : Container(),
         ),
       ],
