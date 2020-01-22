@@ -1,38 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_berichtsheft_app/provider/provider.dart';
-import 'package:flutter_berichtsheft_app/styling/styling.dart';
-import 'package:provider/provider.dart';
-import 'package:vector_math/vector_math_64.dart' show radians;
 
-class UICircleButton extends StatelessWidget{
-  final onPressed;
+class UICircleButton extends StatelessWidget {
+  final Color color;
+  final icon;
+  final onClick;
+  final String toolTipMessage;
+  final double buttonSize;
 
-  UICircleButton({Key key , this.onPressed}): super(key:key);
+  UICircleButton({
+    Key key,
+    this.color,
+    this.icon,
+    this.onClick,
+    this.toolTipMessage = "",
+    this.buttonSize = 51,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-
-    return Container(
-      width: 50,
-      height: 50,
-      child: Align(
-        alignment: Alignment.center,
-        child: FlatButton(
-          onPressed: onPressed,
-          color: _selectedTheme[ElementStylingParameters.headerTextColor],
-          highlightColor: _selectedTheme[ElementStylingParameters.boxShadowColor],
-          hoverColor: Colors.transparent,
+    return Tooltip(
+      message: toolTipMessage,
+      child: SizedBox(
+        width: buttonSize,
+        height: buttonSize,
+        child: RaisedButton(
+          elevation: 0,
+          padding: EdgeInsets.all(0),
+          hoverElevation: 0,
+          highlightElevation: 0,
+          disabledElevation: 0,
+          focusElevation: 0,
+          animationDuration: Duration(milliseconds: 350),
+          color: color.withOpacity(.2),
+          splashColor: color.withOpacity(.3),
           focusColor: Colors.transparent,
-          textColor: _selectedTheme[ElementStylingParameters.primaryAccentColor],
-          splashColor: _selectedTheme[ElementStylingParameters.boxShadowColor],
-          child: Transform.rotate(
-            angle: radians(360 / 12) * 30,
-            child: Icon(
-              Icons.trending_flat,
-              color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
-              size: 20,
-            ),
+          textColor: Colors.transparent,
+          highlightColor: Colors.transparent,
+          disabledTextColor: Colors.transparent,
+          disabledColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(buttonSize / 2)),
+          ),
+          onPressed: onClick,
+          child: Icon(
+            icon,
+            color: color,
+            size: buttonSize * 40 / 100,
           ),
         ),
       ),

@@ -19,6 +19,7 @@ class _StartSiteState extends State<StartSite> {
 
   bool _showLoginComponents = LoginProvider().isLoggedIn ? false : true;
   bool _showNavigationComponents = LoginProvider().isLoggedIn ? true : false;
+  bool _loadListOfReports = LoginProvider().isLoggedIn ? true : false;
 
   _renderBox(_) {
     if (_showSitesComponentGKey.currentContext != null) {
@@ -68,6 +69,11 @@ class _StartSiteState extends State<StartSite> {
               opacity: _isLoggedIn && _showNavigationComponents ? 1 : 0,
               duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
               curve: Curves.easeInOutCubic,
+              onEnd: (){
+                setState(() {
+                  _loadListOfReports = _isLoggedIn ? true : false;
+                });
+              },
               child: _showNavigationComponents
                   ? Container(
                       width: size.width - 350,
@@ -101,7 +107,7 @@ class _StartSiteState extends State<StartSite> {
                               alignment: Alignment.center,
                               children: <Widget>[
                                 //ImportReports(),
-                                Home(siteIsLoaded: true),
+                                Home(siteIsLoaded: _loadListOfReports),
                                 //CreateNewReport(),
                               ],
                             ),

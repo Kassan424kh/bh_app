@@ -28,11 +28,9 @@ class UIButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    return AnimatedContainer(
+    return Container(
       constraints: BoxConstraints(minHeight: 50),
       width: text == null && leftWidget != null && withoutLeftWidgetSpace ? 60 : null,
-      duration: Duration(milliseconds: Styling.durationAnimation),
-      curve: Curves.easeInOutCubic,
       color: _selectedTheme[isActive ? ElementStylingParameters.primaryColor : ElementStylingParameters.primaryAccentColor],
       child: FlatButton(
         color: Colors.transparent,

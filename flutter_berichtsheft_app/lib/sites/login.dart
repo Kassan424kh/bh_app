@@ -4,7 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/components/app_logo.dart';
 import 'package:flutter_berichtsheft_app/components/header_text.dart';
-import 'package:flutter_berichtsheft_app/components/ui_circle_button.dart';
+import 'package:flutter_berichtsheft_app/components/ui_login_button.dart';
 import 'package:flutter_berichtsheft_app/components/ui_text_form_field.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
@@ -67,15 +67,12 @@ class _LoginState extends State<Login> {
                         SizedBox(height: 15),
                         _loginForm,
                         SizedBox(height: 15),
-                        Hero(
-                          tag: "login_button_to_sites_container_component",
-                          child: UICircleButton(
-                            onPressed: () {
-                              Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(
-                                Provider.of<LoginProvider>(context, listen: false).isLoggedIn ? false : true,
-                              );
-                            },
-                          ),
+                        UILoginButton(
+                          onPressed: () {
+                            Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(
+                              Provider.of<LoginProvider>(context, listen: false).isLoggedIn ? false : true,
+                            );
+                          },
                         ),
                       ],
                     ),

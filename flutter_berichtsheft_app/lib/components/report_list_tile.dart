@@ -35,7 +35,6 @@ class ReportListTile extends StatelessWidget {
               UIButton(
                 onPressed: () {
                   Provider.of<ReportsProvider>(context, listen: false).addReportToSelectingList(reportId);
-                  print("selected $reportId");
                 },
                 leftWidget: Icon(
                   Icons.check_box,
@@ -43,10 +42,11 @@ class ReportListTile extends StatelessWidget {
                 ),
                 //hiddenText: true,
                 text: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
                     Text("Select"),
                     Text(
-                      " all",
+                      " all " + Provider.of<ReportsProvider>(context).listOfSelectedReports.length.toString(),
                       style: TextStyle(color: Colors.transparent),
                     ),
                   ],

@@ -51,7 +51,6 @@ class ReportsProvider extends ChangeNotifier {
   bool areAllReportsSelected = true;
 
   addReportToSelectingList(int reportId) {
-    print(reportId);
     if (!listOfSelectedReports.contains(reportId))
       listOfSelectedReports.add(reportId);
     else
@@ -64,8 +63,9 @@ class ReportsProvider extends ChangeNotifier {
 
   selectAllReports(List<int> _reportIds) {
     bool _areAllReportsSelected = false;
-
     _areAllReportsSelected = _reportIds.every((reportId) => listOfSelectedReports.contains(reportId));
+
+    listOfSelectedReports.clear();
 
     if (!_areAllReportsSelected)
       listOfSelectedReports.addAll(_reportIds);
@@ -80,6 +80,8 @@ class ReportsProvider extends ChangeNotifier {
 
 class NavigateProvider extends ChangeNotifier {
   String initialRoute = '/';
+  List<String> listOfVisitedSites = [];
+
   Map<String, Widget> routes = {
     "/": Home(),
     "/import-reports": ImportReports(),
@@ -92,20 +94,28 @@ class NavigateProvider extends ChangeNotifier {
 class MessageProvider extends ChangeNotifier {
   bool isShowMessage = false;
   int messageShowStatus = 0;
+  bool messageShowingPause = false;
+  bool closeMessage = false;
 
   showMessage(bool showMessage) {
     isShowMessage = showMessage;
     messageShowStatus = 0;
     if (showMessage == true) {
       Timer.periodic(Duration(milliseconds: 100), (Timer timer) {
-        if (messageShowStatus < 100) {
+        if (messageShowStatus < 100 && !messageShowingPause) {
           messageShowStatus++;
         }
         if (messageShowStatus == 100) {
           messageShowStatus = 100;
           timer.cancel();
         }
+        if (closeMessage){
+          messageShowStatus = 100;
+          timer.cancel();
+        }
       });
+      closeMessage = false;
+      messageShowStatus = 0;
     }
   }
 }

@@ -38,7 +38,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     List<int> _listOfReportsIds = [];
-    for (var i = 0; i < 30; i++) _listOfReportsIds.add(i);
+    for (var i = 0; i < 1000; i++) _listOfReportsIds.add(i);
     Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
     WidgetsBinding.instance.addPostFrameCallback(_renderBox);
   }
@@ -59,7 +59,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     final _showSitesCardComponentSize = Provider.of<StylingProvider>(context).showSitesCardComponentSize;
-
+    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports;
     return Site(
       key: _homeSiteGKey,
       title: "Home",
@@ -133,14 +133,14 @@ class _HomeState extends State<Home> {
                 isActive: true,
                 onPressed: () {
                   List<int> _listOfReportsIds = [];
-                  for (var i = 0; i < 30; i++) _listOfReportsIds.add(i);
+                  for (var i = 0; i < 1000; i++) _listOfReportsIds.add(i);
                   Provider.of<ReportsProvider>(context, listen: false).selectAllReports(_listOfReportsIds);
                 },
                 leftWidget: Icon(
                   Icons.check_box,
                   color: _selectedTheme[Provider.of<ReportsProvider>(context).areAllReportsSelected ? ElementStylingParameters.primaryAccentColor : ElementStylingParameters.headerTextColor],
                 ),
-                text: "Select all",
+                text: "Select all " + _listOfSelectedReports.length.toString(),
               ),
               SizedBox(width: 20),
               UIButton(
@@ -190,15 +190,20 @@ class _HomeState extends State<Home> {
           curve: Curves.easeInOutCubic,
           constraints: BoxConstraints(maxHeight: widget.siteIsLoaded ? 600 : 0),
           child: widget.siteIsLoaded
-              ? ListView.builder(
-                  itemCount: 30,
-                  //shrinkWrap: true,
-                  physics: AlwaysScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  itemBuilder: (BuildContext context, int id) => ReportListTile(
-                      reportId: id,
-                      isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(id) ? true : false,
-                      reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut  elitr, sed diam nonumy "),
+              ? Scrollbar(
+                  child: ListView.builder(
+                    itemCount: 1000,
+                    cacheExtent: 10,
+                    itemExtent: 60,
+                    addAutomaticKeepAlives: true,
+                    reverse: true,
+                    physics: AlwaysScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (_, int id) => ReportListTile(
+                        reportId: id,
+                        isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(id) ? true : false,
+                        reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut  elitr, sed diam nonumy "),
+                  ),
                 )
               : Container(),
         ),

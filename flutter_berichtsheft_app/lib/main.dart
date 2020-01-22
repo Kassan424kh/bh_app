@@ -16,11 +16,11 @@ class Main extends StatelessWidget {
         ChangeNotifierProvider<StylingProvider>(
           create: (_) => StylingProvider(),
         ),
-        ChangeNotifierProvider<ReportsProvider>(
-          create: (_) => ReportsProvider(),
-        ),
         ChangeNotifierProvider<NavigateProvider>(
           create: (_) => NavigateProvider(),
+        ),
+        ChangeNotifierProvider<ReportsProvider>(
+          create: (_) => ReportsProvider(),
         ),
         ChangeNotifierProvider<MessageProvider>(
           create: (_) => MessageProvider(),
