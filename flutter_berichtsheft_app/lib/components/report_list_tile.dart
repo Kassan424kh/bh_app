@@ -22,13 +22,13 @@ class ReportListTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    final _showSitesCardComponentSize = Provider.of<StylingProvider>(context).showSitesCardComponentSize;
+    final _showSitesCardComponentWidth = Provider.of<StylingProvider>(context).showSitesCardComponentWidth;
 
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Container(
-          width: _showSitesCardComponentSize != Size(0, 0) ? _showSitesCardComponentSize.width - 60 : null,
+          width: _showSitesCardComponentWidth,
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[

@@ -1,4 +1,3 @@
-import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +6,6 @@ import 'package:flutter_berichtsheft_app/components/header_text.dart';
 import 'package:flutter_berichtsheft_app/components/ui_login_button.dart';
 import 'package:flutter_berichtsheft_app/components/ui_text_form_field.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
-import 'package:flutter_berichtsheft_app/styling/styling.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {

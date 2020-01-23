@@ -28,15 +28,14 @@ class StylingProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Size showSitesCardComponentSize = Size(0, 0);
-  Offset showSitesCardComponentOffset = Offset(0, 0);
+  double showSitesCardComponentWidth = 0;
+  double showSitesCardComponentHeight = 0;
 
-  void setShowSitesCardComponentData(Size size, Offset offset) {
-    showSitesCardComponentSize = size;
-    showSitesCardComponentOffset = offset;
-
+  updateHeightOfShowSitesCardComponent(double newHeight){
+    showSitesCardComponentHeight = newHeight;
     notifyListeners();
   }
+
 }
 
 class ReportsProvider extends ChangeNotifier {
@@ -76,14 +75,40 @@ class ReportsProvider extends ChangeNotifier {
 
     notifyListeners();
   }
+
+  bool showReportsAfterLoad = false;
+  updateShowingReports (bool show){
+    showReportsAfterLoad = show;
+    notifyListeners();
+  }
+
 }
 
 class NavigateProvider extends ChangeNotifier {
-  String initialRoute = '/';
+  String nowOpenedSite = "/home";
+  bool updateHeightOfShowCardComponent = true;
+
   List<String> listOfVisitedSites = [];
+
+  goToSite(String newSite){
+    if (nowOpenedSite != newSite){
+      listOfVisitedSites.add(nowOpenedSite);
+      nowOpenedSite = newSite;
+    }
+    notifyListeners();
+  }
+
+  backToSite(){
+    if (listOfVisitedSites.length >= 2 ){
+      listOfVisitedSites.add(nowOpenedSite);
+      nowOpenedSite = listOfVisitedSites.elementAt(listOfVisitedSites.length - 2);
+      notifyListeners();
+    }
+  }
 
   Map<String, Widget> routes = {
     "/": Home(),
+    "/home": Home(),
     "/import-reports": ImportReports(),
     "/create-new": CreateNewReport(),
     "/deleted-reports": DeletedReports(),
@@ -117,5 +142,6 @@ class MessageProvider extends ChangeNotifier {
       closeMessage = false;
       messageShowStatus = 0;
     }
+    notifyListeners();
   }
 }

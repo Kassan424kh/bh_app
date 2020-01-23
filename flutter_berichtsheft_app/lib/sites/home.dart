@@ -9,10 +9,6 @@ import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
 class Home extends StatefulWidget {
-  final bool siteIsLoaded;
-
-  Home({Key key, this.siteIsLoaded = false}) : super(key: key);
-
   @override
   _HomeState createState() => _HomeState();
 }
@@ -22,46 +18,20 @@ class _HomeState extends State<Home> {
   DateTime _toDate = DateTime.now();
   DateFormat _dateFormat = DateFormat("dd-MM-yyyy");
 
-  GlobalKey _homeSiteGKey = GlobalKey();
-
-  _renderBox(_) {
-    if (_homeSiteGKey.currentContext != null) {
-      final RenderBox renderBox = _homeSiteGKey.currentContext.findRenderObject();
-      Provider.of<StylingProvider>(context, listen: false).setShowSitesCardComponentData(
-        renderBox.size,
-        renderBox.localToGlobal(Offset.zero),
-      );
-    }
-  }
-
   @override
   void initState() {
     super.initState();
     List<int> _listOfReportsIds = [];
     for (var i = 0; i < 1000; i++) _listOfReportsIds.add(i);
     Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
-    WidgetsBinding.instance.addPostFrameCallback(_renderBox);
-  }
-
-  @override
-  void didUpdateWidget(Home oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    WidgetsBinding.instance.addPostFrameCallback(_renderBox);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback(_renderBox);
   }
 
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    final _showSitesCardComponentSize = Provider.of<StylingProvider>(context).showSitesCardComponentSize;
     final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports;
     return Site(
-      key: _homeSiteGKey,
+      siteRoute: "/home",
       title: "Home",
       children: <Widget>[
         Row(
@@ -186,10 +156,10 @@ class _HomeState extends State<Home> {
         ),
         SizedBox(height: 20),
         AnimatedContainer(
-          duration: Duration(milliseconds: (Styling.durationAnimation).round()),
-          curve: Curves.easeInOutCubic,
-          constraints: BoxConstraints(maxHeight: widget.siteIsLoaded ? 600 : 0),
-          child: widget.siteIsLoaded
+          duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
+          curve: Curves.easeOutCubic,
+          constraints: BoxConstraints(maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? 600 : 0),
+          child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
               ? Scrollbar(
                   child: ListView.builder(
                     itemCount: 1000,

@@ -24,37 +24,12 @@ class _CreateNewReportState extends State<CreateNewReport> {
 
   DateFormat _dateFormat = DateFormat("dd-MM-yyyy");
 
-  GlobalKey _createNewReportSiteGKey = GlobalKey();
-
-  _renderBox(_) {
-    if (_createNewReportSiteGKey.currentContext != null) {
-      final RenderBox renderBox = _createNewReportSiteGKey.currentContext.findRenderObject();
-      Provider.of<StylingProvider>(context, listen: false).setShowSitesCardComponentData(
-        renderBox.size,
-        renderBox.localToGlobal(Offset.zero),
-      );
-    }
-  }
-
   @override
   void initState() {
     super.initState();
     List<int> _listOfReportsIds = [];
-    for (var i = 0; i < 30; i++) _listOfReportsIds.add(i);
+    for (var i = 0; i < 1000; i++) _listOfReportsIds.add(i);
     Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
-    WidgetsBinding.instance.addPostFrameCallback(_renderBox);
-  }
-
-  @override
-  void didUpdateWidget(CreateNewReport oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    WidgetsBinding.instance.addPostFrameCallback(_renderBox);
-  }
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    WidgetsBinding.instance.addPostFrameCallback(_renderBox);
   }
 
   @override
@@ -62,6 +37,7 @@ class _CreateNewReportState extends State<CreateNewReport> {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
 
     return Site(
+      siteRoute: "/create-new",
       title: "Create new report",
       children: <Widget>[
         Column(

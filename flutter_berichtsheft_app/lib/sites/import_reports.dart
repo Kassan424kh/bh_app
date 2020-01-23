@@ -10,6 +10,7 @@ class ImportReports extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Site(
+      siteRoute: "/import-reports",
       title: "Import Reports",
       children: <Widget>[
         Column(

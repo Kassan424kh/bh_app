@@ -26,8 +26,10 @@ class Main extends StatelessWidget {
           create: (_) => MessageProvider(),
         ),
       ],
-      child: MaterialApp(
-        home: MyApp(),
+      child: Consumer<NavigateProvider>(
+        builder: (_, settings, child) {
+          return MaterialApp(home: MyApp());
+        },
       ),
     );
   }

@@ -6,6 +6,11 @@ import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 
 class BottomButtons extends StatelessWidget {
+
+  _updateShowingReports(BuildContext context){
+    Provider.of<ReportsProvider>(context, listen: false).updateShowingReports(false);
+  }
+
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
@@ -31,14 +36,18 @@ class BottomButtons extends StatelessWidget {
             color: _selectedTheme[ElementStylingParameters.editButtonColor],
             icon: OMIcons.cloudUpload,
             buttonSize: 40,
-            onClick: () {},
+            onClick: () {
+              _updateShowingReports(context);
+              Provider.of<NavigateProvider>(context, listen: false).goToSite("/import-reports");
+            },
           ),
           UICircleButton(
             toolTipMessage: "Export/Save Reports as JSON",
             color: _selectedTheme[ElementStylingParameters.editButtonColor],
             icon: Icons.save_alt,
             buttonSize: 40,
-            onClick: () {},
+            onClick: () {
+            },
           ),
           UICircleButton(
             toolTipMessage: Provider.of<StylingProvider>(context).selectedTheme == Styling.darkTheme ? "Darkmode" : "Nightmode",
