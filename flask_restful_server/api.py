@@ -222,30 +222,37 @@ def login_required(method):
         user = {}
         is_user_logged_in = False
         try:
+            # else ldap find user
             if bool(str(ldap_manager.authenticate(email, password).status) == "AuthenticationResponseStatus.success"):
                 user_data_from_ldap = json.loads(
                     json.dumps(dict(ldap_manager.authenticate(email, password).user_info), default=json_util.default))
+
                 find_user_after_his_email = Database.get_user(email=email)
                 user = Database.get_user(email=email, password=_encryptedPassword)
-                if find_user_after_his_email is not None and user is not None:
+                if find_user_after_his_email is not None:
                     if user is not None:
                         is_user_logged_in = True
                     else:
-                        new_u_id = Database.create_user(
-                            first_and_last_name=user_data_from_ldap.get("displayName"),
-                            email=email,
-                            birthday="",
-                            password=_encryptedPassword,
-                            roll=0
+                        Database.update_user_password(
+                            u_id=find_user_after_his_email.get("u_id"),
+                            new_password=_encryptedPassword
                         )
-                        user = Database.get_user(new_u_id)
+                        user = Database.get_user(email= email, password=_encryptedPassword)
                         if user is not None:
                             is_user_logged_in = True
                 else:
-                    Database.update_user_password(find_user_after_his_email.get("u_id"), _encryptedPassword)
-                    user = Database.get_user(email=email, password=_encryptedPassword)
+                    Database.create_user(
+                        first_and_last_name=user_data_from_ldap.get("displayName"),
+                        email=email,
+                        birthday="",
+                        password=_encryptedPassword,
+                        roll=0
+                    )
+                    user = Database.get_user(email= email, password=_encryptedPassword)
                     if user is not None:
                         is_user_logged_in = True
+
+            # else ldap cann't find user
             else:
                 user = Database.get_user(email=email, password=_encryptedPassword)
                 if user is not None:
