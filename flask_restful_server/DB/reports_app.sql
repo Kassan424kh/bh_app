@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 24, 2020 at 11:18 AM
+-- Generation Time: Jan 30, 2020 at 04:13 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.1.23
 
@@ -31,25 +31,12 @@ SET time_zone = "+00:00";
 CREATE TABLE `reports` (
   `r_id` int(11) NOT NULL,
   `u_id` int(11) NOT NULL,
-  `multi_days` tinyint(1) NOT NULL DEFAULT '0',
-  `date` date DEFAULT NULL,
-  `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL,
+  `date` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  `start_date` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+  `end_date` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `hours` double NOT NULL,
   `text` text COLLATE utf8_bin NOT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `edited` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `roll`
---
-
-CREATE TABLE `roll` (
-  `u_id` int(11) NOT NULL,
-  `type_roll` int(11) NOT NULL
+  `deleted` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -74,12 +61,11 @@ CREATE TABLE `trainees` (
 
 CREATE TABLE `users` (
   `u_id` int(11) NOT NULL,
-  `u_name` varchar(130) COLLATE utf8_bin NOT NULL,
-  `f_name` int(130) NOT NULL,
-  `l_name` int(130) NOT NULL,
-  `email` int(200) NOT NULL,
-  `birthday` date NOT NULL,
-  `u_password` varchar(500) COLLATE utf8_bin NOT NULL
+  `first_and_last_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `email` varchar(200) COLLATE utf8_bin NOT NULL,
+  `birthday` varchar(10) COLLATE utf8_bin NOT NULL,
+  `u_password` varchar(500) COLLATE utf8_bin NOT NULL,
+  `roll` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
@@ -112,7 +98,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `trainees`
@@ -124,7 +110,7 @@ ALTER TABLE `trainees`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -21,7 +21,7 @@ tls = Tls(validate=ssl.CERT_REQUIRED, version=ssl.PROTOCOL_TLSv1,
 
 config = dict()
 
-# LDAB configurations
+# LDAP configurations
 config['LDAP_HOST'] = 'ldaps://dc02.intern.satzmedia.de'
 config['LDAP_PORT'] = 636
 config['LDAP_USE_SSL'] = True
@@ -40,7 +40,7 @@ ldap_manager.add_server(
     config.get('LDAP_HOST'),
     config.get('LDAP_PORT'),
     config.get('LDAP_USE_SSL'),
-    tls_ctx=tls
+    tls_ctx=tls,
 )
 
 app = Flask(__name__)
@@ -130,21 +130,24 @@ class Database:
             print("Please select start and end date, to get your reports")
         return list_of_reports
 
-    def get_report(r_id=-1):
-        report = {}
-        if r_id != -1:
+    def get_report(r_id):
+        report = None
+        if r_id is not None:
             report = Database.one_request("SELECT * FROM `reports` WHERE `r_id` = {}".format(r_id))
         else:
             print("Please set r_id to get report.")
         return report
 
     def set_report(u_id, hours, text, date="NULL", start_date="NULL", end_date="NULL"):
+        if date == "NULL" and start_date == "NULL" and end_date == "NULL":
+            abort(400, message="please set date, to create the new report")
+
         if date == "NULL" and start_date != "NULL" and end_date == "NULL":
-            print("please set end_date too")
-            return
+            print("please set end_date")
+            abort(400, message="please set end_date, to create the new report")
         elif date == "NULL" and start_date == "NULL" and end_date != "NULL":
-            print("please set start_date too")
-            return
+            print("please set start_date")
+            abort(400, message="please set start_date, to create the new report")
 
         new_report_id = Database.insert_into_or_update_or_delete(
             "INSERT INTO `reports` (`r_id`, `u_id`, `date`, `start_date`, `end_date`, `hours`, `text`, `deleted`) VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '0');".format(
@@ -156,18 +159,29 @@ class Database:
             print("Cann't update report, while you haven't set any data")
             return
         for key, value in new_data_as_dict.items():
-            Database.insert_into_or_update_or_delete(
-                "UPDATE `reports` SET `{1}` = '{2}' WHERE `reports`.`r_id` = {0};".format(r_id, key, value))
+            if value != "":
+                Database.insert_into_or_update_or_delete(
+                    "UPDATE `reports` SET `{1}` = '{2}' WHERE `reports`.`r_id` = {0};".format(r_id, key, value))
         return r_id
 
     def delete_report(r_id, delete_forever=False):
-        if not delete_forever:
-            Database.insert_into_or_update_or_delete(
-                "UPDATE `reports` SET `deleted` = TRUE WHERE `reports`.`r_id` = {0};".format(r_id))
+        message = ""
+
+        is_report_deleted_forever = Database.get_report(r_id) is not None
+        if is_report_deleted_forever:
+            if not delete_forever:
+                Database.insert_into_or_update_or_delete(
+                    "UPDATE `reports` SET `deleted` = TRUE WHERE `reports`.`r_id` = {0};".format(r_id))
+                message = "Report is deleted"
+            else:
+                Database.insert_into_or_update_or_delete(
+                    query="DELETE FROM `reports` WHERE `r_id` = {0};".format(r_id),
+                    type="deleting"
+                )
+                message = "Report is deleted forever"
         else:
-            Database.insert_into_or_update_or_delete("DELETE FROM `reports` WHERE `r_id` = {0};".format(r_id),
-                                                     type="deleting")
-        return
+            abort(404, message="Report is undefined")
+        return {"message": message}
 
     # Default DB Functions
     def one_request(query):
@@ -195,6 +209,7 @@ class Database:
         return new_inserted_data_id
 
 
+# LOGIN TESTER
 def login_required(method):
     @functools.wraps(method)
     def wrapper(self):
@@ -205,26 +220,42 @@ def login_required(method):
         _encryptedPassword = jwt.encode(_password, "password", "HS256").decode('UTF-8')
 
         user = {}
-        isUserLoggedIn = False
-        if bool(str(ldap_manager.authenticate(email, password).status) == "AuthenticationResponseStatus.success"):
-            user_data_from_ldap = json.loads(
-                json.dumps(dict(ldap_manager.authenticate(email, password).user_info), default=json_util.default))
+        is_user_logged_in = False
+        try:
+            if bool(str(ldap_manager.authenticate(email, password).status) == "AuthenticationResponseStatus.success"):
+                user_data_from_ldap = json.loads(
+                    json.dumps(dict(ldap_manager.authenticate(email, password).user_info), default=json_util.default))
+                find_user_after_his_email = Database.get_user(email=email)
+                user = Database.get_user(email=email, password=_encryptedPassword)
+                if find_user_after_his_email is not None and user is not None:
+                    if user is not None:
+                        is_user_logged_in = True
+                    else:
+                        new_u_id = Database.create_user(
+                            first_and_last_name=user_data_from_ldap.get("displayName"),
+                            email=email,
+                            birthday="",
+                            password=_encryptedPassword,
+                            roll=0
+                        )
+                        user = Database.get_user(new_u_id)
+                        if user is not None:
+                            is_user_logged_in = True
+                else:
+                    Database.update_user_password(find_user_after_his_email.get("u_id"), _encryptedPassword)
+                    user = Database.get_user(email=email, password=_encryptedPassword)
+                    if user is not None:
+                        is_user_logged_in = True
+            else:
+                user = Database.get_user(email=email, password=_encryptedPassword)
+                if user is not None:
+                    is_user_logged_in = True
+        except ():
             user = Database.get_user(email=email, password=_encryptedPassword)
             if user is not None:
-                isUserLoggedIn = True
-            else:
-                new_u_id = Database.create_user(first_and_last_name=user_data_from_ldap.get("displayName"),
-                                                email=email,
-                                                birthday="",
-                                                password=_encryptedPassword,
-                                                roll=0
-                                                )
-                user = Database.get_user(new_u_id)
-                if user is not None:
-                    isUserLoggedIn = True
+                is_user_logged_in = True
 
-        login_status = {}
-        login_status["isLoggedIn"] = isUserLoggedIn
+        login_status = {"isLoggedIn": is_user_logged_in}
 
         if not login_status["isLoggedIn"]:
             abort(400, message='Login faild.')
@@ -232,20 +263,16 @@ def login_required(method):
         user_data = {}
         if login_status["isLoggedIn"]:
             user_data["userId"] = user.get("u_id", -1)
-            user_data["first_and_last_name"] = user.get("first_and_last_name", "No Name")
+            user_data["firstAndLastName"] = user.get("first_and_last_name", "No Name")
             user_data["email"] = user.get("email", "No email")
             user_data["birthday"] = user.get("birthday", "No Birthday")
             user_data["isAdmin"] = user.get("roll", -1) != -1 and user.get("roll", -1) == 2
             user_data["isPM"] = user.get("roll", -1) != -1 and user.get("roll", -1) == 1
 
-        data = {}
-        data["loginStatus"] = login_status
+        data = {"loginStatus": login_status}
         if login_status.get("isLoggedIn", False):
             data["userData"] = user_data
-            data["userReports"] = Database.get_reports(u_id=user.get("u_id", -1),
-                                                       start_date="2020-01-27",
-                                                       end_date="2020-01-29",
-                                                       )
+            data["reports"] = Database.get_reports(u_id=user.get("u_id", -1), get_all=True)
 
         return method(self, data)
 
@@ -255,36 +282,71 @@ def login_required(method):
 class GetReport(Resource):
     @login_required
     def get(self, data):
-        if data.get("isLoggedIn", False):
-            parser = reqparse.RequestParser()
-            parser.add_argument('start_date', required=True, type=int)
-            parser.add_argument('end_date', required=True, type=int)
+        parser = reqparse.RequestParser()
+        parser.add_argument('reportId', required=True, type=int)
 
-            args = parser.parse_args()
-            return Database.get_report(CreateNewReport.r_id), 201
-        return data
+        args = parser.parse_args()
+        return Database.get_report(args.get("reportId")), 201
+
+
+class DeleteReport(Resource):
+    @login_required
+    def get(self, data):
+        parser = reqparse.RequestParser()
+        parser.add_argument('reportId', required=True, type=int)
+        parser.add_argument('deleteForever', type=bool, default=False)
+
+        args = parser.parse_args()
+        return Database.delete_report(
+            r_id=args.get("reportId"),
+            delete_forever=args.get("deleteForever", False)
+        ), 201
 
 
 class CreateNewReport(Resource):
     @login_required
     def get(self, data):
         parser = reqparse.RequestParser()
-        parser.add_argument('hours', required=True, type=int)
+        parser.add_argument('hours', required=True, type=str)
         parser.add_argument('text', required=True, type=str)
-        parser.add_argument('date', type=str)
-        parser.add_argument('start_date', type=str)
-        parser.add_argument('end_date', type=str)
+        parser.add_argument('date', type=str, default="NULL")
+        parser.add_argument('startDate', type=str, default="NULL")
+        parser.add_argument('endDate', type=str, default="NULL")
 
         args = parser.parse_args()
-        CreateNewReport.r_id = Database.set_report(
+        r_id = Database.set_report(
             u_id=data["userData"].get("userId"),
             hours=args.get("hours"),
             text=args.get("text"),
-            date=args.get("date", "NULL"),
-            start_date=args.get("start_date", "NULL"),
-            end_date=args.get("start_date", "NULL"),
+            date=args.get("date"),
+            start_date=args.get("startDate"),
+            end_date=args.get("endDate"),
         )
-        return Database.get_report(CreateNewReport.r_id), 201
+        return Database.get_report(r_id), 201
+
+
+class UpdateReport(Resource):
+    @login_required
+    def get(self, data):
+        parser = reqparse.RequestParser()
+        parser.add_argument('reportId', required=True, type=int)
+        parser.add_argument('hours', type=str, default="")
+        parser.add_argument('text', type=str, default="")
+        parser.add_argument('date', type=str, default="")
+        parser.add_argument('startDate', type=str, default="")
+        parser.add_argument('endDate', type=str, default="")
+
+        args = parser.parse_args()
+        r_id = Database.update_report(
+            r_id=args.get("reportId"),
+            new_data_as_dict={
+                "hours": args.get("hours"),
+                "text": args.get("text"),
+                "date": args.get("date"),
+                "start_date": args.get("startDate"),
+                "end_date": args.get("endDate"),
+            })
+        return Database.get_report(r_id), 201
 
 
 class UserData(Resource):
@@ -297,7 +359,9 @@ class UserData(Resource):
 
 api.add_resource(UserData, "/")
 api.add_resource(GetReport, "/get-reports")
-api.add_resource(CreateNewReport, "/create-report")
+api.add_resource(CreateNewReport, "/create-new-report")
+api.add_resource(UpdateReport, "/update-report")
+api.add_resource(DeleteReport, "/delete-report")
 
 if __name__ == '__main__':
     app.run(port=5000, host="0.0.0.0")

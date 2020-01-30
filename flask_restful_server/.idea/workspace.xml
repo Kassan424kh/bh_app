@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e61e2f2e-5d2c-403b-a6e8-b0dc5c2cff2b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/reports_app.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DB/reports_app.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -79,28 +80,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="195">
-              <caret line="208" column="45" selection-start-line="208" selection-start-column="45" selection-end-line="208" selection-end-column="45" />
+            <state relative-caret-position="359">
+              <caret line="305" column="29" selection-start-line="305" selection-start-column="29" selection-end-line="305" selection-end-column="29" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#1584#1658#0" />
-                <element signature="e#1733#1823#0" />
-                <element signature="e#2614#2943#0" />
-                <element signature="e#2993#3167#0" />
-                <element signature="e#3312#4447#0" />
-                <element signature="e#4541#5686#0" />
-                <element signature="e#4538#5145#0" />
-                <element signature="e#5207#5486#0" />
-                <element signature="e#5671#6007#0" />
-                <element signature="e#1506#1668#0" />
-                <element signature="e#1824#1963#0" />
-                <element signature="e#6519#6796#0" />
-                <element signature="e#7541#8371#0" />
-                <element signature="e#7870#8371#0" />
+                <element signature="e#1556#7348#0" />
+                <element signature="e#1630#2548#0" />
+                <element signature="e#2633#2969#0" />
+                <element signature="e#3029#3229#0" />
+                <element signature="e#3333#4478#0" />
+                <element signature="e#3959#4358#0" />
+                <element signature="e#4517#4739#0" />
+                <element signature="e#4840#5721#0" />
+                <element signature="e#5515#5880#0" />
+                <element signature="e#6392#6526#0" />
+                <element signature="e#6566#6702#0" />
+                <element signature="e#6769#7046#0" />
+                <element signature="e#7426#10025#0" />
+                <element signature="e#9645#9894#0" />
+                <element signature="e#10966#11433#0" />
+                <element signature="e#10083#10868#0" />
+                <element signature="e#10711#11589#0" />
+                <element signature="e#11622#11721#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/DB/reports_app.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="232">
+              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
             </state>
           </provider>
         </entry>
@@ -110,6 +124,9 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>print</find>
+      <find>timeout</find>
+      <find>default</find>
+      <find>!</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -122,6 +139,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/api.py" />
+        <option value="$PROJECT_DIR$/DB/reports_app.sql" />
       </list>
     </option>
   </component>
@@ -150,7 +168,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -158,11 +175,17 @@
               <item name="flask_restful_server" type="b2602c69:ProjectViewProjectNode" />
               <item name="flask_restful_server" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="flask_restful_server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flask_restful_server" type="462c0819:PsiDirectoryNode" />
+              <item name="DB" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -175,7 +198,7 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunDashboard">
@@ -223,18 +246,19 @@
       <workItem from="1580018084908" duration="1300000" />
       <workItem from="1580107487873" duration="7638000" />
       <workItem from="1580215662311" duration="2374000" />
-      <workItem from="1580287376463" duration="24412000" />
+      <workItem from="1580287376463" duration="24634000" />
+      <workItem from="1580371035987" duration="8326000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47451000" />
+    <option name="totallyTimeSpent" value="55999000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1174" height="1200" extended-state="6" />
+    <frame x="0" y="0" width="1060" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.256" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25540274" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -243,12 +267,12 @@
       <window_info id="UI Designer" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32944345" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34021544" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.34021544" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32944345" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.32944345" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection Results" order="9" weight="0.3274088" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
@@ -274,7 +298,7 @@
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_py_.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1580296455743" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_py_.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1580378021765" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/flask_restful_server$Flask.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1579933623224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="editorHistoryManager">
@@ -289,27 +313,59 @@
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/ldap3/core/server.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="277" column="36" selection-start-line="277" selection-start-column="36" selection-end-line="277" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/flask_restful/reqparse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="70">
+          <caret line="40" column="18" selection-start-line="40" selection-start-column="11" selection-end-line="40" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/flask_restful/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="50">
+          <caret line="642" column="14" lean-forward="true" selection-start-line="642" selection-start-column="14" selection-end-line="642" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="208" column="45" selection-start-line="208" selection-start-column="45" selection-end-line="208" selection-end-column="45" />
+        <state relative-caret-position="359">
+          <caret line="305" column="29" selection-start-line="305" selection-start-column="29" selection-end-line="305" selection-end-column="29" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#1584#1658#0" />
-            <element signature="e#1733#1823#0" />
-            <element signature="e#2614#2943#0" />
-            <element signature="e#2993#3167#0" />
-            <element signature="e#3312#4447#0" />
-            <element signature="e#4541#5686#0" />
-            <element signature="e#4538#5145#0" />
-            <element signature="e#5207#5486#0" />
-            <element signature="e#5671#6007#0" />
-            <element signature="e#1506#1668#0" />
-            <element signature="e#1824#1963#0" />
-            <element signature="e#6519#6796#0" />
-            <element signature="e#7541#8371#0" />
-            <element signature="e#7870#8371#0" />
+            <element signature="e#1556#7348#0" />
+            <element signature="e#1630#2548#0" />
+            <element signature="e#2633#2969#0" />
+            <element signature="e#3029#3229#0" />
+            <element signature="e#3333#4478#0" />
+            <element signature="e#3959#4358#0" />
+            <element signature="e#4517#4739#0" />
+            <element signature="e#4840#5721#0" />
+            <element signature="e#5515#5880#0" />
+            <element signature="e#6392#6526#0" />
+            <element signature="e#6566#6702#0" />
+            <element signature="e#6769#7046#0" />
+            <element signature="e#7426#10025#0" />
+            <element signature="e#9645#9894#0" />
+            <element signature="e#10966#11433#0" />
+            <element signature="e#10083#10868#0" />
+            <element signature="e#10711#11589#0" />
+            <element signature="e#11622#11721#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DB/reports_app.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
         </state>
       </provider>
     </entry>
