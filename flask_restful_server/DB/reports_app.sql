@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Jan 30, 2020 at 04:13 PM
+-- Generation Time: Feb 02, 2020 at 11:48 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.1.23
 
@@ -36,7 +36,8 @@ CREATE TABLE `reports` (
   `end_date` varchar(10) COLLATE utf8_bin DEFAULT NULL,
   `hours` double NOT NULL,
   `text` text COLLATE utf8_bin NOT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0'
+  `deleted` tinyint(1) NOT NULL DEFAULT '0',
+  `year_of_training` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -49,8 +50,8 @@ CREATE TABLE `trainees` (
   `t_id` int(11) NOT NULL,
   `u_id` int(11) NOT NULL,
   `type_training` varchar(130) COLLATE utf8_bin NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL
+  `start_date` varchar(10) COLLATE utf8_bin NOT NULL,
+  `end_date` varchar(10) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -65,8 +66,16 @@ CREATE TABLE `users` (
   `email` varchar(200) COLLATE utf8_bin NOT NULL,
   `birthday` varchar(10) COLLATE utf8_bin NOT NULL,
   `u_password` varchar(500) COLLATE utf8_bin NOT NULL,
-  `roll` int(11) NOT NULL DEFAULT '0'
+  `roll` int(11) NOT NULL DEFAULT '0',
+  `is_new_user` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`u_id`, `first_and_last_name`, `email`, `birthday`, `u_password`, `roll`, `is_new_user`) VALUES
+(1, 'Khalil Khalil', 'k.khalil@satzmedia.de', '', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imsua2hhbGlsQHNhdHptZWRpYS5kZSIsInBhc3N3b3JkIjoiSGVpOGNodXIifQ.GrRAn-_IwjLWTjCU3_x3DkIK4nfXs-7liqVXZeKBRTw', 2, 1);
 
 --
 -- Indexes for dumped tables
@@ -104,13 +113,13 @@ ALTER TABLE `reports`
 -- AUTO_INCREMENT for table `trainees`
 --
 ALTER TABLE `trainees`
-  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

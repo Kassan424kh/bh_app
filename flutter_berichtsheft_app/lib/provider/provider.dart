@@ -9,7 +9,7 @@ import 'package:flutter_berichtsheft_app/sites/import_reports.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
 
 class LoginProvider with ChangeNotifier {
-  bool isLoggedIn = true;
+  bool isLoggedIn = false;
 
   void updateLoginStatus(bool status) {
     isLoggedIn = status;

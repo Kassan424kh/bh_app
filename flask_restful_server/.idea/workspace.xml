@@ -2,8 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e61e2f2e-5d2c-403b-a6e8-b0dc5c2cff2b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/api/api.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/reports_app.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DB/reports_app.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/provider/provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/provider/provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/login.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/macos/Runner/DebugProfile.entitlements" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/macos/Runner/DebugProfile.entitlements" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -78,15 +85,26 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="237" column="28" selection-start-line="237" selection-start-column="28" selection-end-line="237" selection-end-column="28" />
+            <state relative-caret-position="-193">
+              <caret line="472" lean-forward="true" selection-start-line="472" selection-end-line="472" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
+                <element signature="e#1557#10643#0" />
+                <element signature="e#4126#4262#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/DB/reports_app.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="78" lean-forward="true" selection-start-line="78" selection-end-line="78" />
             </state>
           </provider>
         </entry>
@@ -99,6 +117,8 @@
       <find>timeout</find>
       <find>default</find>
       <find>!</find>
+      <find>out</find>
+      <find>abort</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -110,8 +130,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/DB/reports_app.sql" />
         <option value="$PROJECT_DIR$/api.py" />
+        <option value="$PROJECT_DIR$/DB/reports_app.sql" />
       </list>
     </option>
   </component>
@@ -130,9 +150,10 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
-    <option name="width" value="917" />
-    <option name="height" value="1200" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="y" value="23" />
+    <option name="width" value="1920" />
+    <option name="height" value="1177" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -141,6 +162,7 @@
     </navigator>
     <panes>
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -148,11 +170,15 @@
               <item name="flask_restful_server" type="b2602c69:ProjectViewProjectNode" />
               <item name="flask_restful_server" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="flask_restful_server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flask_restful_server" type="462c0819:PsiDirectoryNode" />
+              <item name="DB" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -165,7 +191,8 @@
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Language Defaults" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.General" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RunDashboard">
@@ -182,7 +209,7 @@
   </component>
   <component name="RunManager">
     <configuration name="Flask (api.py)" type="Python.FlaskServer" nameIsGenerated="true">
-      <option name="additionalOptions" value="--reload" />
+      <option name="additionalOptions" value="--reload --host=0.0.0.0 --port=5000" />
       <option name="flaskDebug" value="true" />
       <module name="flask_restful_server" />
       <option name="target" value="$PROJECT_DIR$/api.py" />
@@ -192,8 +219,8 @@
       <option name="SDK_HOME" value="/usr/local/bin/python3.7" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="false" />
+      <option name="ADD_SOURCE_ROOTS" value="false" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="launchJavascriptDebuger" value="false" />
       <method v="2" />
@@ -215,18 +242,20 @@
       <workItem from="1580215662311" duration="2374000" />
       <workItem from="1580287376463" duration="24634000" />
       <workItem from="1580371035987" duration="8371000" />
-      <workItem from="1580404354276" duration="971000" />
+      <workItem from="1580404354276" duration="1106000" />
+      <workItem from="1580468123962" duration="10800000" />
+      <workItem from="1580555987192" duration="5243000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="57015000" />
+    <option name="totallyTimeSpent" value="73193000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1290" height="1200" extended-state="6" />
+    <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.13951011" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.13951011" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -235,7 +264,7 @@
       <window_info id="UI Designer" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32944345" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.34021544" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.31328547" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -243,7 +272,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" weight="0.32944345" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection Results" order="9" weight="0.3274088" />
-      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32942238" />
       <window_info anchor="bottom" id="Messages" order="11" />
       <window_info anchor="bottom" id="Database Changes" order="12" />
       <window_info anchor="bottom" id="Version Control" order="13" weight="0.32944345" />
@@ -266,7 +295,7 @@
     <option name="version" value="1" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_py_.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1580404451603" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_py_.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1580687081613" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/flask_restful_server$Flask.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1579933623224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="editorHistoryManager">
@@ -302,20 +331,29 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/DB/reports_app.sql">
+    <entry file="file:///usr/local/lib/python3.7/site-packages/flask_ldap3_login/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+        <state relative-caret-position="332">
+          <caret line="720" column="74" selection-start-line="720" selection-start-column="71" selection-end-line="720" selection-end-column="74" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="237" column="28" selection-start-line="237" selection-start-column="28" selection-end-line="237" selection-end-column="28" />
+        <state relative-caret-position="-193">
+          <caret line="472" lean-forward="true" selection-start-line="472" selection-end-line="472" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#1557#10643#0" />
+            <element signature="e#4126#4262#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DB/reports_app.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="78" lean-forward="true" selection-start-line="78" selection-end-line="78" />
         </state>
       </provider>
     </entry>

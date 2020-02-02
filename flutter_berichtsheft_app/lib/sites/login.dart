@@ -1,6 +1,6 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_berichtsheft_app/api/api.dart';
 import 'package:flutter_berichtsheft_app/components/app_logo.dart';
 import 'package:flutter_berichtsheft_app/components/header_text.dart';
 import 'package:flutter_berichtsheft_app/components/ui_login_button.dart';
@@ -18,27 +18,8 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final _formKey = GlobalKey<FormState>();
-
-  Widget _loginForm = Form(
-    //key: _formKey,
-    child: Column(
-      children: <Widget>[
-        UITextFormField(
-          hintText: "Username",
-          maxLines: 1,
-          maxLength: 30,
-        ),
-        UITextFormField(
-          hintText: "Password",
-          maxLines: 1,
-          maxLength: 30,
-          obscureText: true,
-          borderBottom: false,
-        ),
-      ],
-    ),
-  );
+  String _email = "";
+  String _password = "";
 
   @override
   Widget build(BuildContext context) {
@@ -63,13 +44,40 @@ class _LoginState extends State<Login> {
                         SizedBox(height: 15),
                         HeaderText(text: "LOGIN"),
                         SizedBox(height: 15),
-                        _loginForm,
+                        Form(
+                          child: Column(
+                            children: <Widget>[
+                              UITextFormField(
+                                hintText: "Email",
+                                onChanged: (v) {
+                                  setState(() {
+                                    _email = v;
+                                  });
+                                },
+                                maxLines: 1,
+                                maxLength: 30,
+                              ),
+                              UITextFormField(
+                                hintText: "Password",
+                                onChanged: (v) {
+                                  setState(() {
+                                    _password = v;
+                                  });
+                                },
+                                maxLines: 1,
+                                maxLength: 30,
+                                obscureText: true,
+                                borderBottom: false,
+                              ),
+                            ],
+                          ),
+                        ),
                         SizedBox(height: 15),
                         UILoginButton(
                           onPressed: () {
-                            Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(
-                              Provider.of<LoginProvider>(context, listen: false).isLoggedIn ? false : true,
-                            );
+                            API.login(_email, _password).then((bool value) {
+                              Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(value);
+                            });
                           },
                         ),
                       ],
