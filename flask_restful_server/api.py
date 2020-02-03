@@ -174,10 +174,11 @@ class Database:
         return Database.get_trainees_data(u_id=user.get("u_id"))
 
     # Reports Functions
-    def get_reports(u_id, start_date="", end_date="", get_all=False) -> list:
+    def get_reports(u_id, start_date="", end_date="", get_all=False, are_deleted=False) -> list:
         list_of_reports = []
         if get_all:
-            list_of_reports = Database.list_requests("SELECT * FROM `reports` WHERE `u_id` = {}".format(u_id))
+            list_of_reports = Database.list_requests(
+                "SELECT * FROM `reports` WHERE `u_id` = {0} AND deleted = {1};".format(u_id, are_deleted))
         elif not get_all and start_date != "" or end_date != "":
             if start_date == end_date:
                 date = start_date
@@ -186,8 +187,9 @@ class Database:
                         SELECT * FROM `reports` 
                         WHERE 
                             `u_id` = {0} AND 
-                            DATE(`date`) = '{1}';
-                    """.format(u_id, date))
+                            DATE(`date`) = '{1}'
+                             AND deleted = {2};
+                    """.format(u_id, date, are_deleted))
             else:
                 list_of_reports = Database.list_requests(
                     """
@@ -195,10 +197,19 @@ class Database:
                         WHERE 
                             `u_id` = {0} AND 
                             (DATE(`start_date`) BETWEEN '{1}' AND '{2}' OR
-                            DATE(`start_date`) BETWEEN '{1}' AND '{2}');
-                    """.format(u_id, start_date, end_date))
+                            DATE(`start_date`) BETWEEN '{1}' AND '{2}')
+                             AND deleted = {3};
+                    """.format(u_id, start_date, end_date, are_deleted))
         else:
             print("Please select start and end date, to get your reports")
+        return list_of_reports
+
+    def search_reports(u_id, searched_texts="") -> list:
+        list_of_reports = []
+        if u_id is not None:
+            list_of_reports = Database.list_requests(
+                "SELECT * FROM reports WHERE MATCH(text) AGAINST ('{1}' IN NATURAL LANGUAGE MODE) AND `u_id` = {0}".format(
+                    u_id, searched_texts))
         return list_of_reports
 
     def get_report(r_id) -> dict:
@@ -279,6 +290,7 @@ class Database:
         cur.close()
         return new_inserted_data_id
 
+
 # LOGIN TESTER
 def login_required(method):
     @functools.wraps(method)
@@ -294,9 +306,11 @@ def login_required(method):
         try:
             # else ldap find user
             ldap_login_check = False
-            @timeout_decorator.timeout(2, timeout_exception=StopIteration)
+
+            @timeout_decorator.timeout(2000, timeout_exception=StopIteration)
             def checkLdapUserLoggingIn():
-                ldap_login_check = bool(str(ldap_manager.authenticate(email, password).status) == "AuthenticationResponseStatus.success")
+                ldap_login_check = bool(
+                    str(ldap_manager.authenticate(email, password).status) == "AuthenticationResponseStatus.success")
 
             if ldap_login_check:
                 user_data_from_ldap = json.loads(
@@ -400,24 +414,37 @@ class AddDataToNewUser(Resource):
         return data
 
 
-class GetReport(Resource):
+class GetReports(Resource):
+    @login_required
+    def get(self, data):
+        reports = Database.get_reports(
+            u_id=data["userData"].get("userId"),
+            get_all=True
+        )
+        return reports, 201
+
+
+class GetDeletedReports(Resource):
+    @login_required
+    def get(self, data):
+        reports = Database.get_reports(
+            u_id=data["userData"].get("userId"),
+            get_all=True,
+            are_deleted=True
+        )
+        return reports, 201
+
+
+class SearchReports(Resource):
     @login_required
     def get(self, data):
         parser = reqparse.RequestParser()
-        parser.add_argument('hours', required=True, type=str)
-        parser.add_argument('text', required=True, type=str)
-        parser.add_argument('date', type=str, default="NULL")
-        parser.add_argument('startDate', type=str, default="NULL")
-        parser.add_argument('endDate', type=str, default="NULL")
+        parser.add_argument('searchedText', required=True, type=str)
 
         args = parser.parse_args()
-        u_id = Database.set_report(
+        u_id = Database.search_reports(
             u_id=data["userData"].get("userId"),
-            hours=args.get("hours"),
-            text=args.get("text"),
-            date=args.get("date"),
-            start_date=args.get("startDate"),
-            end_date=args.get("endDate"),
+            searched_texts=args.get("searchedText"),
         )
         return Database.get_user(u_id), 201
 
@@ -487,7 +514,9 @@ class DeleteReport(Resource):
 
 api.add_resource(UserData, "/")
 api.add_resource(AddDataToNewUser, "/add_data_to_new_user")
-api.add_resource(GetReport, "/get-reports")
+api.add_resource(GetReports, "/get-reports")
+api.add_resource(GetDeletedReports, "/get-deleted-reports")
+api.add_resource(SearchReports, "/search-reports")
 api.add_resource(CreateNewReport, "/create-new-report")
 api.add_resource(UpdateReport, "/update-report")
 api.add_resource(DeleteReport, "/delete-report")

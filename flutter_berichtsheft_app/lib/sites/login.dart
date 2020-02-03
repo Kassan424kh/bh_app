@@ -20,6 +20,14 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   String _email = "";
   String _password = "";
+  API _api;
+  @override
+  void initState() {
+    setState(() {
+      _api = API();
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
