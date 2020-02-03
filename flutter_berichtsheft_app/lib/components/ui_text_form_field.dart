@@ -10,6 +10,7 @@ class UITextFormField extends StatelessWidget {
   final bool obscureText;
   final bool borderBottom;
   final onChanged, onSaved, onEditingComplete, onTap, onFieldSubmitted;
+  final bool validate;
 
   UITextFormField({
     Key key,
@@ -23,6 +24,7 @@ class UITextFormField extends StatelessWidget {
     this.onEditingComplete,
     this.onTap,
     this.onFieldSubmitted,
+    this.validate = false,
   }) : super(key: key);
 
   @override
@@ -55,11 +57,12 @@ class UITextFormField extends StatelessWidget {
         decoration: InputDecoration(
           counterText: "",
           hintText: hintText,
-          hintStyle: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor], fontSize: 15),
+          hintStyle: TextStyle(color: !validate ? _selectedTheme[ElementStylingParameters.inputHintTextColor]  : Colors.redAccent.withOpacity(Styling.selectedTheme[ElementStylingParameters.splashOpacity]),
+              fontSize: 15),
           hoverColor: (_selectedTheme[ElementStylingParameters.primaryColor] as Color).withOpacity(Styling.selectedTheme[ElementStylingParameters.splashOpacity]),
           filled: true,
           isDense: true,
-          fillColor: _selectedTheme[ElementStylingParameters.primaryColor],
+          fillColor: !validate ? _selectedTheme[ElementStylingParameters.primaryColor] : Colors.redAccent.withOpacity(Styling.selectedTheme[ElementStylingParameters.buttonsBackgroundColorOpacity]),
           contentPadding: new EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0),
           border: InputBorder.none,
           focusedBorder: InputBorder.none,

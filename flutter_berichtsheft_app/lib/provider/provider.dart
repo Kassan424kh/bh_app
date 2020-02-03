@@ -138,6 +138,7 @@ class MessageProvider extends ChangeNotifier {
           messageShowStatus = 100;
           timer.cancel();
         }
+        notifyListeners();
       });
       closeMessage = false;
       messageShowStatus = 0;

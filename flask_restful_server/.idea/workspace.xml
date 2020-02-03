@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e61e2f2e-5d2c-403b-a6e8-b0dc5c2cff2b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/675a6dcd-7124-4726-bdf0-9501be9ba880.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/675a6dcd-7124-4726-bdf0-9501be9ba880.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/api/api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/api/api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/ui_text_form_field.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/ui_text_form_field.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/provider/provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/provider/provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/login.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -135,7 +135,7 @@
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="ProjectFrameBounds" extendedState="1">
+  <component name="ProjectFrameBounds">
     <option name="y" value="23" />
     <option name="width" value="1920" />
     <option name="height" value="1177" />
@@ -230,16 +230,15 @@
       <workItem from="1580404354276" duration="1106000" />
       <workItem from="1580468123962" duration="10800000" />
       <workItem from="1580555987192" duration="5527000" />
-      <workItem from="1580709809555" duration="1932000" />
+      <workItem from="1580709809555" duration="2199000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="75409000" />
+    <option name="totallyTimeSpent" value="75676000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1177" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14057508" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -250,7 +249,7 @@
       <window_info id="UI Designer" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292797" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32647333" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32647333" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />

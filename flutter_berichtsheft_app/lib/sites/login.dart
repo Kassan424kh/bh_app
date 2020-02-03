@@ -19,14 +19,28 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   String _email = "";
+  bool _emailValidate = false;
   String _password = "";
+  bool _passwordValidate = false;
   API _api;
+
   @override
   void initState() {
     setState(() {
-      _api = API();
+      _api = API(context: context);
     });
     super.initState();
+  }
+
+  void _validateEmail(String value) {
+    Pattern pattern = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+    RegExp regex = new RegExp(pattern);
+    setState(() {
+      if (!regex.hasMatch(value) || value == "")
+        _emailValidate = true;
+      else
+        _emailValidate = false;
+    });
   }
 
   @override
@@ -61,7 +75,19 @@ class _LoginState extends State<Login> {
                                   setState(() {
                                     _email = v;
                                   });
+                                  _validateEmail(_email);
                                 },
+                                onFieldSubmitted: (s) {
+                                  setState(() {
+                                    _passwordValidate = _password == "" ? true : false;
+                                  });
+                                  _validateEmail(_email);
+                                  if (!_emailValidate && !_passwordValidate)
+                                    _api.login(_email, _password).then((bool value) {
+                                      Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(value);
+                                    });
+                                },
+                                validate: _emailValidate,
                                 maxLines: 1,
                                 maxLength: 30,
                               ),
@@ -70,8 +96,21 @@ class _LoginState extends State<Login> {
                                 onChanged: (v) {
                                   setState(() {
                                     _password = v;
+                                    _passwordValidate = _password == "" ? true : false;
                                   });
                                 },
+                                onFieldSubmitted: (s) {
+                                  setState(() {
+                                    _passwordValidate = _password == "" ? true : false;
+                                  });
+                                  _validateEmail(_email);
+
+                                  if (!_emailValidate && !_passwordValidate)
+                                    _api.login(_email, _password).then((bool value) {
+                                      Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(value);
+                                    });
+                                },
+                                validate: _passwordValidate,
                                 maxLines: 1,
                                 maxLength: 30,
                                 obscureText: true,
@@ -83,9 +122,10 @@ class _LoginState extends State<Login> {
                         SizedBox(height: 15),
                         UILoginButton(
                           onPressed: () {
-                            API.login(_email, _password).then((bool value) {
-                              Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(value);
-                            });
+                            if (!_emailValidate && !_passwordValidate)
+                              _api.login(_email, _password).then((bool value) {
+                                Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(value);
+                              });
                           },
                         ),
                       ],
