@@ -37,7 +37,7 @@ class _MessageState extends State<Message> {
               child: AnimatedAlign(
                 duration: Duration(milliseconds: (Styling.durationAnimation).round()),
                 curve: Curves.easeInOutCubic,
-                alignment: Alignment.bottomCenter.add(_messageStatus < 100 && _isShowMessage ? Alignment(-0.05, -0.07) : Alignment(0, 5)),
+                alignment: Alignment.bottomCenter.add(_messageStatus < 100 && _isShowMessage ? Alignment(0, -0.07) : Alignment(0, 5)),
                 child: MouseRegion(
                   onEnter: (event) {
                     Provider.of<MessageProvider>(context, listen: false).messageShowingPause = true;
@@ -106,7 +106,19 @@ class _MessageState extends State<Message> {
                                 toolTipMessage: "Close Message",
                               ),
                             ),
-                          )
+                          ),
+                          Positioned.fill(
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                Provider.of<MessageProvider>(context, listen: false).messageTexts,
+                                style: TextStyle(
+                                  color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
+                                  fontSize: 18
+                                ),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),

@@ -18,7 +18,7 @@ class LoginProvider with ChangeNotifier {
 }
 
 class StylingProvider extends ChangeNotifier {
-  var selectedTheme = Styling.darkTheme;
+  var selectedTheme = Styling.lightTheme;
 
   void changeTheme() {
     if (selectedTheme == Styling.darkTheme)
@@ -122,8 +122,11 @@ class MessageProvider extends ChangeNotifier {
   bool messageShowingPause = false;
   bool closeMessage = false;
 
-  showMessage(bool showMessage) {
+  String messageTexts = "Message text faild!!!";
+
+  showMessage(bool showMessage, {String messageText = ""}) {
     isShowMessage = showMessage;
+    messageTexts = messageText;
     messageShowStatus = 0;
     if (showMessage == true) {
       Timer.periodic(Duration(milliseconds: 100), (Timer timer) {
@@ -132,10 +135,12 @@ class MessageProvider extends ChangeNotifier {
         }
         if (messageShowStatus == 100) {
           messageShowStatus = 100;
+          messageText = "Message text faild!!!";
           timer.cancel();
         }
         if (closeMessage){
           messageShowStatus = 100;
+          messageText = "Message text faild!!!";
           timer.cancel();
         }
         notifyListeners();
