@@ -2,12 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e61e2f2e-5d2c-403b-a6e8-b0dc5c2cff2b" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/local_db/sqflite.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/api/api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/api/api.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/macos/Flutter/GeneratedPluginRegistrant.swift" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/macos/Flutter/GeneratedPluginRegistrant.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/message.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/message.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/provider/provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/provider/provider.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -79,11 +77,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2146">
-              <caret line="301" column="69" selection-start-line="301" selection-start-column="64" selection-end-line="301" selection-end-column="69" />
+            <state relative-caret-position="816">
+              <caret line="372" column="17" lean-forward="true" selection-start-line="372" selection-start-column="17" selection-end-line="372" selection-end-column="17" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <element signature="e#1621#10707#0" />
                 <element signature="e#1703#2621#0" />
                 <element signature="e#2713#3049#0" />
                 <element signature="e#3116#3316#0" />
@@ -91,18 +88,6 @@
                 <element signature="e#4190#4326#0" />
                 <element signature="e#4430#5094#0" />
                 <element signature="e#5212#6111#0" />
-                <element signature="e#7455#8600#0" />
-                <element signature="e#7412#7642#0" />
-                <element signature="e#7764#8688#0" />
-                <element signature="e#8755#9156#0" />
-                <element signature="e#9225#9965#0" />
-                <element signature="e#10038#10172#0" />
-                <element signature="e#10220#10356#0" />
-                <element signature="e#10430#10707#0" />
-                <element signature="e#14695#15672#0" />
-                <element signature="e#14783#15672#0" />
-                <element signature="e#17443#18408#0" />
-                <element signature="e#18445#18852#0" />
               </folding>
             </state>
           </provider>
@@ -148,6 +133,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -164,7 +150,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
       <pane id="Scope" />
     </panes>
   </component>
@@ -233,17 +218,17 @@
       <workItem from="1580468123962" duration="10800000" />
       <workItem from="1580555987192" duration="5527000" />
       <workItem from="1580709809555" duration="2890000" />
+      <workItem from="1580913622832" duration="1739000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="76367000" />
+    <option name="totallyTimeSpent" value="78106000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1920" height="1177" extended-state="0" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14057508" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14164004" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -252,7 +237,7 @@
       <window_info id="UI Designer" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292797" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32647333" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3395697" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -287,7 +272,7 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_py_.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1580712196126" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_py_.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1580916685423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/flask_restful_server$Flask.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1579933623224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="editorHistoryManager">
@@ -339,11 +324,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2146">
-          <caret line="301" column="69" selection-start-line="301" selection-start-column="64" selection-end-line="301" selection-end-column="69" />
+        <state relative-caret-position="816">
+          <caret line="372" column="17" lean-forward="true" selection-start-line="372" selection-start-column="17" selection-end-line="372" selection-end-column="17" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
-            <element signature="e#1621#10707#0" />
             <element signature="e#1703#2621#0" />
             <element signature="e#2713#3049#0" />
             <element signature="e#3116#3316#0" />
@@ -351,18 +335,6 @@
             <element signature="e#4190#4326#0" />
             <element signature="e#4430#5094#0" />
             <element signature="e#5212#6111#0" />
-            <element signature="e#7455#8600#0" />
-            <element signature="e#7412#7642#0" />
-            <element signature="e#7764#8688#0" />
-            <element signature="e#8755#9156#0" />
-            <element signature="e#9225#9965#0" />
-            <element signature="e#10038#10172#0" />
-            <element signature="e#10220#10356#0" />
-            <element signature="e#10430#10707#0" />
-            <element signature="e#14695#15672#0" />
-            <element signature="e#14783#15672#0" />
-            <element signature="e#17443#18408#0" />
-            <element signature="e#18445#18852#0" />
           </folding>
         </state>
       </provider>
