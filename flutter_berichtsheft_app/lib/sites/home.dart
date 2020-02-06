@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_berichtsheft_app/api/api.dart';
 import 'package:flutter_berichtsheft_app/components/report_list_tile.dart';
 import 'package:flutter_berichtsheft_app/components/site.dart';
 import 'package:flutter_berichtsheft_app/components/ui_button.dart';
@@ -17,13 +18,23 @@ class _HomeState extends State<Home> {
   DateTime _fromDate = DateTime.now();
   DateTime _toDate = DateTime.now();
   DateFormat _dateFormat = DateFormat("dd-MM-yyyy");
+  API _api;
+  List<dynamic> _listOfReports = [];
 
   @override
   void initState() {
     super.initState();
-    List<int> _listOfReportsIds = [];
-    for (var i = 0; i < 1000; i++) _listOfReportsIds.add(i);
-    Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
+    setState(() {
+      _api = API(context: context);
+    });
+    _api.reports.then((reports) {
+      setState(() {
+        _listOfReports = reports;
+      });
+      List<int> _listOfReportsIds = [];
+      for (var i = 0; i < reports.length; i++) _listOfReportsIds.add(reports[i]["r_id"]);
+      Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
+    });
   }
 
   @override
@@ -103,7 +114,7 @@ class _HomeState extends State<Home> {
                 isActive: true,
                 onPressed: () {
                   List<int> _listOfReportsIds = [];
-                  for (var i = 0; i < 1000; i++) _listOfReportsIds.add(i);
+                  for (var i = 0; i < _listOfReports.length; i++) _listOfReportsIds.add(_listOfReports[i]["r_id"]);
                   Provider.of<ReportsProvider>(context, listen: false).selectAllReports(_listOfReportsIds);
                 },
                 leftWidget: Icon(
@@ -158,21 +169,23 @@ class _HomeState extends State<Home> {
         AnimatedContainer(
           duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
           curve: Curves.easeOutCubic,
-          constraints: BoxConstraints(maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? 600 : 0),
+          constraints: BoxConstraints(maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfReports.length * 60 > 600 ? 600 : _listOfReports.length * 60).toDouble() : 0),
           child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
               ? Scrollbar(
                   child: ListView.builder(
-                    itemCount: 1000,
+                    itemCount: _listOfReports.length,
                     cacheExtent: 10,
                     itemExtent: 60,
-                    addAutomaticKeepAlives: true,
                     reverse: true,
+                    addAutomaticKeepAlives: true,
                     physics: AlwaysScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
-                    itemBuilder: (_, int id) => ReportListTile(
-                        reportId: id,
-                        isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(id) ? true : false,
-                        reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut  elitr, sed diam nonumy "),
+                    itemBuilder: (_, int index) => ReportListTile(
+                        reportId: _listOfReports[index]["r_id"],
+                        isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(_listOfReports[index]["r_id"]) ? true : false,
+                        date: _listOfReports[index]["date"],
+                        hours: _listOfReports[index]["hours"].toString(),
+                        reportText: _listOfReports[index]["text"]),
                   ),
                 )
               : Container(),

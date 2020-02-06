@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_berichtsheft_app/api/api.dart';
 import 'package:flutter_berichtsheft_app/components/go_and_back_ui_buttons.dart';
 import 'package:flutter_berichtsheft_app/components/site.dart';
 import 'package:flutter_berichtsheft_app/components/ui_button.dart';
@@ -20,16 +21,20 @@ class _CreateNewReportState extends State<CreateNewReport> {
   DateTime _endReportDate = DateTime.now();
   DateTime _oneDayReportDate = DateTime.now();
 
-  bool areMoreThenOneDay = false;
+  API _api;
+
+  String _hours, _texts, _yearOfTraining, _date, _startDate, _endDate;
+
+  bool _areMoreThenOneDay = false;
 
   DateFormat _dateFormat = DateFormat("dd-MM-yyyy");
 
   @override
   void initState() {
     super.initState();
-    List<int> _listOfReportsIds = [];
-    for (var i = 0; i < 1000; i++) _listOfReportsIds.add(i);
-    Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
+    setState(() {
+      _api = API(context: context);
+    });
   }
 
   @override
@@ -49,30 +54,39 @@ class _CreateNewReportState extends State<CreateNewReport> {
               children: <Widget>[
                 SizedBox(width: 50),
                 UIButton(
-                  leftWidget: Text(areMoreThenOneDay ? "From Date" : "Day Date ", style: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor])),
-                  onPressed: () => UIDatePicker.d(context, _selectedTheme, areMoreThenOneDay ? _startReportDate : _oneDayReportDate, (DateTime newSelectedDate) {
+                  leftWidget: Text(_areMoreThenOneDay ? "From Date" : "Day Date ", style: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor])),
+                  onPressed: () => UIDatePicker.d(context, _selectedTheme, _areMoreThenOneDay ? _startReportDate : _oneDayReportDate, (DateTime newSelectedDate) {
                     if (!newSelectedDate.isAfter(DateTime.now()))
                       setState(() {
-                        if (areMoreThenOneDay)
-                          _startReportDate = newSelectedDate;
-                        else
+                        if (!_areMoreThenOneDay) {
                           _oneDayReportDate = newSelectedDate;
+                          _startDate = null;
+                          _endDate = null;
+                          _date = _dateFormat.format(_oneDayReportDate);
+                        } else {
+                          _startReportDate = newSelectedDate;
+                          _date = null;
+                          _startDate = _dateFormat.format(_startReportDate);
+                          if (_startReportDate != null && _startReportDate != _endReportDate && _startReportDate.isAfter(_endReportDate)) _endReportDate = _startReportDate;
+                        }
                       });
                   }),
-                  text: _dateFormat.format(areMoreThenOneDay ? _startReportDate : _oneDayReportDate),
+                  text: (_areMoreThenOneDay ? _startDate : _date) == null ? "Select Date" : _dateFormat.format(_areMoreThenOneDay ? _startReportDate : _oneDayReportDate),
                   isActive: true,
                 ),
-                areMoreThenOneDay ? SizedBox(width: 20) : Container(),
-                areMoreThenOneDay
+                _areMoreThenOneDay ? SizedBox(width: 20) : Container(),
+                _areMoreThenOneDay
                     ? UIButton(
                         leftWidget: Text("To Date ", style: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor])),
                         onPressed: () => UIDatePicker.d(context, _selectedTheme, _endReportDate, (DateTime newSelectedDate) {
                           if (!newSelectedDate.isAfter(DateTime.now()))
                             setState(() {
                               _endReportDate = newSelectedDate;
+                              _endDate = _dateFormat.format(_endReportDate);
+                              if (_endReportDate != null && _startReportDate != _endReportDate && _endReportDate.isBefore(_startReportDate)) _startReportDate = _endReportDate;
                             });
                         }),
-                        text: _dateFormat.format(_endReportDate),
+                        text: _endDate == null ? "Select Date" : _dateFormat.format(_endReportDate),
                         isActive: true,
                       )
                     : Container(),
@@ -80,20 +94,37 @@ class _CreateNewReportState extends State<CreateNewReport> {
             ),
             SizedBox(height: 20),
             UISwitchListTile(
-              onChanged: (value) => setState(() => areMoreThenOneDay = value),
-              value: areMoreThenOneDay,
+              onChanged: (value) => setState(() => _areMoreThenOneDay = value),
+              value: _areMoreThenOneDay,
+            ),
+            SizedBox(height: 20),
+            UITextField(
+              icon: Icon(Icons.calendar_today, color: _selectedTheme[ElementStylingParameters.headerTextColor]),
+              onChanged: (year) {
+                setState(() {
+                  _yearOfTraining = year;
+                });
+              },
+              marginLeft: 50,
+              hintText: "Training Year",
             ),
             SizedBox(height: 20),
             UITextField(
               icon: Icon(Icons.access_time, color: _selectedTheme[ElementStylingParameters.headerTextColor]),
-              onChanged: (s) {},
+              onChanged: (hours) {
+                setState(() {
+                  _hours = hours;
+                });
+              },
               marginLeft: 50,
               hintText: "Work Hours",
             ),
             SizedBox(height: 20),
             UITextField(
               icon: Icon(Icons.short_text, color: _selectedTheme[ElementStylingParameters.headerTextColor]),
-              onChanged: (s) {},
+              onChanged: (texts) {
+                _texts = texts;
+              },
               marginLeft: 50,
               hintText: "Report Text",
               maxLines: 10,
@@ -101,7 +132,26 @@ class _CreateNewReportState extends State<CreateNewReport> {
           ],
         ),
         SizedBox(height: 60),
-        GoAndBackUiButtons()
+        GoAndBackUiButtons(
+          onClickGoButton: () {
+
+            Map<dynamic, dynamic> reportData = {};
+            reportData["hours"] = _hours;
+            reportData["text"] = _texts;
+            reportData["yearOfTraining"] = _yearOfTraining;
+            if (_date != null)
+              reportData["date"] = _date;
+            else if (_startDate != null && _endDate != null){
+              reportData["startDate"] = _startDate;
+              reportData["endDate"] = _endDate;
+            }
+
+            if (_hours != null && _texts != null && _yearOfTraining != null && (_date != null || (_startDate != null && _endDate != null))) {
+              _api.createNewReport(reportData);
+            }else
+              Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Please complete report data");
+            },
+        )
       ],
     );
   }

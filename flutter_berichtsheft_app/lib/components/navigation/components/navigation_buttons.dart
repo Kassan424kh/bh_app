@@ -10,6 +10,8 @@ class NavigationButtons extends StatelessWidget {
 
   _updateShowingReports(BuildContext context){
     Provider.of<ReportsProvider>(context, listen: false).updateShowingReports(false);
+    Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports.clear();
+    Provider.of<ReportsProvider>(context, listen: false).selectAllReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports);
   }
 
   @override

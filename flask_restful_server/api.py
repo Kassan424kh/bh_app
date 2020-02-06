@@ -232,8 +232,8 @@ class Database:
             abort(400, message="please set start_date, to create the new report")
 
         new_report_id = Database.insert_into_or_update_or_delete(
-            "INSERT INTO `reports` (`r_id`, `u_id`, `date`, `start_date`, `end_date`, `hours`, `text`, `deleted`, `year_of_training`) VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '0');".format(
-                u_id, date, start_date, end_date, hours, text, year_of_training))
+            "INSERT INTO `reports` (`r_id`, `u_id`, `date`, `start_date`, `end_date`, `hours`, `text`, `deleted`, `year_of_training`) VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}', '{5}', '0', {6});".format(
+                u_id, date, start_date, end_date, str(float(hours)), text, year_of_training))
         return new_report_id
 
     def update_report(r_id, new_data_as_dict={}) -> int:
@@ -448,14 +448,13 @@ class SearchReports(Resource):
         )
         return Database.get_user(u_id), 201
 
-
 class CreateNewReport(Resource):
     @login_required
     def get(self, data):
         parser = reqparse.RequestParser()
         parser.add_argument('hours', required=True, type=str)
         parser.add_argument('text', required=True, type=str)
-        parser.add_argument('yearOfTraining', type=int, required=True)
+        parser.add_argument('yearOfTraining', type=str, required=True)
         parser.add_argument('date', type=str, default="NULL")
         parser.add_argument('startDate', type=str, default="NULL")
         parser.add_argument('endDate', type=str, default="NULL")
@@ -464,6 +463,7 @@ class CreateNewReport(Resource):
         r_id = Database.set_report(
             u_id=data["userData"].get("userId"),
             hours=args.get("hours"),
+            year_of_training=args.get("yearOfTraining"),
             text=args.get("text"),
             date=args.get("date"),
             start_date=args.get("startDate"),

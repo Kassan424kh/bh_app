@@ -11,6 +11,7 @@ class UITextFormField extends StatelessWidget {
   final bool borderBottom;
   final onChanged, onSaved, onEditingComplete, onTap, onFieldSubmitted;
   final bool validate;
+  final TextEditingController controller;
 
   UITextFormField({
     Key key,
@@ -25,6 +26,7 @@ class UITextFormField extends StatelessWidget {
     this.onTap,
     this.onFieldSubmitted,
     this.validate = false,
+    this.controller,
   }) : super(key: key);
 
   @override
@@ -43,6 +45,7 @@ class UITextFormField extends StatelessWidget {
         ],
       ),
       child: TextFormField(
+        controller: controller,
         onChanged: onChanged,
         onSaved: onSaved,
         onEditingComplete: onEditingComplete,

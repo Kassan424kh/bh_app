@@ -111,11 +111,8 @@ class _MessageState extends State<Message> {
                             child: Align(
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                Provider.of<MessageProvider>(context, listen: false).messageTexts,
-                                style: TextStyle(
-                                  color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
-                                  fontSize: 18
-                                ),
+                                Provider.of<MessageProvider>(context).messageTexts,
+                                style: TextStyle(color: _selectedTheme[ElementStylingParameters.primaryAccentColor], fontSize: 18),
                               ),
                             ),
                           ),

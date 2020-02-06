@@ -24,6 +24,8 @@ class _LoginState extends State<Login> {
   bool _passwordValidate = false;
   API _api;
 
+  var _passwordController = TextEditingController();
+
   @override
   void initState() {
     setState(() {
@@ -53,7 +55,6 @@ class _LoginState extends State<Login> {
           alignment: Alignment.bottomRight,
           child: ClipRect(
             child: Container(
-              height: 230,
               width: 300,
               child: Row(
                 children: <Widget>[
@@ -92,10 +93,14 @@ class _LoginState extends State<Login> {
                                 maxLength: 30,
                               ),
                               UITextFormField(
+                                controller: _passwordController,
                                 hintText: "Password",
                                 onChanged: (v) {
                                   setState(() {
-                                    _password = v;
+                                    if (v.contains("•"))
+                                      _passwordController.clear();
+                                    else
+                                      _password = v;
                                     _passwordValidate = _password == "" ? true : false;
                                   });
                                 },

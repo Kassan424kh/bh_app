@@ -52,9 +52,13 @@ class _SiteState extends State<Site> {
   void didUpdateWidget(Site oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    Timer(Duration(milliseconds: 10), (){
-      if (Provider.of<ReportsProvider>(context, listen: false).showReportsAfterLoad) Provider.of<StylingProvider>(context, listen: false).updateHeightOfShowSitesCardComponent(_renderBoxOfTheSite.size
-          .height);
+    Timer(Duration(milliseconds: 10), () {
+      try{
+        if (Provider.of<ReportsProvider>(context, listen: false).showReportsAfterLoad)
+          Provider.of<StylingProvider>(context, listen: false).updateHeightOfShowSitesCardComponent(_renderBoxOfTheSite.size.height);
+      }catch (e){
+        print(e);
+      }
     });
   }
 
@@ -65,7 +69,6 @@ class _SiteState extends State<Site> {
 
   @override
   Widget build(BuildContext context) {
-
     List<Widget> _siteWidgets = <Widget>[
       Align(
         alignment: Alignment.centerLeft,

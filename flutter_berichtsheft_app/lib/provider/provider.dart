@@ -31,11 +31,10 @@ class StylingProvider extends ChangeNotifier {
   double showSitesCardComponentWidth = 0;
   double showSitesCardComponentHeight = 0;
 
-  updateHeightOfShowSitesCardComponent(double newHeight){
+  updateHeightOfShowSitesCardComponent(double newHeight) {
     showSitesCardComponentHeight = newHeight;
     notifyListeners();
   }
-
 }
 
 class ReportsProvider extends ChangeNotifier {
@@ -77,11 +76,11 @@ class ReportsProvider extends ChangeNotifier {
   }
 
   bool showReportsAfterLoad = false;
-  updateShowingReports (bool show){
+
+  updateShowingReports(bool show) {
     showReportsAfterLoad = show;
     notifyListeners();
   }
-
 }
 
 class NavigateProvider extends ChangeNotifier {
@@ -90,16 +89,16 @@ class NavigateProvider extends ChangeNotifier {
 
   List<String> listOfVisitedSites = [];
 
-  goToSite(String newSite){
-    if (nowOpenedSite != newSite){
+  goToSite(String newSite) {
+    if (nowOpenedSite != newSite) {
       listOfVisitedSites.add(nowOpenedSite);
       nowOpenedSite = newSite;
     }
     notifyListeners();
   }
 
-  backToSite(){
-    if (listOfVisitedSites.length >= 2 ){
+  backToSite() {
+    if (listOfVisitedSites.length >= 2) {
       listOfVisitedSites.add(nowOpenedSite);
       nowOpenedSite = listOfVisitedSites.elementAt(listOfVisitedSites.length - 2);
       notifyListeners();
@@ -121,15 +120,21 @@ class MessageProvider extends ChangeNotifier {
   int messageShowStatus = 0;
   bool messageShowingPause = false;
   bool closeMessage = false;
+  String typeOfMessage = "good";
+  void messageOkButton;
+  void messageCancelButton;
 
   String messageTexts = "Message text faild!!!";
 
-  showMessage(bool showMessage, {String messageText = ""}) {
+  showMessage(bool showMessage, {String messageText = "", type = "good", void okButton, void cancelButton}) {
     isShowMessage = showMessage;
     messageTexts = messageText;
     messageShowStatus = 0;
+    typeOfMessage = type;
+    messageOkButton = okButton;
+    messageCancelButton = cancelButton;
     if (showMessage == true) {
-      Timer.periodic(Duration(milliseconds: 100), (Timer timer) {
+      Timer _timer = Timer.periodic(Duration(milliseconds: 100), (Timer timer) {
         if (messageShowStatus < 100 && !messageShowingPause) {
           messageShowStatus++;
         }
@@ -138,15 +143,18 @@ class MessageProvider extends ChangeNotifier {
           messageText = "Message text faild!!!";
           timer.cancel();
         }
-        if (closeMessage){
+        if (closeMessage) {
           messageShowStatus = 100;
-          messageText = "Message text faild!!!";
           timer.cancel();
         }
         notifyListeners();
       });
       closeMessage = false;
       messageShowStatus = 0;
+      if (!_timer.isActive)messageTexts = "Message text faild!!!";
+      typeOfMessage = "good";
+      messageOkButton = null;
+      messageCancelButton = null;
     }
     notifyListeners();
   }

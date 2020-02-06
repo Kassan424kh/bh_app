@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_berichtsheft_app/api/api.dart';
 import 'package:flutter_berichtsheft_app/components/report_list_tile.dart';
 import 'package:flutter_berichtsheft_app/components/site.dart';
 import 'package:flutter_berichtsheft_app/components/ui_button.dart';
@@ -17,13 +18,23 @@ class _DeletedReportsState extends State<DeletedReports> {
   DateTime _fromDate = DateTime.now();
   DateTime _toDate = DateTime.now();
   DateFormat _dateFormat = DateFormat("dd-MM-yyyy");
+  API _api;
+  List<dynamic> _listOfDeletedReports = [];
 
   @override
   void initState() {
     super.initState();
-    List<int> _listOfReportsIds = [];
-    for (var i = 0; i < 1000; i++) _listOfReportsIds.add(i);
-    Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
+    setState(() {
+      _api = API(context: context);
+    });
+    _api.deletedReports.then((deletedReports) {
+      setState(() {
+        _listOfDeletedReports = deletedReports;
+      });
+      List<int> _listOfReportsIds = [];
+      for (var i = 0; i < deletedReports.length; i++) _listOfReportsIds.add(deletedReports[i]["r_id"]);
+      Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
+    });
   }
 
   @override
@@ -103,7 +114,7 @@ class _DeletedReportsState extends State<DeletedReports> {
                 isActive: true,
                 onPressed: () {
                   List<int> _listOfReportsIds = [];
-                  for (var i = 0; i < 1000; i++) _listOfReportsIds.add(i);
+                  for (var i = 0; i < _listOfDeletedReports.length; i++) _listOfReportsIds.add(_listOfDeletedReports[i]["r_id"]);
                   Provider.of<ReportsProvider>(context, listen: false).selectAllReports(_listOfReportsIds);
                 },
                 leftWidget: Icon(
@@ -158,23 +169,26 @@ class _DeletedReportsState extends State<DeletedReports> {
         AnimatedContainer(
           duration: Duration(milliseconds: (Styling.durationAnimation).round()),
           curve: Curves.easeInOutCubic,
-          constraints: BoxConstraints(maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? 600 : 0),
+          constraints: BoxConstraints(maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfDeletedReports.length * 60 > 600 ? 600 : _listOfDeletedReports.length * 60).toDouble() : 0),
           child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
               ? Scrollbar(
-            child: ListView.builder(
-              itemCount: 1000,
-              cacheExtent: 10,
-              itemExtent: 60,
-              addAutomaticKeepAlives: true,
-              reverse: true,
-              physics: AlwaysScrollableScrollPhysics(),
-              scrollDirection: Axis.vertical,
-              itemBuilder: (_, int id) => ReportListTile(
-                  reportId: id,
-                  isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(id) ? true : false,
-                  reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut  elitr, sed diam nonumy "),
-            ),
-          )
+                  child: ListView.builder(
+                    itemCount: _listOfDeletedReports.length,
+                    cacheExtent: 10,
+                    itemExtent: 60,
+                    reverse: true,
+                    addAutomaticKeepAlives: true,
+                    physics: AlwaysScrollableScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    itemBuilder: (_, int index) => ReportListTile(
+                      reportId: _listOfDeletedReports[index]["r_id"],
+                      isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(_listOfDeletedReports[index]["r_id"]) ? true : false,
+                      date: _listOfDeletedReports[index]["date"],
+                      hours: _listOfDeletedReports[index]["hours"].toString(),
+                      reportText: _listOfDeletedReports[index]["text"],
+                    ),
+                  ),
+                )
               : Container(),
         ),
       ],
