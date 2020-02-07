@@ -1,0 +1,18 @@
+from flask_restful import Resource, reqparse
+
+from ..components.checkLogin import login_required
+from ..db.database import Database
+
+
+class SearchReports(Resource):
+    @login_required
+    def get(self, data):
+        parser = reqparse.RequestParser()
+        parser.add_argument('searchedText', required=True, type=str)
+
+        args = parser.parse_args()
+        u_id = Database.search_reports(
+            u_id=data["userData"].get("userId"),
+            searched_texts=args.get("searchedText"),
+        )
+        return Database.get_user(u_id), 201
