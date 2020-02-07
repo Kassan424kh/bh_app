@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 02, 2020 at 11:48 PM
+-- Generation Time: Feb 07, 2020 at 11:28 AM
 -- Server version: 8.0.18
 -- PHP Version: 7.1.23
 
@@ -29,15 +29,15 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `reports` (
-  `r_id` int(11) NOT NULL,
-  `u_id` int(11) NOT NULL,
-  `date` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-  `start_date` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-  `end_date` varchar(10) COLLATE utf8_bin DEFAULT NULL,
-  `hours` double NOT NULL,
-  `text` text COLLATE utf8_bin NOT NULL,
-  `deleted` tinyint(1) NOT NULL DEFAULT '0',
-  `year_of_training` int(1) NOT NULL DEFAULT '0'
+                           `r_id` int(11) NOT NULL,
+                           `u_id` int(11) NOT NULL,
+                           `date` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+                           `start_date` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+                           `end_date` varchar(10) COLLATE utf8_bin DEFAULT NULL,
+                           `hours` double NOT NULL,
+                           `text` text COLLATE utf8_bin NOT NULL,
+                           `deleted` tinyint(1) NOT NULL DEFAULT '0',
+                           `year_of_training` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -47,11 +47,11 @@ CREATE TABLE `reports` (
 --
 
 CREATE TABLE `trainees` (
-  `t_id` int(11) NOT NULL,
-  `u_id` int(11) NOT NULL,
-  `type_training` varchar(130) COLLATE utf8_bin NOT NULL,
-  `start_date` varchar(10) COLLATE utf8_bin NOT NULL,
-  `end_date` varchar(10) COLLATE utf8_bin NOT NULL
+                            `t_id` int(11) NOT NULL,
+                            `u_id` int(11) NOT NULL,
+                            `type_training` varchar(130) COLLATE utf8_bin NOT NULL,
+                            `start_date` varchar(10) COLLATE utf8_bin NOT NULL,
+                            `end_date` varchar(10) COLLATE utf8_bin NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 -- --------------------------------------------------------
@@ -61,21 +61,14 @@ CREATE TABLE `trainees` (
 --
 
 CREATE TABLE `users` (
-  `u_id` int(11) NOT NULL,
-  `first_and_last_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `email` varchar(200) COLLATE utf8_bin NOT NULL,
-  `birthday` varchar(10) COLLATE utf8_bin NOT NULL,
-  `u_password` varchar(500) COLLATE utf8_bin NOT NULL,
-  `roll` int(11) NOT NULL DEFAULT '0',
-  `is_new_user` tinyint(1) NOT NULL DEFAULT '1'
+                         `u_id` int(11) NOT NULL,
+                         `first_and_last_name` varchar(200) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+                         `email` varchar(200) COLLATE utf8_bin NOT NULL,
+                         `birthday` varchar(10) COLLATE utf8_bin NOT NULL,
+                         `u_password` varchar(500) COLLATE utf8_bin NOT NULL,
+                         `roll` int(11) NOT NULL DEFAULT '0',
+                         `is_new_user` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`u_id`, `first_and_last_name`, `email`, `birthday`, `u_password`, `roll`, `is_new_user`) VALUES
-(1, 'Khalil Khalil', 'k.khalil@satzmedia.de', '', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imsua2hhbGlsQHNhdHptZWRpYS5kZSIsInBhc3N3b3JkIjoiSGVpOGNodXIifQ.GrRAn-_IwjLWTjCU3_x3DkIK4nfXs-7liqVXZeKBRTw', 2, 1);
 
 --
 -- Indexes for dumped tables
@@ -85,19 +78,19 @@ INSERT INTO `users` (`u_id`, `first_and_last_name`, `email`, `birthday`, `u_pass
 -- Indexes for table `reports`
 --
 ALTER TABLE `reports`
-  ADD PRIMARY KEY (`r_id`);
+    ADD PRIMARY KEY (`r_id`);
 
 --
 -- Indexes for table `trainees`
 --
 ALTER TABLE `trainees`
-  ADD PRIMARY KEY (`t_id`);
+    ADD PRIMARY KEY (`t_id`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`u_id`);
+    ADD PRIMARY KEY (`u_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -107,19 +100,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-  MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+    MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 
 --
 -- AUTO_INCREMENT for table `trainees`
 --
 ALTER TABLE `trainees`
-  MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+    MODIFY `t_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+    MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

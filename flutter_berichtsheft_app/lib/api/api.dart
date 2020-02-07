@@ -16,8 +16,8 @@ class API {
 
   API({Key key, this.context});
 
-  final String url = "http://0.0.0.0:5000";
-  Map<String, String> _headers = {"email": "", "password": ""};
+  final String url = "http://192.168.2.211:5000";
+  Map<String, String> _headers = {"email": "k.khalil@satzmedia.de", "password": "Hei8chur"};
 
   Future<bool> login(email, password) async {
     var client = http.Client();
@@ -41,6 +41,44 @@ class API {
       print(e);
       Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
       return false;
+    }
+  }
+
+  Future<Map<dynamic, dynamic>> addDataToNewUser(Map<dynamic, dynamic> newUserData) async {
+    var client = http.Client();
+    try {
+
+      /*birthday,
+      roll,
+      is_trainees,
+      typeTraining,
+      startTrainingDate,
+      endTrainingDate,*/
+
+      String values = "?";
+
+      newUserData.forEach((key, value) {
+        values += "$key=$value&";
+      });
+
+      var response = await client.get(
+        "${url}/update-report${values.substring(0, values.length - 1)}",
+        headers: _headers,
+      );
+      Map<dynamic, dynamic> data = jsonDecode(response.body);
+      if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
+        _updateShowingReports(context);
+        Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Report is updated ✓");
+      } else if (data.containsKey("message")) {
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
+        return null;
+      }
+      return data;
+    } catch (e) {
+      print(e);
+      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      return null;
     }
   }
 
@@ -89,7 +127,75 @@ class API {
         _updateShowingReports(context);
         Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "New report is created ✓");
-      }else if (data.containsKey("message")){
+      } else if (data.containsKey("message")) {
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
+        return null;
+      }
+      return data;
+    } catch (e) {
+      print(e);
+      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      return null;
+    }
+  }
+
+  Future<Map<dynamic, dynamic>> updateReport(int reportID, Map<dynamic, dynamic> newReportData) async {
+    var client = http.Client();
+    try {
+
+      newReportData["reportId"] = reportID;
+
+      String values = "?";
+
+      newReportData.forEach((key, value) {
+        values += "$key=$value&";
+      });
+
+      var response = await client.get(
+        "${url}/update-report${values.substring(0, values.length - 1)}",
+        headers: _headers,
+      );
+      Map<dynamic, dynamic> data = jsonDecode(response.body);
+      if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
+        _updateShowingReports(context);
+        Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Report is updated ✓");
+      } else if (data.containsKey("message")) {
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
+        return null;
+      }
+      return data;
+    } catch (e) {
+      print(e);
+      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      return null;
+    }
+  }
+
+  Future<Map<dynamic, dynamic>> deleteReport(int reportId, {bool deleteForever = false}) async {
+    var client = http.Client();
+    try {
+      Map<String, dynamic> _valuesData = {};
+      _valuesData ["reportId"] = reportId;
+      if (deleteForever)
+        _valuesData ["deleteForever"] = deleteForever;
+
+      String values = "?";
+
+      _valuesData.forEach((key, value) {
+        values += "$key=$value&";
+      });
+
+      var response = await client.get(
+        "${url}/delete-report${values.substring(0, values.length - 1)}",
+        headers: _headers,
+      );
+      Map<dynamic, dynamic> data = jsonDecode(response.body);
+      if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
+        _updateShowingReports(context);
+        Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: deleteForever ? "Report was deleted forever ✓": "Report was deleted ✓");
+      } else if (data.containsKey("message")) {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
         return null;
       }

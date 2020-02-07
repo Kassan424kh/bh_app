@@ -513,7 +513,7 @@ class DeleteReport(Resource):
 
 
 api.add_resource(UserData, "/")
-api.add_resource(AddDataToNewUser, "/add_data_to_new_user")
+api.add_resource(AddDataToNewUser, "/add-data-to-new-user")
 api.add_resource(GetReports, "/get-reports")
 api.add_resource(GetDeletedReports, "/get-deleted-reports")
 api.add_resource(SearchReports, "/search-reports")
