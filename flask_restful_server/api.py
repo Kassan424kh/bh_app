@@ -3,6 +3,7 @@ import ssl
 import jwt
 import functools
 import timeout_decorator
+import multiprocessing
 import time
 
 from flask import Flask, request, jsonify
@@ -307,12 +308,25 @@ def login_required(method):
             # else ldap find user
             ldap_login_check = False
 
-            @timeout_decorator.timeout(2000, timeout_exception=StopIteration)
+
             def checkLdapUserLoggingIn():
                 ldap_login_check = bool(
                     str(ldap_manager.authenticate(email, password).status) == "AuthenticationResponseStatus.success")
+                return ldap_login_check
 
-            if ldap_login_check:
+            p = multiprocessing.Process(target=checkLdapUserLoggingIn)
+            p.start()
+
+            # Wait for 10 seconds or until process finishes
+            p.join(2)
+
+            # If thread is still active
+            if p.is_alive():
+                # Terminate
+                p.terminate()
+                p.join()
+
+            if checkLdapUserLoggingIn():
                 user_data_from_ldap = json.loads(
                     json.dumps(dict(ldap_manager.authenticate(email, password).user_info), default=json_util.default))
 
@@ -448,6 +462,7 @@ class SearchReports(Resource):
         )
         return Database.get_user(u_id), 201
 
+
 class CreateNewReport(Resource):
     @login_required
     def get(self, data):
@@ -516,7 +531,7 @@ api.add_resource(UserData, "/")
 api.add_resource(AddDataToNewUser, "/add-data-to-new-user")
 api.add_resource(GetReports, "/get-reports")
 api.add_resource(GetDeletedReports, "/get-deleted-reports")
-api.add_resource(SearchReports, "/search-reports")
+api.add_resource(SearchReports, "/search")
 api.add_resource(CreateNewReport, "/create-new-report")
 api.add_resource(UpdateReport, "/update-report")
 api.add_resource(DeleteReport, "/delete-report")

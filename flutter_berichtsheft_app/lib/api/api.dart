@@ -8,10 +8,18 @@ import 'package:provider/provider.dart';
 class API {
   final BuildContext context;
 
-  _updateShowingReports(BuildContext context) {
+  void _updateShowingReports(BuildContext context) {
     Provider.of<ReportsProvider>(context, listen: false).updateShowingReports(false);
     Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports.clear();
     Provider.of<ReportsProvider>(context, listen: false).selectAllReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports);
+  }
+
+  String _valuesToLinkQueryParameter(mapOfValuse) {
+    String values = "?";
+    mapOfValuse.forEach((key, value) {
+      values += "$key=$value&";
+    });
+    return values.substring(0, values.length - 1);
   }
 
   API({Key key, this.context});
@@ -44,25 +52,12 @@ class API {
     }
   }
 
+  /// userData attributes are [birthday, roll, is_trainees, typeTraining, startTrainingDate, endTrainingDate]
   Future<Map<dynamic, dynamic>> addDataToNewUser(Map<dynamic, dynamic> newUserData) async {
     var client = http.Client();
     try {
-
-      /*birthday,
-      roll,
-      is_trainees,
-      typeTraining,
-      startTrainingDate,
-      endTrainingDate,*/
-
-      String values = "?";
-
-      newUserData.forEach((key, value) {
-        values += "$key=$value&";
-      });
-
       var response = await client.get(
-        "${url}/update-report${values.substring(0, values.length - 1)}",
+        "${url}/update-report${_valuesToLinkQueryParameter(newUserData)}",
         headers: _headers,
       );
       Map<dynamic, dynamic> data = jsonDecode(response.body);
@@ -111,15 +106,8 @@ class API {
   Future<Map<dynamic, dynamic>> createNewReport(Map<dynamic, dynamic> reportData) async {
     var client = http.Client();
     try {
-      String values = "?";
-
-      reportData.forEach((key, value) {
-        values += "$key=$value&";
-      });
-
-      print("${url}/create-new-report${values.substring(0, values.length - 1)}");
       var response = await client.get(
-        "${url}/create-new-report${values.substring(0, values.length - 1)}",
+        "${url}/create-new-report${_valuesToLinkQueryParameter(reportData)}",
         headers: _headers,
       );
       Map<dynamic, dynamic> data = jsonDecode(response.body);
@@ -142,17 +130,10 @@ class API {
   Future<Map<dynamic, dynamic>> updateReport(int reportID, Map<dynamic, dynamic> newReportData) async {
     var client = http.Client();
     try {
-
       newReportData["reportId"] = reportID;
 
-      String values = "?";
-
-      newReportData.forEach((key, value) {
-        values += "$key=$value&";
-      });
-
       var response = await client.get(
-        "${url}/update-report${values.substring(0, values.length - 1)}",
+        "${url}/update-report${_valuesToLinkQueryParameter(newReportData)}",
         headers: _headers,
       );
       Map<dynamic, dynamic> data = jsonDecode(response.body);
@@ -176,9 +157,8 @@ class API {
     var client = http.Client();
     try {
       Map<String, dynamic> _valuesData = {};
-      _valuesData ["reportId"] = reportId;
-      if (deleteForever)
-        _valuesData ["deleteForever"] = deleteForever;
+      _valuesData["reportId"] = reportId;
+      if (deleteForever) _valuesData["deleteForever"] = deleteForever;
 
       String values = "?";
 
@@ -194,7 +174,34 @@ class API {
       if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
         _updateShowingReports(context);
         Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
-        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: deleteForever ? "Report was deleted forever ✓": "Report was deleted ✓");
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: deleteForever ? "Report was deleted forever ✓" : "Report was deleted ✓");
+      } else if (data.containsKey("message")) {
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
+        return null;
+      }
+      return data;
+    } catch (e) {
+      print(e);
+      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      return null;
+    }
+  }
+
+  Future<Map<dynamic, dynamic>> search(String searchedText) async {
+    var client = http.Client();
+    try {
+      Map<String, dynamic> _valuesData = {};
+      _valuesData["searchedText"] = searchedText;
+
+      var response = await client.get(
+        "${url}/search${_valuesToLinkQueryParameter(_valuesData)}",
+        headers: _headers,
+      );
+      Map<dynamic, dynamic> data = jsonDecode(response.body);
+      if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
+        _updateShowingReports(context);
+        Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Cannt fined any report");
       } else if (data.containsKey("message")) {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
         return null;
