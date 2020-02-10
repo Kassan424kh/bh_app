@@ -53,7 +53,8 @@ class _HomeState extends State<Home> {
             // Delete reports button
             UIButton(
               onPressed: () {
-                Provider.of<MessageProvider>(context, listen: false).showMessage(true);
+                //Provider.of<MessageProvider>(context, listen: false).showMessage(true);
+                _api.deleteReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports);
               },
               leftWidget: Icon(Icons.delete_outline),
               isActive: true,

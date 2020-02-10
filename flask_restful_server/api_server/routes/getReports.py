@@ -11,5 +11,4 @@ class GetReports(Resource):
             u_id=data["userData"].get("userId"),
             get_all=True
         )
-        print("I was here")
         return reports, 201

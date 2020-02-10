@@ -92,6 +92,7 @@ class ReportListTile extends StatelessWidget {
                   text: Expanded(
                     child: Text(
                       reportText.substring(0, (reportText.length > 120 ? 120 : reportText.length)) + (reportText.length > 120 ? " ..." : ""),
+                      maxLines: 1,
                       style: TextStyle(
                         height: 1.3,
                         fontWeight: FontWeight.w300,

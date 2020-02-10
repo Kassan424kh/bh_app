@@ -57,7 +57,7 @@ class _LoginState extends State<Login> {
     return Flex(
       direction: Axis.vertical,
       children: <Widget>[
-        AppLogo(padding: EdgeInsets.all(15)),
+        AppLogo(padding: EdgeInsets.all(20)),
         Align(
           alignment: Alignment.bottomRight,
           child: ClipRect(

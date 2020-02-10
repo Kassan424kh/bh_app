@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -88,7 +89,7 @@ class API {
     try {
       var data = [];
       await client.get("${url}/get-reports", headers: _headers).then((response) async {
-        if (response.statusCode == 201 || response.statusCode == 200 ) data = await jsonDecode(response.body);
+        if (response.statusCode == 201 || response.statusCode == 200) data = await jsonDecode(response.body);
       });
       client.close();
       return data;
@@ -201,6 +202,50 @@ class API {
       }
       client.close();
       return data;
+    } catch (e) {
+      print(e);
+      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      client.close();
+      return null;
+    }
+  }
+
+  Future deleteReports(List<int> reportIds, {bool deleteForever = false}) async {
+    var client = http.Client();
+    try {
+      Map<String, dynamic> _valuesData = {};
+      _valuesData["reportIds"] = reportIds;
+      if (deleteForever) _valuesData["deleteForever"] = deleteForever;
+
+      String values = "?";
+
+
+
+      _valuesData.forEach((key, value) {
+        values += "$key=$value&";
+      });
+
+      print(values);
+
+      var response = await client.get(
+        "${url}/delete-reports${values.substring(0, values.length - 1)}",
+        headers: _headers,
+      );
+
+      Map<dynamic, dynamic> data = await jsonDecode(response.body);
+      if ((data != null || data.keys.length > 0) && await response.statusCode == 201) {
+        _updateShowingReports(context);
+        Timer(Duration(milliseconds: 300), (){
+          Provider.of<NavigateProvider>(context, listen: false).goToSite("/deleted-reports");
+        });
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: deleteForever ? "Reports was deleted forever ✓" : "Reports was deleted ✓");
+      } else if (data.containsKey("message")) {
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
+        client.close();
+        return null;
+      }
+      client.close();
+      return null;
     } catch (e) {
       print(e);
       Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");

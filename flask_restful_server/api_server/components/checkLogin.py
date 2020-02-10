@@ -32,7 +32,7 @@ def login_required(method):
                     str(ldap_manager.authenticate_direct_bind(email, password).status) == "AuthenticationResponseStatus.success")
 
             def handler(signum, frame):
-                print("Forever is over!")
+                pass
 
             signal.signal(signal.SIGALRM, handler)
             signal.alarm(3)

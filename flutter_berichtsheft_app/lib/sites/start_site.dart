@@ -116,7 +116,7 @@ class _StartSiteState extends State<StartSite> {
               curve: Curves.easeInOutCubic,
               color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
               width: _isLoggedIn ? 350 : 300,
-              height: _isLoggedIn ? size.height : 320,
+              height: _isLoggedIn ? size.height : 375,
               margin: EdgeInsets.all(10),
               child: Align(
                 alignment: Alignment.center,
