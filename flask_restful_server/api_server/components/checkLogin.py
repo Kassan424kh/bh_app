@@ -1,8 +1,8 @@
 import functools
 import json
-import multiprocessing
-import jwt
+import signal
 
+import jwt
 from bson import json_util
 from flask import request
 from flask_restful import abort
@@ -27,25 +27,19 @@ def login_required(method):
             # else ldap find user
             ldap_login_check = False
 
-
             def checkLdapUserLoggingIn():
-                ldap_login_check = bool(
-                    str(ldap_manager.authenticate(email, password).status) == "AuthenticationResponseStatus.success")
-                return ldap_login_check
+                return bool(
+                    str(ldap_manager.authenticate_direct_bind(email, password).status) == "AuthenticationResponseStatus.success")
 
-            p = multiprocessing.Process(target=checkLdapUserLoggingIn)
-            p.start()
+            def handler(signum, frame):
+                print("Forever is over!")
 
-            # Wait for 10 seconds or until process finishes
-            p.join(2)
+            signal.signal(signal.SIGALRM, handler)
+            signal.alarm(3)
 
-            # If thread is still active
-            if p.is_alive():
-                # Terminate
-                p.terminate()
-                p.join()
+            ldap_login_check = checkLdapUserLoggingIn()
 
-            if checkLdapUserLoggingIn():
+            if ldap_login_check:
                 user_data_from_ldap = json.loads(
                     json.dumps(dict(ldap_manager.authenticate(email, password).user_info), default=json_util.default))
 

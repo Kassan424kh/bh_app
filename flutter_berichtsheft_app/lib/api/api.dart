@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_berichtsheft_app/notToPushData/my_login_data.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
@@ -24,8 +25,8 @@ class API {
 
   API({Key key, this.context});
 
-  final String url = "http://192.168.2.211:5000";
-  Map<String, String> _headers = {"email": "k.khalil@satzmedia.de", "password": "Hei8chur"};
+  final String url = "http://0.0.0.0:6666"; // be sure the url not with "/" ended
+  Map<String, String> _headers = {"email": MyLoginData.email, "password": MyLoginData.password};
 
   Future<bool> login(email, password) async {
     var client = http.Client();
@@ -44,10 +45,12 @@ class API {
       } else if (data.containsKey("loginStatus") ? data["loginStatus"]["isLoggedIn"] : false) {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Welcome back ${data["userData"]["firstAndLastName"]} :)");
       }
+      client.close();
       return data.containsKey("loginStatus") ? data["loginStatus"]["isLoggedIn"] : false;
     } catch (e) {
       print(e);
       Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      client.close();
       return false;
     }
   }
@@ -67,12 +70,15 @@ class API {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Report is updated ✓");
       } else if (data.containsKey("message")) {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
+        client.close();
         return null;
       }
+      client.close();
       return data;
     } catch (e) {
       print(e);
       Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      client.close();
       return null;
     }
   }
@@ -80,12 +86,16 @@ class API {
   Future<List<dynamic>> get reports async {
     var client = http.Client();
     try {
-      var response = await client.get("${url}/get-reports", headers: _headers);
-      List<dynamic> data = jsonDecode(response.body);
+      var data = [];
+      await client.get("${url}/get-reports", headers: _headers).then((response) async {
+        if (response.statusCode == 201 || response.statusCode == 200 ) data = await jsonDecode(response.body);
+      });
+      client.close();
       return data;
     } catch (e) {
       print(e);
       Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      client.close();
       return [];
     }
   }
@@ -94,11 +104,13 @@ class API {
     var client = http.Client();
     try {
       var response = await client.get("${url}/get-deleted-reports", headers: _headers);
-      List<dynamic> data = jsonDecode(response.body);
+      List<dynamic> data = jsonDecode(response.body) as List<dynamic>;
+      client.close();
       return data;
     } catch (e) {
       print(e);
       Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      client.close();
       return [];
     }
   }
@@ -117,12 +129,15 @@ class API {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "New report is created ✓");
       } else if (data.containsKey("message")) {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
+        client.close();
         return null;
       }
+      client.close();
       return data;
     } catch (e) {
       print(e);
       Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      client.close();
       return null;
     }
   }
@@ -143,12 +158,15 @@ class API {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Report is updated ✓");
       } else if (data.containsKey("message")) {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
+        client.close();
         return null;
       }
+      client.close();
       return data;
     } catch (e) {
       print(e);
       Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      client.close();
       return null;
     }
   }
@@ -170,6 +188,7 @@ class API {
         "${url}/delete-report${values.substring(0, values.length - 1)}",
         headers: _headers,
       );
+
       Map<dynamic, dynamic> data = jsonDecode(response.body);
       if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
         _updateShowingReports(context);
@@ -177,12 +196,15 @@ class API {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: deleteForever ? "Report was deleted forever ✓" : "Report was deleted ✓");
       } else if (data.containsKey("message")) {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
+        client.close();
         return null;
       }
+      client.close();
       return data;
     } catch (e) {
       print(e);
       Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      client.close();
       return null;
     }
   }
@@ -204,12 +226,15 @@ class API {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Cannt fined any report");
       } else if (data.containsKey("message")) {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
+        client.close();
         return null;
       }
+      client.close();
       return data;
     } catch (e) {
       print(e);
       Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      client.close();
       return null;
     }
   }

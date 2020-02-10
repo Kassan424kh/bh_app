@@ -1,2 +1,5 @@
 .gitsecret/keys/random_seed
 !*.secret
+
+notToPushData/*.dart
+flutter_berichtsheft_app/lib/notToPushData/

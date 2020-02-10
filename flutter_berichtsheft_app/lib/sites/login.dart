@@ -45,6 +45,13 @@ class _LoginState extends State<Login> {
     });
   }
 
+  void _login(BuildContext context){
+    if (!_emailValidate && !_passwordValidate)
+      _api.login(_email, _password).then((bool value) {
+        Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(value);
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Flex(
@@ -83,10 +90,7 @@ class _LoginState extends State<Login> {
                                     _passwordValidate = _password == "" ? true : false;
                                   });
                                   _validateEmail(_email);
-                                  if (!_emailValidate && !_passwordValidate)
-                                    _api.login(_email, _password).then((bool value) {
-                                      Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(value);
-                                    });
+                                  _login(context);
                                 },
                                 validate: _emailValidate,
                                 maxLines: 1,
@@ -110,10 +114,7 @@ class _LoginState extends State<Login> {
                                   });
                                   _validateEmail(_email);
 
-                                  if (!_emailValidate && !_passwordValidate)
-                                    _api.login(_email, _password).then((bool value) {
-                                      Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(value);
-                                    });
+                                  _login(context);
                                 },
                                 validate: _passwordValidate,
                                 maxLines: 1,
@@ -127,10 +128,7 @@ class _LoginState extends State<Login> {
                         SizedBox(height: 15),
                         UILoginButton(
                           onPressed: () {
-                            if (!_emailValidate && !_passwordValidate)
-                              _api.login(_email, _password).then((bool value) {
-                                Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(value);
-                              });
+                            _login(context);
                           },
                         ),
                       ],

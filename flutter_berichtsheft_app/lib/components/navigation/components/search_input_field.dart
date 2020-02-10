@@ -10,7 +10,7 @@ class SearchInputField extends StatelessWidget {
     return Container(
       height: 50,
       margin: EdgeInsets.only(top: 20, bottom: 20),
-      color: (_selectedTheme[ElementStylingParameters.editButtonColor] as Color).withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
+      color: (_selectedTheme[ElementStylingParameters.headerTextColor] as Color).withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
       child: TextField(
         style: TextStyle(color: _selectedTheme[ElementStylingParameters.headerTextColor]),
         decoration: InputDecoration(
@@ -27,7 +27,7 @@ class SearchInputField extends StatelessWidget {
             padding: EdgeInsets.only(left: 20),
             child: Icon(
               Icons.search,
-              color: _selectedTheme[ElementStylingParameters.editButtonColor],
+              color: _selectedTheme[ElementStylingParameters.headerTextColor],
               size: 20,
             ),
           ),

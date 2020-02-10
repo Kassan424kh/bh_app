@@ -1,7 +1,7 @@
 from flask_mysqldb import MySQL
 from flask_restful import abort
 
-from api_server.app import app
+from api_server import app
 
 # Config MySQL
 app.config['MYSQL_HOST'] = 'localhost'

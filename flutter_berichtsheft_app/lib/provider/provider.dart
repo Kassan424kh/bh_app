@@ -18,7 +18,7 @@ class LoginProvider with ChangeNotifier {
 }
 
 class StylingProvider extends ChangeNotifier {
-  var selectedTheme = Styling.lightTheme;
+  var selectedTheme = Styling.darkTheme;
 
   void changeTheme() {
     if (selectedTheme == Styling.darkTheme)
