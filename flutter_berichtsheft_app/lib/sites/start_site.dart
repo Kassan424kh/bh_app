@@ -15,15 +15,10 @@ class StartSite extends StatefulWidget {
   _StartSiteState createState() => _StartSiteState();
 }
 
-class _StartSiteState extends State<StartSite> {
+class _StartSiteState extends State<StartSite>  {
   bool _showLoginComponents = LoginProvider().isLoggedIn ? false : true;
   bool _showNavigationComponents = LoginProvider().isLoggedIn ? true : false;
   bool _loadListOfReports = LoginProvider().isLoggedIn ? true : false;
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,10 +87,7 @@ class _StartSiteState extends State<StartSite> {
                                   fit: StackFit.passthrough,
                                   alignment: Alignment.center,
                                   children: <Widget>[
-                                    Positioned(
-                                      right: 0,
-                                      child: Provider.of<NavigateProvider>(context).routes[Provider.of<NavigateProvider>(context).nowOpenedSite],
-                                    ),
+                                    Provider.of<NavigateProvider>(context).routes[Provider.of<NavigateProvider>(context).nowOpenedSite],
                                   ],
                                 ),
                               ),

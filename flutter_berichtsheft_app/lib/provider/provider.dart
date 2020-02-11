@@ -85,7 +85,7 @@ class ReportsProvider extends ChangeNotifier {
 
 class NavigateProvider extends ChangeNotifier {
   String nowOpenedSite = "/home";
-  bool updateHeightOfShowCardComponent = true;
+  bool isNavigatedOrOnStart = false;
 
   List<String> listOfVisitedSites = [];
 

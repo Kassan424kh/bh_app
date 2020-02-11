@@ -13,6 +13,7 @@ app.config['MYSQL_CURSORCLASS'] = 'DictCursor'
 # init MYSQL
 mysql = MySQL(app)
 
+
 class Database:
     # User Functions
     def get_user(id=-1, email="", password="") -> dict:
@@ -213,6 +214,18 @@ class Database:
                     type="deleting"
                 )
                 message = "Report is deleted forever"
+        else:
+            abort(404, message="Report is undefined")
+        return {"message": message}
+
+    def revert_report(r_id) -> dict:
+        message = ""
+
+        is_report_deleted_forever = Database.get_report(r_id) is not None
+        if is_report_deleted_forever:
+            Database.insert_into_or_update_or_delete(
+                "UPDATE `reports` SET `deleted` = FALSE WHERE `reports`.`r_id` = {0};".format(r_id))
+            message = "Report is reverted"
         else:
             abort(404, message="Report is undefined")
         return {"message": message}
