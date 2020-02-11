@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/api/api.dart';
 import 'package:flutter_berichtsheft_app/components/report_list_tile.dart';
@@ -6,6 +8,7 @@ import 'package:flutter_berichtsheft_app/components/ui_button.dart';
 import 'package:flutter_berichtsheft_app/components/ui_date_picker.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -27,14 +30,27 @@ class _DeletedReportsState extends State<DeletedReports> {
     setState(() {
       _api = API(context: context);
     });
+  }
+
+  _getReports() {
     _api.deletedReports.then((deletedReports) {
-      setState(() {
-        _listOfDeletedReports = deletedReports;
-      });
-      List<int> _listOfReportsIds = [];
-      for (var i = 0; i < deletedReports.length; i++) _listOfReportsIds.add(deletedReports[i]["r_id"]);
-      Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
+      try {
+        setState(() {
+          _listOfDeletedReports.clear();
+          _listOfDeletedReports = deletedReports;
+        });
+
+        List<int> _listOfReportsIds = [];
+        for (var i = 0; i < deletedReports.length; i++) _listOfReportsIds.add(deletedReports[i]["r_id"]);
+        Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
+      } catch (e) {}
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _getReports();
   }
 
   @override
@@ -50,12 +66,32 @@ class _DeletedReportsState extends State<DeletedReports> {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            // Delete reports button
+            // Revert reports button
             UIButton(
               onPressed: () {
-                Provider.of<MessageProvider>(context, listen: false).showMessage(true);
+                _api.revertReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports);
               },
-              leftWidget: Icon(Icons.delete_outline),
+              leftWidget: Icon(OMIcons.settingsBackupRestore),
+              isActive: true,
+              withoutLeftWidgetSpace: true,
+            ),
+            SizedBox(width: 20),
+
+            // Delete reports forever button
+            UIButton(
+              onPressed: () {
+                bool areReportsSelected = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports.length > 0;
+                Provider.of<MessageProvider>(context, listen: false).showMessage(
+                  true,
+                  messageText: areReportsSelected ? "Are you sure, you want to delete selected reports forever?" : "There is no selected reports",
+                  okButton: areReportsSelected
+                      ? () {
+                          _api.deleteReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports, deleteForever: true);
+                        }
+                      : null,
+                );
+              },
+              leftWidget: Icon(OMIcons.deleteForever),
               isActive: true,
               withoutLeftWidgetSpace: true,
             ),
@@ -169,7 +205,8 @@ class _DeletedReportsState extends State<DeletedReports> {
         AnimatedContainer(
           duration: Duration(milliseconds: (Styling.durationAnimation).round()),
           curve: Curves.easeInOutCubic,
-          constraints: BoxConstraints(maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfDeletedReports.length * 60 > 600 ? 600 : _listOfDeletedReports.length * 60).toDouble() : 0),
+          constraints: BoxConstraints(
+              maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfDeletedReports.length * 60 > 600 ? 600 : _listOfDeletedReports.length * 60).toDouble() : 0),
           child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
               ? Scrollbar(
                   child: ListView.builder(

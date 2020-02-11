@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/components/message.dart';
 import 'package:flutter_berichtsheft_app/components/navigation/navigation.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
+import 'package:flutter_berichtsheft_app/routes/routes.dart';
 import 'package:flutter_berichtsheft_app/sites/import_reports.dart';
 import 'package:flutter_berichtsheft_app/sites/login.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
@@ -15,7 +16,7 @@ class StartSite extends StatefulWidget {
   _StartSiteState createState() => _StartSiteState();
 }
 
-class _StartSiteState extends State<StartSite>  {
+class _StartSiteState extends State<StartSite> {
   bool _showLoginComponents = LoginProvider().isLoggedIn ? false : true;
   bool _showNavigationComponents = LoginProvider().isLoggedIn ? true : false;
   bool _loadListOfReports = LoginProvider().isLoggedIn ? true : false;
@@ -87,7 +88,7 @@ class _StartSiteState extends State<StartSite>  {
                                   fit: StackFit.passthrough,
                                   alignment: Alignment.center,
                                   children: <Widget>[
-                                    Provider.of<NavigateProvider>(context).routes[Provider.of<NavigateProvider>(context).nowOpenedSite],
+                                    Routes.routes[Provider.of<NavigateProvider>(context).nowOpenedSite],
                                   ],
                                 ),
                               ),

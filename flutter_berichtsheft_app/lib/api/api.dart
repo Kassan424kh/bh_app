@@ -223,8 +223,6 @@ class API {
         values += "$key=$value&";
       });
 
-      print(values);
-
       var response = await client.get(
         "${url}/delete-reports${values.substring(0, values.length - 1)}",
         headers: _headers,
@@ -261,8 +259,6 @@ class API {
       _valuesData.forEach((key, value) {
         values += "$key=$value&";
       });
-
-      print(values);
 
       var response = await client.get(
         "${url}/revert-reports${values.substring(0, values.length - 1)}",

@@ -75,7 +75,7 @@ class ReportsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  bool showReportsAfterLoad = false;
+  bool showReportsAfterLoad = true;
 
   updateShowingReports(bool show) {
     showReportsAfterLoad = show;
@@ -101,18 +101,9 @@ class NavigateProvider extends ChangeNotifier {
     if (listOfVisitedSites.length >= 2) {
       listOfVisitedSites.add(nowOpenedSite);
       nowOpenedSite = listOfVisitedSites.elementAt(listOfVisitedSites.length - 2);
-      notifyListeners();
     }
+    notifyListeners();
   }
-
-  Map<String, Widget> routes = {
-    "/": Home(),
-    "/home": Home(),
-    "/import-reports": ImportReports(),
-    "/create-new": CreateNewReport(),
-    "/deleted-reports": DeletedReports(),
-    "/draft-reports": DraftReports(),
-  };
 }
 
 class MessageProvider extends ChangeNotifier {
@@ -121,20 +112,23 @@ class MessageProvider extends ChangeNotifier {
   bool messageShowingPause = false;
   bool closeMessage = false;
   String typeOfMessage = "good";
-  void messageOkButton;
-  void messageCancelButton;
+  dynamic messageOkButton;
 
   String messageTexts = "Message text faild!!!";
 
-  showMessage(bool showMessage, {String messageText = "", type = "good", void okButton, void cancelButton}) {
+  showMessage(bool showMessage, {String messageText = "", type = "good", dynamic okButton}) {
     isShowMessage = showMessage;
     messageTexts = messageText;
     messageShowStatus = 0;
     typeOfMessage = type;
-    messageOkButton = okButton;
-    messageCancelButton = cancelButton;
+    Timer(Duration(milliseconds: 10), (){
+      this.messageOkButton = okButton;
+      notifyListeners();
+    });
+
+    Timer _timer;
     if (showMessage == true) {
-      Timer _timer = Timer.periodic(Duration(milliseconds: 100), (Timer timer) {
+      _timer = Timer.periodic(Duration(milliseconds: 100), (Timer timer) {
         if (messageShowStatus < 100 && !messageShowingPause) {
           messageShowStatus++;
         }
@@ -154,7 +148,7 @@ class MessageProvider extends ChangeNotifier {
       if (!_timer.isActive)messageTexts = "Message text faild!!!";
       typeOfMessage = "good";
       messageOkButton = null;
-      messageCancelButton = null;
+      notifyListeners();
     }
     notifyListeners();
   }

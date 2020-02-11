@@ -14,13 +14,13 @@ class RevertReports(Resource):
 
         list_of_report_ids = loads(args.get("reportIds", []))
         if not all(isinstance(x, (int, int)) for x in list_of_report_ids):
-            abort(400, message="you should add a list of reportIds")
+            abort(400, message="You should add a list of reportIds")
         elif len(list_of_report_ids) == 0:
-            abort(400, message="please select minimal 1 report")
+            abort(400, message="There is no selected reports")
 
         for rId in list_of_report_ids:
             Database.revert_report(
                 r_id=rId
             )
 
-        return {"message": "report{0} {1} reverted".format(("" if (len(list_of_report_ids) == 0) else "s"), ("is" if (len(list_of_report_ids) == 1) else "are"))}, 201
+        return {"message": "Report{0} {1} reverted".format(("" if (len(list_of_report_ids) == 0) else "s"), ("is" if (len(list_of_report_ids) == 1) else "are"))}, 201

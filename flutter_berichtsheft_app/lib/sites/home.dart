@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/api/api.dart';
 import 'package:flutter_berichtsheft_app/components/report_list_tile.dart';
@@ -24,23 +26,32 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     super.initState();
+
     setState(() {
+      _listOfReports.clear();
       _api = API(context: context);
     });
-    _api.reports.then((reports) {
-      setState(() {
-        _listOfReports = reports;
+    Timer(Duration(milliseconds: 50), (){
+      _api.reports.then((reports) {
+        setState(() {
+          _listOfReports = reports;
+        });
+        List<int> _listOfReportsIds = [];
+        for (var i = 0; i < reports.length; i++) _listOfReportsIds.add(reports[i]["r_id"]);
+        Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
       });
-      List<int> _listOfReportsIds = [];
-      for (var i = 0; i < reports.length; i++) _listOfReportsIds.add(reports[i]["r_id"]);
-      Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
     });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports;
+    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context).listOfSelectedReports;
     return Site(
       siteRoute: "/home",
       title: "Home",
@@ -53,8 +64,15 @@ class _HomeState extends State<Home> {
             // Delete reports button
             UIButton(
               onPressed: () {
-                //Provider.of<MessageProvider>(context, listen: false).showMessage(true);
-                _api.deleteReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports);
+                bool areReportsSelected = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports.length > 0;
+                Provider.of<MessageProvider>(context, listen: false).showMessage(
+                  true,
+                  messageText: areReportsSelected ? "Are you sure, you want to delete selected reports?" : "There is no selected reports",
+                  okButton: areReportsSelected ? (){
+                    _api.deleteReports(Provider.of<ReportsProvider>(context, listen: false)
+                        .listOfSelectedReports);
+                  } : null,
+                );
               },
               leftWidget: Icon(Icons.delete_outline),
               isActive: true,

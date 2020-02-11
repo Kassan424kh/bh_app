@@ -134,23 +134,22 @@ class _CreateNewReportState extends State<CreateNewReport> {
         SizedBox(height: 60),
         GoAndBackUiButtons(
           onClickGoButton: () {
-
             Map<dynamic, dynamic> reportData = {};
             reportData["hours"] = _hours;
             reportData["text"] = _texts;
             reportData["yearOfTraining"] = _yearOfTraining;
             if (_date != null)
               reportData["date"] = _date;
-            else if (_startDate != null && _endDate != null){
+            else if (_startDate != null && _endDate != null) {
               reportData["startDate"] = _startDate;
               reportData["endDate"] = _endDate;
             }
 
             if (_hours != null && _texts != null && _yearOfTraining != null && (_date != null || (_startDate != null && _endDate != null))) {
               _api.createNewReport(reportData);
-            }else
+            } else
               Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Please complete report data");
-            },
+          },
         )
       ],
     );

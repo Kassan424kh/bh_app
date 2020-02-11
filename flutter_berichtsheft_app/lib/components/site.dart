@@ -27,10 +27,13 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
   GlobalKey _homeSiteGKey = GlobalKey();
   RenderBox _renderBoxOfTheSite;
   String openedSite = "/";
+  DateTime _now;
 
   AnimationController _animationController;
   Animation _showSiteOpacity;
   Animation _showSitePosition;
+
+  bool stopUpdateSize = false;
 
   _renderBox(_) {
     if (_homeSiteGKey.currentContext != null) {
@@ -50,6 +53,8 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
         Provider.of<StylingProvider>(context, listen: false).updateHeightOfShowSitesCardComponent(_renderBoxOfTheSite.size.height);
       }
     });
+
+    Timer(Duration(milliseconds: 50), _updateTime);
 
     _animationController = AnimationController(
       vsync: this,
@@ -72,24 +77,30 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
   }
 
   @override
-  void didUpdateWidget(Site oldWidget) {
-    super.didUpdateWidget(oldWidget);
-
-    Timer(Duration(milliseconds: 10), () {
-      try {
-        if (Provider.of<ReportsProvider>(context, listen: false).showReportsAfterLoad)
-          Provider.of<StylingProvider>(context, listen: false).updateHeightOfShowSitesCardComponent(_renderBoxOfTheSite.size.height);
-      } catch (e) {
-        //print(e);
-      }
-    });
-  }
-
-  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     if (Provider.of<LoginProvider>(context).isLoggedIn) {
       _animationController.forward(from: 0);
+    }
+  }
+
+  void _updateTime() {
+    try {
+      if (Provider.of<ReportsProvider>(context, listen: false).showReportsAfterLoad && Provider.of<StylingProvider>(context, listen: false).showSitesCardComponentHeight != _renderBoxOfTheSite.size.height){
+        Provider.of<StylingProvider>(context, listen: false).updateHeightOfShowSitesCardComponent(_renderBoxOfTheSite.size.height);
+      }
+    } catch (e) {
+      //print(e);
+    }
+    try{
+      setState(() {
+        _now = DateTime.now();
+        Timer(
+          Duration(milliseconds: 1) - Duration(milliseconds: _now.millisecond),
+          _updateTime,
+        );
+      });
+    }catch (e){
     }
   }
 

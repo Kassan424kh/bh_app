@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_berichtsheft_app/components/ui_button.dart';
 import 'package:flutter_berichtsheft_app/components/ui_circle_button.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 
 class Message extends StatefulWidget {
@@ -13,7 +15,6 @@ class _MessageState extends State<Message> {
   @override
   void initState() {
     super.initState();
-    //Provider.of<MessageProvider>(context, listen: false).showMessage(true);
   }
 
   @override
@@ -21,6 +22,7 @@ class _MessageState extends State<Message> {
     final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
     final bool _isShowMessage = Provider.of<MessageProvider>(context).isShowMessage;
     final int _messageStatus = Provider.of<MessageProvider>(context).messageShowStatus;
+    final bool _showMessageOkButton = Provider.of<MessageProvider>(context).messageOkButton != null;
     return _isShowMessage
         ? Positioned.fill(
             bottom: 0,
@@ -116,6 +118,23 @@ class _MessageState extends State<Message> {
                               ),
                             ),
                           ),
+                          _showMessageOkButton
+                              ? Positioned.fill(
+                                  child: Align(
+                                    alignment: Alignment.bottomRight,
+                                    child: Container(
+                                      padding: EdgeInsets.all(0),
+                                      height: 35,
+                                      child: UIButton(
+                                        onPressed: Provider.of<MessageProvider>(context, listen: false).messageOkButton,
+                                        leftWidget: Icon(OMIcons.check),
+                                        isActive: true,
+                                        withoutLeftWidgetSpace: true,
+                                      ),
+                                    ),
+                                  ),
+                                )
+                              : Container(),
                         ],
                       ),
                     ),
