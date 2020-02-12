@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:vector_math/vector_math_64.dart' show radians;
 
@@ -14,7 +15,7 @@ class UILoginButton extends StatelessWidget{
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
 
     return Container(
-      width: 50,
+      width: 60,
       height: 50,
       child: Align(
         alignment: Alignment.center,
@@ -27,12 +28,8 @@ class UILoginButton extends StatelessWidget{
           textColor: _selectedTheme[ElementStylingParameters.primaryAccentColor],
           splashColor: _selectedTheme[ElementStylingParameters.boxShadowColor],
           child: Transform.rotate(
-            angle: radians(360 / 12) * 30,
-            child: Icon(
-              Icons.trending_flat,
-              color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
-              size: 20,
-            ),
+            angle: 0,
+            child: Text("GO", style: TextStyle(color: _selectedTheme[ElementStylingParameters.primaryAccentColor])),
           ),
         ),
       ),
