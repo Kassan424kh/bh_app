@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e61e2f2e-5d2c-403b-a6e8-b0dc5c2cff2b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/reports_app.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DB/reports_app.sql" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -71,7 +71,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api_server/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="145">
@@ -79,6 +79,15 @@
               <folding>
                 <element signature="e#46#69#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/DB/reports_app.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4495">
+              <caret line="154" selection-start-line="154" selection-end-line="154" />
             </state>
           </provider>
         </entry>
@@ -112,7 +121,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/DB/reports_app.sql" />
         <option value="$PROJECT_DIR$/api.py" />
         <option value="$PROJECT_DIR$/api_server/apis/createNewReport.py" />
         <option value="$PROJECT_DIR$/api_server/apis/deleteReport.py" />
@@ -132,6 +140,7 @@
         <option value="$PROJECT_DIR$/api_server/__init__.py" />
         <option value="$PROJECT_DIR$/api_server/routes/deleteReports.py" />
         <option value="$PROJECT_DIR$/api_server/routes/revertReports.py" />
+        <option value="$PROJECT_DIR$/DB/reports_app.sql" />
       </list>
     </option>
   </component>
@@ -181,6 +190,11 @@
               <item name="flask_restful_server" type="462c0819:PsiDirectoryNode" />
               <item name="api_server" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flask_restful_server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flask_restful_server" type="462c0819:PsiDirectoryNode" />
+              <item name="DB" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -301,18 +315,18 @@
       <workItem from="1581494666606" duration="822000" />
       <workItem from="1581496099447" duration="11000" />
       <workItem from="1581504958609" duration="1768000" />
-      <workItem from="1581585194640" duration="400000" />
+      <workItem from="1581585194640" duration="529000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="112803000" />
+    <option name="totallyTimeSpent" value="112932000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.14057508" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.14057508" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -321,7 +335,7 @@
       <window_info id="UI Designer" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292797" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.21095152" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.21095152" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -409,13 +423,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="232">
           <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DB/reports_app.sql">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2813">
-          <caret line="97" selection-start-line="97" selection-end-line="97" />
         </state>
       </provider>
     </entry>
@@ -587,6 +594,13 @@
           <folding>
             <element signature="e#46#69#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DB/reports_app.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4495">
+          <caret line="154" selection-start-line="154" selection-end-line="154" />
         </state>
       </provider>
     </entry>
