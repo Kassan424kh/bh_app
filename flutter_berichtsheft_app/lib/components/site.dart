@@ -86,13 +86,13 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
 
   void _updateTime() {
     try {
-      if (Provider.of<ReportsProvider>(context, listen: false).showReportsAfterLoad && Provider.of<StylingProvider>(context, listen: false).showSitesCardComponentHeight != _renderBoxOfTheSite.size.height){
+      if (Provider.of<ReportsProvider>(context, listen: false).showReportsAfterLoad &&
+          Provider.of<StylingProvider>(context, listen: false).showSitesCardComponentHeight != _renderBoxOfTheSite.size.height) {
         Provider.of<StylingProvider>(context, listen: false).updateHeightOfShowSitesCardComponent(_renderBoxOfTheSite.size.height);
       }
     } catch (e) {
-      //print(e);
     }
-    try{
+    try {
       setState(() {
         _now = DateTime.now();
         Timer(
@@ -100,7 +100,7 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
           _updateTime,
         );
       });
-    }catch (e){
+    } catch (e) {
     }
   }
 

@@ -25,6 +25,9 @@ class Main extends StatelessWidget {
         ChangeNotifierProvider<MessageProvider>(
           create: (_) => MessageProvider(),
         ),
+        ChangeNotifierProvider<LoadingProgress>(
+          create: (_) => LoadingProgress(),
+        ),
       ],
       child: Consumer<NavigateProvider>(
         builder: (_, settings, child) {

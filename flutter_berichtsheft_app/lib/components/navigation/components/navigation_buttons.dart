@@ -72,6 +72,15 @@ class NavigationButtons extends StatelessWidget {
                 Provider.of<NavigateProvider>(context, listen: false).goToSite("/draft-reports");
               },
             ),
+            NavigationButton(
+              text: "Duplicated Reports",
+              isActive: _nowOpendedSite == "/duplicated-reports",
+              icon: OMIcons.layers,
+              onPressed: () {
+                _updateShowingReports(context);
+                Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
+              },
+            ),
           ],
         ),
       ),

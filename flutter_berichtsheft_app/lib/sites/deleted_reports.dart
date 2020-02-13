@@ -33,18 +33,20 @@ class _DeletedReportsState extends State<DeletedReports> {
   }
 
   _getReports() {
-    _api.deletedReports.then((deletedReports) {
-      try {
-        setState(() {
-          _listOfDeletedReports.clear();
-          _listOfDeletedReports = deletedReports;
-        });
+    if (_listOfDeletedReports.length == 0)
+      _api.deletedReports.then((deletedReports) {
+        try {
+          setState(() {
+            _listOfDeletedReports.clear();
+            _listOfDeletedReports = deletedReports;
+          });
 
-        List<int> _listOfReportsIds = [];
-        for (var i = 0; i < deletedReports.length; i++) _listOfReportsIds.add(deletedReports[i]["r_id"]);
-        Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
-      } catch (e) {}
-    });
+          List<int> _listOfReportsIds = [];
+          for (var i = 0; i < deletedReports.length; i++) _listOfReportsIds.add(deletedReports[i]["r_id"]);
+          Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
+        } catch (e) {
+        }
+      });
   }
 
   @override
@@ -56,7 +58,7 @@ class _DeletedReportsState extends State<DeletedReports> {
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports;
+    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context).listOfSelectedReports;
     return Site(
       siteRoute: "/deleted-reports",
       title: "Deleted reports",

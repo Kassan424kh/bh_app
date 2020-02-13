@@ -28,6 +28,7 @@ class _StartSiteState extends State<StartSite> {
     Size size = MediaQuery.of(context).size;
     double _showCardComponentWidth = Provider.of<StylingProvider>(context).showSitesCardComponentWidth;
     double _showCardComponentHeight = Provider.of<StylingProvider>(context).showSitesCardComponentHeight;
+    double _progress = Provider.of<LoadingProgress>(context).loadingProgress;
     return Container(
       width: size.width,
       height: size.height,

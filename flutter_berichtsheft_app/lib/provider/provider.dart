@@ -1,12 +1,16 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_berichtsheft_app/sites/create_new_report.dart';
-import 'package:flutter_berichtsheft_app/sites/deleted_reports.dart';
-import 'package:flutter_berichtsheft_app/sites/draft_reports.dart';
-import 'package:flutter_berichtsheft_app/sites/home.dart';
-import 'package:flutter_berichtsheft_app/sites/import_reports.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
+
+class LoadingProgress with ChangeNotifier{
+  double loadingProgress = 0;
+
+  void updateLoginStatus(double progress) {
+    loadingProgress = progress;
+    notifyListeners();
+  }
+}
 
 class LoginProvider with ChangeNotifier {
   bool isLoggedIn = false;
