@@ -70,15 +70,6 @@ class _NavigationButtonsState extends State<NavigationButtons> {
               },
             ),
             NavigationButton(
-              text: "Control Panel",
-              icon: Icons.person_outline,
-              isActive: _nowOpendedSite == "/control-panel",
-              onPressed: (){
-                //_updateShowingReports(context);
-                //Provider.of<NavigateProvider>(context, listen: false).goToSite("/control-panel");
-              },
-            ),
-            NavigationButton(
               text: "Deleted",
               isActive: _nowOpendedSite == "/deleted-reports",
               icon: OMIcons.deleteSweep,
