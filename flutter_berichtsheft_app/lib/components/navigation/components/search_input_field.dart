@@ -4,6 +4,15 @@ import 'package:flutter_berichtsheft_app/styling/styling.dart';
 import 'package:provider/provider.dart';
 
 class SearchInputField extends StatelessWidget {
+  final onTap;
+  final onSubmitted;
+
+  SearchInputField({
+    Key key,
+    this.onTap,
+    this.onSubmitted,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
@@ -13,6 +22,8 @@ class SearchInputField extends StatelessWidget {
       color: (_selectedTheme[ElementStylingParameters.headerTextColor] as Color).withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
       child: TextField(
         style: TextStyle(color: _selectedTheme[ElementStylingParameters.headerTextColor]),
+        onTap: onTap,
+        onSubmitted: onSubmitted,
         decoration: InputDecoration(
           border: InputBorder.none,
           focusedBorder: InputBorder.none,

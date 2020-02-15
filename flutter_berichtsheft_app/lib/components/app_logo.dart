@@ -18,7 +18,7 @@ class AppLogo extends StatelessWidget {
       duration: Duration(milliseconds: Styling.durationAnimation),
       margin: padding,
       child: Image.asset(
-        _selectedTheme[ElementStylingParameters.logoImage],
+        _selectedTheme[SitesIcons.logoImage],
         fit: BoxFit.fitWidth,
       ),
     );

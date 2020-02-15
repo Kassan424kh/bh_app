@@ -13,6 +13,9 @@ class Main extends StatelessWidget {
         ChangeNotifierProvider<LoginProvider>(
           create: (_) => LoginProvider(),
         ),
+        ChangeNotifierProvider<UserData>(
+          create: (_) => UserData(),
+        ),
         ChangeNotifierProvider<StylingProvider>(
           create: (_) => StylingProvider(),
         ),

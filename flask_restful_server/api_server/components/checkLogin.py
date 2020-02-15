@@ -6,9 +6,10 @@ import jwt
 from bson import json_util
 from flask import request
 from flask_restful import abort
+from ldap3 import Connection
 
 from ..db.database import Database
-from ..db.ldapServerConnection import ldap_manager
+from ..db.ldapServerConnection import ldap_manager, authUser
 
 
 # LOGIN TESTER
@@ -28,8 +29,7 @@ def login_required(method):
             ldap_login_check = False
 
             def checkLdapUserLoggingIn():
-                return bool(
-                    str(ldap_manager.authenticate_direct_bind(email, password).status) == "AuthenticationResponseStatus.success")
+                return authUser(email, password)
 
             def handler(signum, frame):
                 pass
@@ -41,7 +41,7 @@ def login_required(method):
 
             if ldap_login_check:
                 user_data_from_ldap = json.loads(
-                    json.dumps(dict(ldap_manager.authenticate(email, password).user_info), default=json_util.default))
+                    json.dumps(dict(ldap_manager.authenticate().user_info), default=json_util.default))
 
                 find_user_after_his_email = Database.get_user(email=email)
                 user = Database.get_user(email=email, password=_encryptedPassword)

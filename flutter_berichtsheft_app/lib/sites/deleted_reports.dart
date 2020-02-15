@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/api/api.dart';
+import 'package:flutter_berichtsheft_app/components/null_image.dart';
 import 'package:flutter_berichtsheft_app/components/report_list_tile.dart';
 import 'package:flutter_berichtsheft_app/components/site.dart';
 import 'package:flutter_berichtsheft_app/components/ui_button.dart';
@@ -35,18 +36,24 @@ class _DeletedReportsState extends State<DeletedReports> {
   _getReports() {
     if (_listOfDeletedReports.length == 0)
       _api.deletedReports.then((deletedReports) {
-        try {
-          setState(() {
-            _listOfDeletedReports.clear();
-            _listOfDeletedReports = deletedReports;
-          });
+        setState(() {
+          _listOfDeletedReports.clear();
+          _listOfDeletedReports = deletedReports;
+        });
 
-          List<int> _listOfReportsIds = [];
-          for (var i = 0; i < deletedReports.length; i++) _listOfReportsIds.add(deletedReports[i]["r_id"]);
+        List<int> _listOfReportsIds = [];
+        for (var i = 0; i < deletedReports.length; i++) _listOfReportsIds.add(deletedReports[i]["r_id"]);
+        try {
           Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
-        } catch (e) {
-        }
+        } catch (e) {}
       });
+  }
+
+  @override
+  void setState(fn) {
+    if (mounted) {
+      super.setState(fn);
+    }
   }
 
   @override
@@ -204,32 +211,39 @@ class _DeletedReportsState extends State<DeletedReports> {
           ),
         ),
         SizedBox(height: 20),
-        AnimatedContainer(
-          duration: Duration(milliseconds: (Styling.durationAnimation).round()),
-          curve: Curves.easeInOutCubic,
-          constraints: BoxConstraints(
-              maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfDeletedReports.length * 60 > 600 ? 600 : _listOfDeletedReports.length * 60).toDouble() : 0),
-          child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
-              ? Scrollbar(
-                  child: ListView.builder(
-                    itemCount: _listOfDeletedReports.length,
-                    cacheExtent: 10,
-                    itemExtent: 60,
-                    reverse: true,
-                    addAutomaticKeepAlives: true,
-                    physics: AlwaysScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (_, int index) => ReportListTile(
-                      reportId: _listOfDeletedReports[index]["r_id"],
-                      isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(_listOfDeletedReports[index]["r_id"]) ? true : false,
-                      date: _listOfDeletedReports[index]["date"],
-                      hours: _listOfDeletedReports[index]["hours"].toString(),
-                      reportText: _listOfDeletedReports[index]["text"],
-                    ),
-                  ),
-                )
-              : Container(),
-        ),
+        _listOfDeletedReports.length > 0
+            ? AnimatedContainer(
+                duration: Duration(milliseconds: (Styling.durationAnimation).round()),
+                curve: Curves.easeInOutCubic,
+                constraints: BoxConstraints(
+                    maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfDeletedReports.length * 60 > 600 ? 600 : _listOfDeletedReports.length * 60).toDouble() : 0),
+                child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
+                    ? Scrollbar(
+                        child: ListView.builder(
+                          itemCount: _listOfDeletedReports.length,
+                          cacheExtent: 10,
+                          itemExtent: 60,
+                          reverse: true,
+                          addAutomaticKeepAlives: true,
+                          physics: AlwaysScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (_, int index) => ReportListTile(
+                            reportId: _listOfDeletedReports[index]["r_id"],
+                            isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(_listOfDeletedReports[index]["r_id"]) ? true : false,
+                            date: _listOfDeletedReports[index]["date"],
+                            hours: _listOfDeletedReports[index]["hours"].toString(),
+                            reportText: _listOfDeletedReports[index]["text"],
+                          ),
+                        ),
+                      )
+                    : Container(),
+              )
+            : Container(),
+        _listOfDeletedReports.length == 0
+            ? NullImage(
+                image: _selectedTheme[SitesIcons.nullDeletedReports],
+              )
+            : Container()
       ],
     );
   }

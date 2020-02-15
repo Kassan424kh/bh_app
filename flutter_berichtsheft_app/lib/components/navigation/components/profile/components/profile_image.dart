@@ -15,7 +15,7 @@ class ProfileImage extends StatelessWidget {
         decoration: BoxDecoration(
           image: DecorationImage(
               image: AssetImage(
-                _selectedTheme[ElementStylingParameters.avatarImage],
+                _selectedTheme[SitesIcons.avatarImage],
               ),
               fit: BoxFit.fill),
         ),

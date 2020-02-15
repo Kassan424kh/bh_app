@@ -30,9 +30,15 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - assets/avatars/avatar_dark.png
-    - assets/avatars/avatar_hell.png
     - assets/images/LightLogoWithText.png
     - assets/images/DarkLogoWithoutText.png
     - assets/images/DarkLogoWithText.png
     - assets/images/LightLogoWithoutText.png
+    - assets/images/profile_light.png
+    - assets/images/profile_dark.png
+    - assets/images/null_delet_dark.png
+    - assets/images/null_delet_light.png
+    - assets/images/null_reports_dark.png
+    - assets/images/null_reports_light.png
+    - assets/images/null_search_dark.png
+    - assets/images/null_search_light.png

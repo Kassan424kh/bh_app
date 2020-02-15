@@ -12,12 +12,12 @@ import 'package:flutter_berichtsheft_app/styling/styling.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
-class Home extends StatefulWidget {
+class Search extends StatefulWidget {
   @override
-  _HomeState createState() => _HomeState();
+  _SearchState createState() => _SearchState();
 }
 
-class _HomeState extends State<Home> {
+class _SearchState extends State<Search> {
   DateTime _fromDate = DateTime.now();
   DateTime _toDate = DateTime.now();
   DateFormat _dateFormat = DateFormat("dd-MM-yyyy");
@@ -32,16 +32,13 @@ class _HomeState extends State<Home> {
       _listOfReports.clear();
       _api = API(context: context);
     });
+    Timer(Duration(milliseconds: 50), () {
+      /*_api.reports.then((reports) {
 
-    _api.reports.then((reports) {
+      });*/
       setState(() {
-        _listOfReports = reports;
+        _listOfReports = [];
       });
-      List<int> _listOfReportsIds = [];
-      for (var i = 0; i < reports.length; i++) _listOfReportsIds.add(reports[i]["r_id"]);
-      try {
-        Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
-      } catch (e) {}
     });
   }
 
@@ -53,8 +50,8 @@ class _HomeState extends State<Home> {
   }
 
   @override
-  void dispose() {
-    super.dispose();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override
@@ -62,8 +59,8 @@ class _HomeState extends State<Home> {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context).listOfSelectedReports;
     return Site(
-      siteRoute: "/home",
-      title: "Home",
+      siteRoute: "/search",
+      title: "Search",
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -195,33 +192,38 @@ class _HomeState extends State<Home> {
           ),
         ),
         SizedBox(height: 20),
-        _listOfReports.length > 0 ? AnimatedContainer(
-          duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
-          curve: Curves.easeOutCubic,
-          constraints: BoxConstraints(maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfReports.length * 60 > 600 ? 600 : _listOfReports.length * 60).toDouble() : 0),
-          child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
-              ? Scrollbar(
-                  child: ListView.builder(
-                    itemCount: _listOfReports.length,
-                    cacheExtent: 10,
-                    itemExtent: 60,
-                    reverse: true,
-                    addAutomaticKeepAlives: true,
-                    physics: AlwaysScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (_, int index) => ReportListTile(
-                        reportId: _listOfReports[index]["r_id"],
-                        isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(_listOfReports[index]["r_id"]) ? true : false,
-                        date: _listOfReports[index]["date"],
-                        hours: _listOfReports[index]["hours"].toString(),
-                        reportText: _listOfReports[index]["text"]),
-                  ),
-                )
-              : Container(),
-        ) : Container(),
-        _listOfReports.length == 0 ? NullImage(
-          image: _selectedTheme[SitesIcons.nullHomeReports],
-        ) : Container()
+        _listOfReports.length > 0
+            ? AnimatedContainer(
+                duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
+                curve: Curves.easeOutCubic,
+                constraints:
+                    BoxConstraints(maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfReports.length * 60 > 600 ? 600 : _listOfReports.length * 60).toDouble() : 0),
+                child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
+                    ? Scrollbar(
+                        child: ListView.builder(
+                          itemCount: _listOfReports.length,
+                          cacheExtent: 10,
+                          itemExtent: 60,
+                          reverse: true,
+                          addAutomaticKeepAlives: true,
+                          physics: AlwaysScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemBuilder: (_, int index) => ReportListTile(
+                              reportId: _listOfReports[index]["r_id"],
+                              isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(_listOfReports[index]["r_id"]) ? true : false,
+                              date: _listOfReports[index]["date"],
+                              hours: _listOfReports[index]["hours"].toString(),
+                              reportText: _listOfReports[index]["text"]),
+                        ),
+                      )
+                    : Container(),
+              )
+            : Container(),
+        _listOfReports.length == 0
+            ? NullImage(
+                image: _selectedTheme[SitesIcons.nullFoundReports],
+              )
+            : Container(),
       ],
     );
   }

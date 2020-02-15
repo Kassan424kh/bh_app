@@ -1,17 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter_berichtsheft_app/api/api.dart';
 import 'package:flutter_berichtsheft_app/components/navigation/components/search_input_field.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 
-class NavigationButtons extends StatelessWidget {
+class NavigationButtons extends StatefulWidget {
+
+  @override
+  _NavigationButtonsState createState() => _NavigationButtonsState();
+}
+
+class _NavigationButtonsState extends State<NavigationButtons> {
+  API _api;
 
   _updateShowingReports(BuildContext context){
     Provider.of<ReportsProvider>(context, listen: false).updateShowingReports(false);
     Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports.clear();
     Provider.of<ReportsProvider>(context, listen: false).selectAllReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports);
+    _api.clearClient();
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      _api = API(context: context);
+    });
+    super.initState();
   }
 
   @override
@@ -26,7 +43,14 @@ class NavigationButtons extends StatelessWidget {
           scrollDirection: Axis.vertical,
           shrinkWrap: true,
           children: <Widget>[
-            SearchInputField(),
+            SearchInputField(onTap: (){
+              _updateShowingReports(context);
+              Provider.of<NavigateProvider>(context, listen: false).goToSite("/search");
+            },
+              onSubmitted: (String v){
+                print(v);
+              },
+            ),
             NavigationButton(
               text: "HOME",
               icon: OMIcons.home,

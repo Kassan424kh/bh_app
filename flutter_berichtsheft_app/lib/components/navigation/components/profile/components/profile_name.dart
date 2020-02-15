@@ -13,7 +13,7 @@ class ProfileName extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(10),
         child: Text(
-          "Test Test",
+          Provider.of<UserData>(context).userName,
           style: TextStyle(
             color: _selectedTheme[ElementStylingParameters.headerTextColor],
             fontSize: 30,

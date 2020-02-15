@@ -20,6 +20,14 @@ class LoginProvider with ChangeNotifier {
     notifyListeners();
   }
 }
+class UserData with ChangeNotifier {
+  String userName = "";
+
+  void setUserName(String uName) {
+    userName = uName;
+    notifyListeners();
+  }
+}
 
 class StylingProvider extends ChangeNotifier {
   var selectedTheme = Styling.darkTheme;
@@ -157,3 +165,5 @@ class MessageProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
+
+
