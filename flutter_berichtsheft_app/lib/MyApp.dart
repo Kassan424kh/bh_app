@@ -8,7 +8,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    bool _isLoggedIn = Provider.of<LoginProvider>(context).isLoggedIn;
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       extendBody: true,

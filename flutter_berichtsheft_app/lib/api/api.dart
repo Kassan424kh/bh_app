@@ -44,6 +44,14 @@ class API {
     }
   }
 
+  void catchErrorMessage(e){
+    if (e.response.statusCode == 404)
+      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+    else
+      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: e.response.data["message"]);
+    dio.clear();
+  }
+
   Future<bool> login(email, password) async {
     try {
       var response = await dio.get(
@@ -57,31 +65,27 @@ class API {
 
       Map<String, dynamic> data = response.data;
 
-      if (!data.containsKey("loginStatus") && (response.statusCode != 200 || response.statusCode != 201)) {
+      if (data.containsKey("loginStatus")) {
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Welcome back ${data["userData"]["firstAndLastName"]} :)");
+        Provider.of<UserData>(context, listen: false).setUserName(data["userData"]["firstAndLastName"]);
+      } else if (data.containsKey("loginStatus") ? data["loginStatus"]["isLoggedIn"] : false) {
         if (data.containsKey("message")) {
           Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
         } else {
           Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Login failed");
         }
-      } else if (data.containsKey("loginStatus") ? data["loginStatus"]["isLoggedIn"] : false) {
-        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Welcome back ${data["userData"]["firstAndLastName"]} :)");
-        Provider.of<UserData>(context, listen: false).setUserName(data["userData"]["firstAndLastName"]);
       }
       dio.clear();
       return data.containsKey("loginStatus") ? data["loginStatus"]["isLoggedIn"] : false;
     } catch (e) {
-      print(e);
-      try{
-        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
-      }catch(e){}
-      dio.clear();
+      catchErrorMessage(e);
       return false;
     }
   }
 
   /// userData attributes are [birthday, roll, is_trainees, typeTraining, startTrainingDate, endTrainingDate]
   Future<Map<dynamic, dynamic>> addDataToNewUser(Map<dynamic, dynamic> newUserData) async {
-    
+
     try {
       var response = await dio.get("${url}/update-report${_valuesToLinkQueryParameter(newUserData)}", options: Options(headers: _headers), onReceiveProgress: showDownloadProgress);
       Map<dynamic, dynamic> data = response.data;
@@ -97,15 +101,13 @@ class API {
       dio.clear();
       return data;
     } catch (e) {
-      print(e);
-      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
-      dio.clear();
+      catchErrorMessage(e);
       return null;
     }
   }
 
   Future<List<dynamic>> get reports async {
-    
+
     try {
       var data = [];
       await dio
@@ -120,15 +122,13 @@ class API {
       dio.clear();
       return data;
     } catch (e) {
-      print(e);
-      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
-      dio.clear();
+      catchErrorMessage(e);
       return [];
     }
   }
 
   Future<List<dynamic>> get deletedReports async {
-    
+
     try {
       var response = await dio.get(
         "${url}/get-deleted-reports",
@@ -139,19 +139,13 @@ class API {
       dio.clear();
       return data;
     } catch (e) {
-      print(e);
-      try {
-        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
-      } catch (e) {
-        print(e);
-      }
-      dio.clear();
+      catchErrorMessage(e);
       return [];
     }
   }
 
   Future<Map<dynamic, dynamic>> createNewReport(Map<dynamic, dynamic> reportData) async {
-    
+
     try {
       var response = await dio.get(
         "${url}/create-new-report${_valuesToLinkQueryParameter(reportData)}",
@@ -171,15 +165,13 @@ class API {
       dio.clear();
       return data;
     } catch (e) {
-      print(e);
-      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
-      dio.clear();
+      catchErrorMessage(e);
       return null;
     }
   }
 
   Future<Map<dynamic, dynamic>> updateReport(int reportID, Map<dynamic, dynamic> newReportData) async {
-    
+
     try {
       newReportData["reportId"] = reportID;
 
@@ -201,15 +193,13 @@ class API {
       dio.clear();
       return data;
     } catch (e) {
-      print(e);
-      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
-      dio.clear();
+      catchErrorMessage(e);
       return null;
     }
   }
 
   Future<Map<dynamic, dynamic>> deleteReport(int reportId, {bool deleteForever = false}) async {
-    
+
     try {
       Map<String, dynamic> _valuesData = {};
       _valuesData["reportId"] = reportId;
@@ -240,19 +230,16 @@ class API {
       dio.clear();
       return data;
     } catch (e) {
-      print(e);
-      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
-      dio.clear();
+      catchErrorMessage(e);
       return null;
     }
   }
 
-  Future deleteReports(List<int> reportIds, {bool deleteForever = false}) async {
-    
+  Future deleteReports(List<int> reportIds, {bool permanently = false}) async {
     try {
       Map<String, dynamic> _valuesData = {};
       _valuesData["reportIds"] = reportIds;
-      if (deleteForever) _valuesData["deleteForever"] = deleteForever;
+      if (permanently) _valuesData["permanently"] = permanently;
 
       String values = "?";
 
@@ -267,27 +254,20 @@ class API {
       );
 
       Map<dynamic, dynamic> data = await response.data;
-      if ((data != null || data.keys.length > 0) && await response.statusCode == 201) {
+
+      if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
         _updateShowingReports(context);
         Provider.of<NavigateProvider>(context, listen: false).goToSite("/deleted-reports");
-        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: deleteForever ? "Reports was deleted forever ✓" : "Reports was deleted ✓");
-      } else if (data.containsKey("message")) {
-        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
-        dio.clear();
-        return null;
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: permanently ? "Reports was deleted permanently ✓" : "Reports was deleted ✓");
       }
       dio.clear();
-      return null;
-    } catch (e) {
-      print(e);
-      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
-      dio.clear();
-      return null;
+    } on DioError catch (e) {
+      catchErrorMessage(e);
     }
   }
 
   Future revertReports(List<int> reportIds) async {
-    
+
     try {
       Map<String, dynamic> _valuesData = {};
       _valuesData["reportIds"] = reportIds;
@@ -317,15 +297,13 @@ class API {
       dio.clear();
       return null;
     } catch (e) {
-      print(e);
-      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
-      dio.clear();
+      catchErrorMessage(e);
       return null;
     }
   }
 
   Future<Map<dynamic, dynamic>> search(String searchedText) async {
-    
+
     try {
       Map<String, dynamic> _valuesData = {};
       _valuesData["searchedText"] = searchedText;
@@ -348,9 +326,7 @@ class API {
       dio.clear();
       return data;
     } catch (e) {
-      print(e);
-      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
-      dio.clear();
+      catchErrorMessage(e);
       return null;
     }
   }

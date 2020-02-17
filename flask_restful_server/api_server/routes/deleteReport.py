@@ -14,5 +14,5 @@ class DeleteReport(Resource):
         args = parser.parse_args()
         return Database.delete_report(
             r_id=args.get("reportId"),
-            delete_forever=args.get("deleteForever", False)
+            permanently=args.get("deleteForever", False)
         ), 201

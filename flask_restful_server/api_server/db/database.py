@@ -199,12 +199,12 @@ class Database:
                     "UPDATE `reports` SET `{1}` = '{2}' WHERE `reports`.`r_id` = {0};".format(r_id, key, value))
         return r_id
 
-    def delete_report(r_id, delete_forever=False) -> dict:
+    def delete_report(r_id, permanently=False) -> dict:
         message = ""
 
         is_report_deleted_forever = Database.get_report(r_id) is not None
         if is_report_deleted_forever:
-            if not delete_forever:
+            if not permanently:
                 Database.insert_into_or_update_or_delete(
                     "UPDATE `reports` SET `deleted` = TRUE WHERE `reports`.`r_id` = {0};".format(r_id))
                 message = "Report is deleted"

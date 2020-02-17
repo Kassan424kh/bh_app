@@ -47,6 +47,10 @@ class StylingProvider extends ChangeNotifier {
     showSitesCardComponentHeight = newHeight;
     notifyListeners();
   }
+  updateWidthOfShowSitesCardComponent(double newWidth) {
+    showSitesCardComponentWidth = newWidth;
+    notifyListeners();
+  }
 }
 
 class ReportsProvider extends ChangeNotifier {

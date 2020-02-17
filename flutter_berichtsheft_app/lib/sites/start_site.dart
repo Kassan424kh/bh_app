@@ -23,7 +23,7 @@ class _StartSiteState extends State<StartSite> {
 
   @override
   Widget build(BuildContext context) {
-    final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
+    final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     bool _isLoggedIn = Provider.of<LoginProvider>(context).isLoggedIn;
     Size size = MediaQuery.of(context).size;
     double _showCardComponentWidth = Provider.of<StylingProvider>(context).showSitesCardComponentWidth;
@@ -54,9 +54,10 @@ class _StartSiteState extends State<StartSite> {
                         alignment: Alignment.center,
                         child: LayoutBuilder(
                           builder: (BuildContext context, BoxConstraints constraints) {
+                            double width = constraints.maxWidth - (constraints.maxWidth * 15 / 100);
                             Timer(Duration(milliseconds: 10), () {
-                              if (_isLoggedIn && _showNavigationComponents)
-                                Provider.of<StylingProvider>(context, listen: false).showSitesCardComponentWidth = constraints.maxWidth - (constraints.maxWidth * 15 / 100);
+                              if (_isLoggedIn && _showNavigationComponents && Provider.of<StylingProvider>(context, listen: false).showSitesCardComponentWidth != width)
+                                Provider.of<StylingProvider>(context, listen: false).updateWidthOfShowSitesCardComponent(width);
                             });
                             return AnimatedContainer(
                               duration: Duration(milliseconds: (Styling.durationAnimation / 4).round()),
@@ -89,7 +90,7 @@ class _StartSiteState extends State<StartSite> {
                                   fit: StackFit.passthrough,
                                   alignment: Alignment.center,
                                   children: <Widget>[
-                                    Routes.routes[Provider.of<NavigateProvider>(context).nowOpenedSite],
+                                    Routes.routes[Provider.of<NavigateProvider>(context, listen: false).nowOpenedSite],
                                   ],
                                 ),
                               ),

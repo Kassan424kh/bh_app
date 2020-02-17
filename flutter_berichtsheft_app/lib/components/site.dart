@@ -33,6 +33,8 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
   Animation _showSiteOpacity;
   Animation _showSitePosition;
 
+  double _width = 0;
+
   bool stopUpdateSize = false;
 
   _renderBox(_) {
@@ -43,18 +45,23 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
     }
   }
 
+  _setSiteSize(context) {
+    Timer.periodic(Duration(milliseconds: 0), (timer) {
+      try {
+        if (Provider.of<StylingProvider>(context, listen: false).showSitesCardComponentHeight != _renderBoxOfTheSite.size.height) {
+          Provider.of<StylingProvider>(context, listen: false).updateHeightOfShowSitesCardComponent(_renderBoxOfTheSite.size.height);
+        }else{
+        }
+      } catch (e) {
+        timer.cancel();
+      }
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(_renderBox);
-    Timer(Duration(milliseconds: 10), () {
-      Provider.of<ReportsProvider>(context, listen: false).updateShowingReports(false);
-      if (widget.siteRoute == Provider.of<NavigateProvider>(context, listen: false).nowOpenedSite) {
-        Provider.of<StylingProvider>(context, listen: false).updateHeightOfShowSitesCardComponent(_renderBoxOfTheSite.size.height);
-      }
-    });
-
-    Timer(Duration(milliseconds: 50), _updateTime);
 
     _animationController = AnimationController(
       vsync: this,
@@ -82,26 +89,8 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
     if (Provider.of<LoginProvider>(context).isLoggedIn) {
       _animationController.forward(from: 0);
     }
-  }
-
-  void _updateTime() {
-    try {
-      if (Provider.of<ReportsProvider>(context, listen: false).showReportsAfterLoad &&
-          Provider.of<StylingProvider>(context, listen: false).showSitesCardComponentHeight != _renderBoxOfTheSite.size.height) {
-        Provider.of<StylingProvider>(context, listen: false).updateHeightOfShowSitesCardComponent(_renderBoxOfTheSite.size.height);
-      }
-    } catch (e) {
-    }
-    try {
-      setState(() {
-        _now = DateTime.now();
-        Timer(
-          Duration(milliseconds: 1) - Duration(milliseconds: _now.millisecond),
-          _updateTime,
-        );
-      });
-    } catch (e) {
-    }
+    print("asdf");
+    _setSiteSize(context);
   }
 
   @override
@@ -124,7 +113,7 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
     ];
     _siteWidgets.addAll(widget.children);
 
-    final double _showSitesCardComponentWidth = Provider.of<StylingProvider>(context, listen: false).showSitesCardComponentWidth;
+    final double _showSitesCardComponentWidth = Provider.of<StylingProvider>(context, listen:false).showSitesCardComponentWidth;
 
     return Positioned(
       right: _showSitePosition.value,

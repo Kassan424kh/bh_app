@@ -1,15 +1,11 @@
 import functools
-import json
-import signal
 
 import jwt
-from bson import json_util
 from flask import request
 from flask_restful import abort
-from ldap3 import Connection
 
 from ..db.database import Database
-from ..db.ldapServerConnection import ldap_manager, authUser
+from ..db.ldapServerConnection import authUser
 
 
 # LOGIN TESTER
@@ -25,23 +21,10 @@ def login_required(method):
         user = {}
         is_user_logged_in = False
         try:
-            # else ldap find user
-            ldap_login_check = False
-
-            def checkLdapUserLoggingIn():
-                return authUser(email, password)
-
-            def handler(signum, frame):
-                pass
-
-            signal.signal(signal.SIGALRM, handler)
-            signal.alarm(3)
-
-            ldap_login_check = checkLdapUserLoggingIn()
+            ldap_login_check = authUser(email, password).get("loggedIn")
 
             if ldap_login_check:
-                user_data_from_ldap = json.loads(
-                    json.dumps(dict(ldap_manager.authenticate().user_info), default=json_util.default))
+                user_data_from_ldap = authUser(email, password)
 
                 find_user_after_his_email = Database.get_user(email=email)
                 user = Database.get_user(email=email, password=_encryptedPassword)
@@ -58,7 +41,7 @@ def login_required(method):
                             is_user_logged_in = True
                 else:
                     Database.create_user(
-                        first_and_last_name=user_data_from_ldap.get("displayName"),
+                        first_and_last_name=user_data_from_ldap.get("name"),
                         email=email,
                         birthday="",
                         password=_encryptedPassword,

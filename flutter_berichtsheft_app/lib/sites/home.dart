@@ -76,7 +76,7 @@ class _HomeState extends State<Home> {
                 bool areReportsSelected = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports.length > 0;
                 Provider.of<MessageProvider>(context, listen: false).showMessage(
                   true,
-                  messageText: areReportsSelected ? "Are you sure, you want to delete selected reports?" : "There is no selected reports",
+                  messageText: areReportsSelected ? "Are you sure, you want to delete selected reports?" : "There are no selected reports",
                   okButton: areReportsSelected
                       ? () {
                           _api.deleteReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports);
@@ -195,33 +195,39 @@ class _HomeState extends State<Home> {
           ),
         ),
         SizedBox(height: 20),
-        _listOfReports.length > 0 ? AnimatedContainer(
-          duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
-          curve: Curves.easeOutCubic,
-          constraints: BoxConstraints(maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfReports.length * 60 > 600 ? 600 : _listOfReports.length * 60).toDouble() : 0),
-          child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
-              ? Scrollbar(
-                  child: ListView.builder(
-                    itemCount: _listOfReports.length,
-                    cacheExtent: 10,
-                    itemExtent: 60,
-                    reverse: true,
-                    addAutomaticKeepAlives: true,
-                    physics: AlwaysScrollableScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (_, int index) => ReportListTile(
-                        reportId: _listOfReports[index]["r_id"],
-                        isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(_listOfReports[index]["r_id"]) ? true : false,
-                        date: _listOfReports[index]["date"],
-                        hours: _listOfReports[index]["hours"].toString(),
-                        reportText: _listOfReports[index]["text"]),
-                  ),
-                )
-              : Container(),
-        ) : Container(),
-        _listOfReports.length == 0 ? NullImage(
-          image: _selectedTheme[SitesIcons.nullHomeReports],
-        ) : Container()
+        AnimatedCrossFade(
+          duration: Duration(milliseconds: (Styling.durationAnimation / 4).round()),
+          firstCurve: Curves.easeOutCubic,
+          secondCurve: Curves.easeOutCubic,
+          firstChild: AnimatedContainer(
+            duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
+            curve: Curves.easeOutCubic,
+            constraints: BoxConstraints(maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfReports.length * 60 > 600 ? 600 : _listOfReports.length * 60).toDouble() : 0),
+            child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
+                ? Scrollbar(
+                    child: ListView.builder(
+                      itemCount: _listOfReports.length,
+                      cacheExtent: 10,
+                      itemExtent: 60,
+                      reverse: true,
+                      addAutomaticKeepAlives: true,
+                      physics: AlwaysScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (_, int index) => ReportListTile(
+                          reportId: _listOfReports[index]["r_id"],
+                          isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(_listOfReports[index]["r_id"]) ? true : false,
+                          date: _listOfReports[index]["date"],
+                          hours: _listOfReports[index]["hours"].toString(),
+                          reportText: _listOfReports[index]["text"]),
+                    ),
+                  )
+                : Container(),
+          ),
+          secondChild: NullImage(
+            image: _selectedTheme[SitesIcons.nullHomeReports],
+          ),
+          crossFadeState: _listOfReports.length > 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+        ),
       ],
     );
   }

@@ -1,7 +1,8 @@
 import requests
+from flask_restful import abort
+from ..db.database import Database
 
-
-def importReportsFromRedmineApiServerToDB():
+def importReportsFromRedmineApiServerToDB() -> dict:
     key = "b869c19ea7f3d761eb7b8ce5f0bf0ddec59ced5a"
     user_data = requests.get(url='https://projects.satzmedia.de/users/current.json?key={0}'.format(key))
     list_of_found_reports = []

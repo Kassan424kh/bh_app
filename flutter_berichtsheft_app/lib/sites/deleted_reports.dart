@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/api/api.dart';
 import 'package:flutter_berichtsheft_app/components/null_image.dart';
@@ -25,28 +23,41 @@ class _DeletedReportsState extends State<DeletedReports> {
   API _api;
   List<dynamic> _listOfDeletedReports = [];
 
-  @override
-  void initState() {
-    super.initState();
-    setState(() {
-      _api = API(context: context);
-    });
+  bool _isUpdated = false;
+  int _updatingTime = 0;
+
+  _setListOfReportsIds(list) {
+    try {
+      Provider.of<ReportsProvider>(context, listen: false).setReportsIds(list);
+    } catch (e) {}
   }
 
   _getReports() {
-    if (_listOfDeletedReports.length == 0)
-      _api.deletedReports.then((deletedReports) {
-        setState(() {
-          _listOfDeletedReports.clear();
-          _listOfDeletedReports = deletedReports;
-        });
-
-        List<int> _listOfReportsIds = [];
-        for (var i = 0; i < deletedReports.length; i++) _listOfReportsIds.add(deletedReports[i]["r_id"]);
-        try {
-          Provider.of<ReportsProvider>(context, listen: false).setReportsIds(_listOfReportsIds);
-        } catch (e) {}
+    _api.deletedReports.then((reports) {
+      setState(() {
+        if (reports.length != _listOfDeletedReports.length) {
+          _isUpdated = false;
+          _updatingTime = 0;
+        }
+        _listOfDeletedReports.clear();
+        _listOfDeletedReports = reports.length != 0 ? reports : [];
       });
+
+      List<int> _listOfReportsIds = [];
+      for (var i = 0; i < reports.length; i++) _listOfReportsIds.add(reports[i]["r_id"]);
+      _setListOfReportsIds(_listOfReportsIds);
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _api = API(context: context);
+    setState(() {
+      _isUpdated = false;
+      _updatingTime = 0;
+      _listOfDeletedReports.clear();
+    });
   }
 
   @override
@@ -58,8 +69,19 @@ class _DeletedReportsState extends State<DeletedReports> {
 
   @override
   void didChangeDependencies() {
+    if (!_isUpdated && _updatingTime <= 2) {
+      _getReports();
+      setState(() {
+        _isUpdated = true;
+        _updatingTime++;
+      });
+    }
     super.didChangeDependencies();
-    _getReports();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -86,21 +108,21 @@ class _DeletedReportsState extends State<DeletedReports> {
             ),
             SizedBox(width: 20),
 
-            // Delete reports forever button
+            // Permanently delete reports button
             UIButton(
               onPressed: () {
                 bool areReportsSelected = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports.length > 0;
                 Provider.of<MessageProvider>(context, listen: false).showMessage(
                   true,
-                  messageText: areReportsSelected ? "Are you sure, you want to delete selected reports forever?" : "There is no selected reports",
+                  messageText: areReportsSelected ? "Are you sure, you want to delete selected reports permanently?" : "There are no selected reports",
                   okButton: areReportsSelected
                       ? () {
-                          _api.deleteReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports, deleteForever: true);
+                          _api.deleteReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports, permanently: true);
                         }
                       : null,
                 );
               },
-              leftWidget: Icon(OMIcons.deleteForever),
+              leftWidget: Icon(Icons.delete_outline),
               isActive: true,
               withoutLeftWidgetSpace: true,
             ),
@@ -211,39 +233,40 @@ class _DeletedReportsState extends State<DeletedReports> {
           ),
         ),
         SizedBox(height: 20),
-        _listOfDeletedReports.length > 0
-            ? AnimatedContainer(
-                duration: Duration(milliseconds: (Styling.durationAnimation).round()),
-                curve: Curves.easeInOutCubic,
-                constraints: BoxConstraints(
-                    maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfDeletedReports.length * 60 > 600 ? 600 : _listOfDeletedReports.length * 60).toDouble() : 0),
-                child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
-                    ? Scrollbar(
-                        child: ListView.builder(
-                          itemCount: _listOfDeletedReports.length,
-                          cacheExtent: 10,
-                          itemExtent: 60,
-                          reverse: true,
-                          addAutomaticKeepAlives: true,
-                          physics: AlwaysScrollableScrollPhysics(),
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (_, int index) => ReportListTile(
-                            reportId: _listOfDeletedReports[index]["r_id"],
-                            isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(_listOfDeletedReports[index]["r_id"]) ? true : false,
-                            date: _listOfDeletedReports[index]["date"],
-                            hours: _listOfDeletedReports[index]["hours"].toString(),
-                            reportText: _listOfDeletedReports[index]["text"],
-                          ),
-                        ),
-                      )
-                    : Container(),
-              )
-            : Container(),
-        _listOfDeletedReports.length == 0
-            ? NullImage(
-                image: _selectedTheme[SitesIcons.nullDeletedReports],
-              )
-            : Container()
+        AnimatedCrossFade(
+          duration: Duration(milliseconds: (Styling.durationAnimation / 4).round()),
+          firstCurve: Curves.easeOutCubic,
+          secondCurve: Curves.easeOutCubic,
+          firstChild: AnimatedContainer(
+            duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
+            curve: Curves.easeOutCubic,
+            constraints: BoxConstraints(
+                maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfDeletedReports.length * 60 > 600 ? 600 : _listOfDeletedReports.length * 60).toDouble() : 0),
+            child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
+                ? Scrollbar(
+                    child: ListView.builder(
+                      itemCount: _listOfDeletedReports.length,
+                      cacheExtent: 10,
+                      itemExtent: 60,
+                      reverse: true,
+                      addAutomaticKeepAlives: true,
+                      physics: AlwaysScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      itemBuilder: (_, int index) => ReportListTile(
+                          reportId: _listOfDeletedReports[index]["r_id"],
+                          isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(_listOfDeletedReports[index]["r_id"]) ? true : false,
+                          date: _listOfDeletedReports[index]["date"],
+                          hours: _listOfDeletedReports[index]["hours"].toString(),
+                          reportText: _listOfDeletedReports[index]["text"]),
+                    ),
+                  )
+                : Container(),
+          ),
+          secondChild: NullImage(
+            image: _selectedTheme[SitesIcons.nullDeletedReports],
+          ),
+          crossFadeState: _listOfDeletedReports.length > 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
+        ),
       ],
     );
   }
