@@ -339,4 +339,35 @@ class API {
       return null;
     }
   }
+
+  Future<Map<dynamic, dynamic>> importFromRedmine(String key) async {
+
+    try {
+      Map<String, dynamic> _valuesData = {};
+      _valuesData["key"] = key;
+
+      var response = await dio.get(
+        "${url}/import-from-redmine${_valuesToLinkQueryParameter(_valuesData)}",
+        options: Options(headers: _headers),
+        onReceiveProgress: showDownloadProgress,
+      );
+
+      Map<dynamic, dynamic> data = response.data;
+      if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
+        _updateShowingReports(context, clearSelectedReports: false);
+        Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
+      } else if (data.containsKey("message")) {
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
+        dio.clear();
+        return null;
+      }
+      dio.clear();
+      return data;
+    } catch (e) {
+      catchErrorMessage(e);
+      return null;
+    }
+  }
+
 }

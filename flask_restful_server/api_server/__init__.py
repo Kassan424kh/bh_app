@@ -17,6 +17,7 @@ from api_server.routes.getReports import GetReports
 from api_server.routes.searchReports import SearchReports
 from api_server.routes.updateReport import UpdateReport
 from api_server.routes.userData import UserData
+from api_server.routes.importFromRedmine import ImportFromReports
 
 api.add_resource(UserData, "/")
 api.add_resource(AddDataToNewUser, "/add-data-to-new-user")
@@ -28,6 +29,7 @@ api.add_resource(UpdateReport, "/update-report")
 api.add_resource(DeleteReport, "/delete-report")
 api.add_resource(DeleteReports, "/delete-reports")
 api.add_resource(RevertReports, "/revert-reports")
+api.add_resource(ImportFromReports, "/import-from-redmine")
 
 if __name__ == '__main__':
     app.run(port=6666, host="0.0.0.0")

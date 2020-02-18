@@ -1,44 +1,12 @@
 import requests
-from flask_restful import abort
+import datetime
 
-# from ..db.database import Database
+from ..db.database import Database
 
-# example of the object coming from Redmine api
-'''
-"time_entries": [
-    ...,
-    {
-      "id": 242310,
-      "project": {
-        "id": 2,
-        "name": "5_Satzmedia"
-      },
-      "issue": {
-        "id": 40504
-      },
-      "user": {
-        "id": 333,
-        "name": "Test Test"
-      },
-      "activity": {
-        "id": 25,
-        "name": "Einarbeitung"
-      },
-      "hours": 7.0,
-      "comments": "fixed ldap server connection, use now ldap3 to authentication users, fixed rendering loop on the frontend and fixed changing animation between nullImages and showingReports",
-      "spent_on": "2020-02-17",
-      "created_on": "2020-02-17T17:41:32Z",
-      "updated_on": "2020-02-17T17:41:32Z"
-    },
-    ...,
-]
-'''
-
-
-def importReportsFromRedmineApiServerToDB() -> dict:
-    key = "b869c19ea7f3d761eb7b8ce5f0bf0ddec59ced5a"
+def importReportsFromRedmineApiServerToDB(key, u_id) -> list:
     user_data = requests.get(url='https://projects.satzmedia.de/users/current.json?key={0}'.format(key))
     list_of_found_reports = []
+    list_of_not_duplicated_reports = []
     if user_data.status_code == 200:
         user_id = user_data.json().get("user", {}).get("id", -1)
         if user_id != -1:
@@ -61,27 +29,36 @@ def importReportsFromRedmineApiServerToDB() -> dict:
                     ).json().get("time_entries", []))
 
                 # set duplicated reports together
-                checked_reports = []
                 seen = []
-
                 def checkListContaination(o) -> bool:
-                    return seen.__contains__(first_report) or checked_reports.__contains__(first_report)
-
+                    return seen.__contains__(o) or list_of_not_duplicated_reports.__contains__(o)
                 for first_report in list_of_found_reports:
                     if not checkListContaination(first_report):
                         textOfDuplicatedReportsInTheSameDay = first_report["comments"]
+                        hoursOfDuplicatedReportsInTheSameDay = float(first_report["hours"])
                         for second_report in list_of_found_reports:
                             if not checkListContaination(second_report) and second_report != first_report:
                                 if first_report.get("spent_on") == second_report.get("spent_on"):
-                                    textOfDuplicatedReportsInTheSameDay += "\n" + second_report["comments"]
+                                    if (second_report["comments"] not in textOfDuplicatedReportsInTheSameDay):
+                                        textOfDuplicatedReportsInTheSameDay += "\n" + second_report["comments"]
+                                    hoursOfDuplicatedReportsInTheSameDay += float(second_report["hours"])
                                     seen.append(second_report)
-
                         first_report["comments"] = textOfDuplicatedReportsInTheSameDay
-
+                        first_report["hours"] = str(hoursOfDuplicatedReportsInTheSameDay)
                         seen.append(first_report)
-                        checked_reports.append(first_report)
+                        list_of_not_duplicated_reports.append(first_report)
 
-    return checked_reports
+                for report in list_of_found_reports:
+                    if len(Database.get_reports(u_id, start_date=report.get("spent_on"), end_date=report.get("spent_on"))) == 0:
+                        Database.set_report(
+                            u_id= str(u_id),
+                            hours=report.get("hours"),
+                            date=report.get("spent_on"),
+                            text=report.get("comments").replace("'", "\""),
+                            year_of_training= "0"
+                        )
+                    else:
+                        pass
 
 
-importReportsFromRedmineApiServerToDB()
+    return list_of_not_duplicated_reports
