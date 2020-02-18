@@ -1,9 +1,11 @@
 import requests
 import datetime
-
+from flask_restful import abort
 from ..db.database import Database
 
-def importReportsFromRedmineApiServerToDB(key, u_id) -> list:
+def importReportsFromRedmineApiServerToDB(key, u_id) -> int:
+    if key == "":
+        abort(400, message="Please set api-key")
     user_data = requests.get(url='https://projects.satzmedia.de/users/current.json?key={0}'.format(key))
     list_of_found_reports = []
     list_of_not_duplicated_reports = []
@@ -47,9 +49,18 @@ def importReportsFromRedmineApiServerToDB(key, u_id) -> list:
                         first_report["hours"] = str(hoursOfDuplicatedReportsInTheSameDay)
                         seen.append(first_report)
                         list_of_not_duplicated_reports.append(first_report)
-
-                for report in list_of_found_reports:
-                    if len(Database.get_reports(u_id, start_date=report.get("spent_on"), end_date=report.get("spent_on"))) == 0:
+                if len(list_of_not_duplicated_reports) == 0:
+                    abort(400, message="Don't found any Reports")
+                indexOfSetReports = 0
+                for report in list_of_not_duplicated_reports:
+                    foundDuplicationBetweenThisAndInDBReport = len(
+                        Database.get_reports(
+                            u_id=u_id,
+                            start_date=report.get("spent_on"),
+                            end_date=report.get("spent_on")
+                        )
+                    ) == 0
+                    if foundDuplicationBetweenThisAndInDBReport:
                         Database.set_report(
                             u_id= str(u_id),
                             hours=report.get("hours"),
@@ -57,8 +68,11 @@ def importReportsFromRedmineApiServerToDB(key, u_id) -> list:
                             text=report.get("comments").replace("'", "\""),
                             year_of_training= "0"
                         )
+                        indexOfSetReports += 1
                     else:
                         pass
-
-
-    return list_of_not_duplicated_reports
+        else:
+            abort(400, message="Can not found any user after this key")
+    else:
+        abort(400, message="Api-key is false")
+    return indexOfSetReports

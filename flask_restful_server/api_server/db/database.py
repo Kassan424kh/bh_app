@@ -127,7 +127,7 @@ class Database:
         return Database.get_trainees_data(u_id=user.get("u_id"))
 
     # Reports Functions
-    def get_reports(u_id, start_date="", end_date="", get_all=False, are_deleted=False) -> list:
+    def get_reports(u_id, text = "",start_date="", end_date="", get_all=False, are_deleted=False) -> list:
         list_of_reports = []
         if get_all:
             list_of_reports = Database.list_requests(

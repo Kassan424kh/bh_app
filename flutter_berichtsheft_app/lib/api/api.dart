@@ -53,7 +53,6 @@ class API {
       else
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: e.response.data["message"]);
     }catch(e){
-      print("Can not show message!!!");
     }
     dio.clear();
   }

@@ -11,9 +11,13 @@ class ImportFromReports(Resource):
         parser.add_argument('key', required=True, type=str)
         args = parser.parse_args()
 
-        lenghtOfFoundReport = len(importReportsFromRedmineApiServerToDB(
+        message = ""
+        lenghtOfFoundReport = importReportsFromRedmineApiServerToDB(
             key= args.get("key", ""),
             u_id=data["userData"].get("userId"),
-        ))
+        )
 
-        return {"message": lenghtOfFoundReport}, 201
+        if (lenghtOfFoundReport == 0): message = "Reports are up to date"
+        else: message = "{0} were new set".format(lenghtOfFoundReport)
+
+        return {"message": message}, 201
