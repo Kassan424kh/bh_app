@@ -89,7 +89,6 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
     if (Provider.of<LoginProvider>(context).isLoggedIn) {
       _animationController.forward(from: 0);
     }
-    print("asdf");
     _setSiteSize(context);
   }
 

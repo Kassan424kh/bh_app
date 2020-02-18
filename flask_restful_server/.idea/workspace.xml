@@ -2,13 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e61e2f2e-5d2c-403b-a6e8-b0dc5c2cff2b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_server/components/checkLogin.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_server/components/checkLogin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api_server/components/importReportsFromRedmine.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_server/components/importReportsFromRedmine.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_server/db/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_server/db/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_server/db/ldapServerConnection.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_server/db/ldapServerConnection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_server/routes/deleteReport.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_server/routes/deleteReport.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api_server/routes/deleteReports.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_server/routes/deleteReports.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/assets/avatars/avatar_dark.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/assets/avatars/avatar_hell.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/api/api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/api/api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/navigation_buttons.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/navigation_buttons.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/report_list_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/report_list_tile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/site.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/site.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/provider/provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/provider/provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/deleted_reports.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/deleted_reports.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/draft_reports.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/draft_reports.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/home.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/search.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/search.dart" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -80,7 +87,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api_server/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="616">
+            <state relative-caret-position="870">
               <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
               <folding>
                 <element signature="e#46#69#0" expanded="true" />
@@ -92,7 +99,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api_server/db/ldapServerConnection.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="359">
+            <state relative-caret-position="1827">
               <caret line="68" column="31" selection-start-line="68" selection-start-column="31" selection-end-line="68" selection-end-column="31" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
@@ -101,11 +108,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api_server/routes/deleteReports.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="754">
+              <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
@@ -116,8 +123,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api_server/components/checkLogin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-566">
-              <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+            <state relative-caret-position="174">
+              <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
               <folding>
                 <element signature="e#0#16#0" expanded="true" />
               </folding>
@@ -125,11 +132,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/api_server/components/importReportsFromRedmine.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="4" column="51" selection-start-line="4" selection-start-column="51" selection-end-line="4" selection-end-column="51" />
+            <state relative-caret-position="469">
+              <caret line="81" column="60" selection-start-line="81" selection-start-column="60" selection-end-line="81" selection-end-column="60" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -140,7 +147,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api_server/db/database.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="201">
+            <state relative-caret-position="4785">
               <caret line="168" column="14" selection-start-line="168" selection-start-column="8" selection-end-line="168" selection-end-column="14" />
               <folding>
                 <element signature="e#0#31#0" expanded="true" />
@@ -210,21 +217,20 @@
         <option value="$PROJECT_DIR$/api_server/routes/revertReports.py" />
         <option value="$PROJECT_DIR$/DB/reports_app.sql" />
         <option value="$PROJECT_DIR$/api_server/components/importReportsFromJsonObject.py" />
-        <option value="$PROJECT_DIR$/api_server/components/importReportsFromRedmine.py" />
         <option value="$PROJECT_DIR$/api_server/components/checkLogin.py" />
         <option value="$PROJECT_DIR$/api_server/db/ldapServerConnection.py" />
         <option value="$PROJECT_DIR$/api_server/db/database.py" />
         <option value="$PROJECT_DIR$/api_server/routes/deleteReports.py" />
+        <option value="$PROJECT_DIR$/api_server/components/importReportsFromRedmine.py" />
       </list>
     </option>
   </component>
   <component name="PhpServers">
     <servers />
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="y" value="23" />
-    <option name="width" value="924" />
-    <option name="height" value="1177" />
+  <component name="ProjectFrameBounds" fullScreen="true">
+    <option name="width" value="1920" />
+    <option name="height" value="1200" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -290,7 +296,7 @@
     <property name="project.structure.proportion" value="0.15" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="MTConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
@@ -357,7 +363,7 @@
     </configuration>
     <list>
       <item itemvalue="Flask server.Flask (api_server)" />
-      <item itemvalue="Flask server.Flask (api_server/app.py)" />
+      <item itemvalue="Flask server.Flask" />
     </list>
   </component>
   <component name="SvnConfiguration">
@@ -393,15 +399,18 @@
       <workItem from="1581494666606" duration="822000" />
       <workItem from="1581496099447" duration="11000" />
       <workItem from="1581504958609" duration="1768000" />
-      <workItem from="1581585194640" duration="36642000" />
+      <workItem from="1581585194640" duration="36734000" />
+      <workItem from="1582012364197" duration="4251000" />
+      <workItem from="1582023420316" duration="6324000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149045000" />
+    <option name="totallyTimeSpent" value="159712000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="924" height="1177" extended-state="0" />
+    <frame x="0" y="0" width="1920" height="1200" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" weight="0.2527233" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -412,18 +421,18 @@
       <window_info id="UI Designer" order="6" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.3292797" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.4059869" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.4281867" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39981186" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Terminal" order="7" weight="0.32854578" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.42459604" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection Results" order="9" weight="0.3274088" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.32942238" />
       <window_info anchor="bottom" id="Messages" order="11" />
-      <window_info anchor="bottom" id="Database Changes" order="12" />
-      <window_info anchor="bottom" id="Version Control" order="13" weight="0.26840216" />
+      <window_info anchor="bottom" id="Database Changes" order="12" weight="0.32944345" />
+      <window_info anchor="bottom" id="Version Control" order="13" weight="0.25493717" />
       <window_info anchor="bottom" id="Flutter Performance" order="14" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.24973376" />
@@ -451,20 +460,13 @@
     <SUITE FILE_PATH="coverage/flask_restful_server$Flask.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1579933623224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_server_app_py_.coverage" NAME="Flask (api_server) Coverage Results" MODIFIED="1581330470257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_server_app_py___1_.coverage" NAME="Flask (api_server/app.py) (1) Coverage Results" MODIFIED="1581093103967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_server_.coverage" NAME="Flask (api_server) Coverage Results" MODIFIED="1581950447686" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_server_.coverage" NAME="Flask (api_server) Coverage Results" MODIFIED="1582012403818" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/675a6dcd-7124-4726-bdf0-9501be9ba880/console.sql">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="das://675a6dcd-7124-4726-bdf0-9501be9ba880/schema/reports_app/table/users.sql" />
-    <entry file="file:///usr/local/lib/python3.7/site-packages/MySQLdb/connections.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="234" column="27" lean-forward="true" selection-start-line="234" selection-start-column="27" selection-end-line="234" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python3.7/site-packages/flask_restful/reqparse.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="70">
@@ -620,13 +622,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api_server/components/importReportsFromJsonObject.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="58">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python3.7/site-packages/ldap3/core/server.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="364">
@@ -638,16 +633,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="350">
           <caret line="492" column="42" lean-forward="true" selection-start-line="492" selection-start-column="42" selection-end-line="492" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api_server/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="616">
-          <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
-          <folding>
-            <element signature="e#46#69#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -665,26 +650,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api_server/components/checkLogin.py">
+    <entry file="file://$PROJECT_DIR$/api_server/requirements.txt" />
+    <entry file="file:///usr/local/lib/python3.7/site-packages/MySQLdb/connections.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-566">
-          <caret line="13" column="22" lean-forward="true" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#16#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="-4324">
+          <caret line="178" selection-start-line="178" selection-end-line="178" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api_server/requirements.txt">
+    <entry file="file://$PROJECT_DIR$/api_server/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="17" column="20" lean-forward="true" selection-start-line="17" selection-start-column="20" selection-end-line="17" selection-end-column="20" />
+        <state relative-caret-position="870">
+          <caret line="32" column="38" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
+          <folding>
+            <element signature="e#46#69#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api_server/db/ldapServerConnection.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="359">
+        <state relative-caret-position="1827">
           <caret line="68" column="31" selection-start-line="68" selection-start-column="31" selection-end-line="68" selection-end-column="31" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
@@ -692,9 +678,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/api_server/routes/deleteReports.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="754">
+          <caret line="30" column="13" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#22#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api_server/components/checkLogin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="13" column="22" selection-start-line="13" selection-start-column="22" selection-end-line="13" selection-end-column="22" />
+          <folding>
+            <element signature="e#0#16#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/api_server/db/database.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="201">
+        <state relative-caret-position="4785">
           <caret line="168" column="14" selection-start-line="168" selection-start-column="8" selection-end-line="168" selection-end-column="14" />
           <folding>
             <element signature="e#0#31#0" expanded="true" />
@@ -702,22 +708,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api_server/components/importReportsFromRedmine.py">
+    <entry file="file://$PROJECT_DIR$/api_server/components/importReportsFromJsonObject.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="4" column="51" selection-start-line="4" selection-start-column="51" selection-end-line="4" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="58">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api_server/routes/deleteReports.py">
+    <entry file="file://$PROJECT_DIR$/api_server/components/importReportsFromRedmine.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
+        <state relative-caret-position="469">
+          <caret line="81" column="60" selection-start-line="81" selection-start-column="60" selection-end-line="81" selection-end-column="60" />
           <folding>
-            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>

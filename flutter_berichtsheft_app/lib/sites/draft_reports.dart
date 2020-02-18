@@ -29,7 +29,7 @@ class _DraftReportsState extends State<DraftReports> {
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports;
+    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReportIds;
     return Site(
       siteRoute: "/draft-reports",
       title: "Draft reports",
@@ -171,7 +171,7 @@ class _DraftReportsState extends State<DraftReports> {
               scrollDirection: Axis.vertical,
               itemBuilder: (_, int id) => ReportListTile(
                   reportId: id,
-                  isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(id) ? true : false,
+                  isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReportIds.contains(id) ? true : false,
                   reportText: "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut  elitr, sed diam nonumy "),
             ),
           )

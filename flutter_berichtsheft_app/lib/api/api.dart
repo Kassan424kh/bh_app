@@ -15,10 +15,12 @@ class API {
     dio.clear();
   }
 
-  void _updateShowingReports(BuildContext context) {
+  void _updateShowingReports(BuildContext context, {bool clearSelectedReports = true}) {
     Provider.of<ReportsProvider>(context, listen: false).updateShowingReports(false);
-    Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports.clear();
-    Provider.of<ReportsProvider>(context, listen: false).selectAllReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports);
+    if (clearSelectedReports){
+      Provider.of<ReportsProvider>(context, listen: false).clearSelectedReports();
+      Provider.of<ReportsProvider>(context, listen: false).selectAllReports([]);
+    }
   }
 
   String _valuesToLinkQueryParameter(mapOfValuse) {
@@ -45,10 +47,14 @@ class API {
   }
 
   void catchErrorMessage(e){
-    if (e.response.statusCode == 404)
-      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
-    else
-      Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: e.response.data["message"]);
+    try{
+      if (e.response.statusCode == 404)
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
+      else
+        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: e.response.data["message"]);
+    }catch(e){
+      print("Can not show message!!!");
+    }
     dio.clear();
   }
 
@@ -137,6 +143,7 @@ class API {
       );
       List<dynamic> data = response.data;
       dio.clear();
+      _updateShowingReports(context);
       return data;
     } catch (e) {
       catchErrorMessage(e);
@@ -219,7 +226,7 @@ class API {
 
       Map<dynamic, dynamic> data = response.data;
       if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
-        _updateShowingReports(context);
+        _updateShowingReports(context, clearSelectedReports: false);
         Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: deleteForever ? "Report was deleted forever ✓" : "Report was deleted ✓");
       } else if (data.containsKey("message")) {
@@ -235,7 +242,7 @@ class API {
     }
   }
 
-  Future deleteReports(List<int> reportIds, {bool permanently = false}) async {
+  Future<bool> deleteReports(List<int> reportIds, {bool permanently = false}) async {
     try {
       Map<String, dynamic> _valuesData = {};
       _valuesData["reportIds"] = reportIds;
@@ -256,14 +263,16 @@ class API {
       Map<dynamic, dynamic> data = await response.data;
 
       if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
-        _updateShowingReports(context);
+        _updateShowingReports(context, clearSelectedReports: false);
         Provider.of<NavigateProvider>(context, listen: false).goToSite("/deleted-reports");
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: permanently ? "Reports was deleted permanently ✓" : "Reports was deleted ✓");
+        return true;
       }
       dio.clear();
     } on DioError catch (e) {
       catchErrorMessage(e);
     }
+    return false;
   }
 
   Future revertReports(List<int> reportIds) async {

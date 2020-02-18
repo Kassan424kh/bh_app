@@ -40,7 +40,7 @@ class _DeletedReportsState extends State<DeletedReports> {
           _updatingTime = 0;
         }
         _listOfDeletedReports.clear();
-        _listOfDeletedReports = reports.length != 0 ? reports : [];
+        _listOfDeletedReports.addAll(reports);
       });
 
       List<int> _listOfReportsIds = [];
@@ -53,11 +53,6 @@ class _DeletedReportsState extends State<DeletedReports> {
   void initState() {
     super.initState();
     _api = API(context: context);
-    setState(() {
-      _isUpdated = false;
-      _updatingTime = 0;
-      _listOfDeletedReports.clear();
-    });
   }
 
   @override
@@ -76,6 +71,7 @@ class _DeletedReportsState extends State<DeletedReports> {
         _updatingTime++;
       });
     }
+
     super.didChangeDependencies();
   }
 
@@ -87,7 +83,7 @@ class _DeletedReportsState extends State<DeletedReports> {
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context).listOfSelectedReports;
+    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context).listOfSelectedReportIds;
     return Site(
       siteRoute: "/deleted-reports",
       title: "Deleted reports",
@@ -100,7 +96,7 @@ class _DeletedReportsState extends State<DeletedReports> {
             // Revert reports button
             UIButton(
               onPressed: () {
-                _api.revertReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports);
+                _api.revertReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReportIds);
               },
               leftWidget: Icon(OMIcons.settingsBackupRestore),
               isActive: true,
@@ -111,13 +107,19 @@ class _DeletedReportsState extends State<DeletedReports> {
             // Permanently delete reports button
             UIButton(
               onPressed: () {
-                bool areReportsSelected = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports.length > 0;
+                bool areReportsSelected = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReportIds.length > 0;
                 Provider.of<MessageProvider>(context, listen: false).showMessage(
                   true,
                   messageText: areReportsSelected ? "Are you sure, you want to delete selected reports permanently?" : "There are no selected reports",
                   okButton: areReportsSelected
                       ? () {
-                          _api.deleteReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports, permanently: true);
+                          List<int> _listOfSelectedReportIds = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReportIds;
+                          _api.deleteReports(_listOfSelectedReportIds, permanently: true).then((permanentlyDeleted) {
+                            if (permanentlyDeleted) {
+                              _listOfDeletedReports.removeWhere((report) => _listOfSelectedReportIds.contains(report["r_id"]));
+                              Provider.of<ReportsProvider>(context, listen: false).clearSelectedReports();
+                            }
+                          });
                         }
                       : null,
                 );
@@ -254,7 +256,7 @@ class _DeletedReportsState extends State<DeletedReports> {
                       scrollDirection: Axis.vertical,
                       itemBuilder: (_, int index) => ReportListTile(
                           reportId: _listOfDeletedReports[index]["r_id"],
-                          isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(_listOfDeletedReports[index]["r_id"]) ? true : false,
+                          isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReportIds.contains(_listOfDeletedReports[index]["r_id"]) ? true : false,
                           date: _listOfDeletedReports[index]["date"],
                           hours: _listOfDeletedReports[index]["hours"].toString(),
                           reportText: _listOfDeletedReports[index]["text"]),

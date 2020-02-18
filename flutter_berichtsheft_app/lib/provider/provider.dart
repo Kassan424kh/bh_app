@@ -61,33 +61,38 @@ class ReportsProvider extends ChangeNotifier {
     reportIds.addAll(_reportIds);
   }
 
-  List<int> listOfSelectedReports = [];
+  List<int> listOfSelectedReportIds = [];
   bool areAllReportsSelected = true;
 
   addReportToSelectingList(int reportId) {
-    if (!listOfSelectedReports.contains(reportId))
-      listOfSelectedReports.add(reportId);
+    if (!listOfSelectedReportIds.contains(reportId))
+      listOfSelectedReportIds.add(reportId);
     else
-      listOfSelectedReports.remove(reportId);
+      listOfSelectedReportIds.remove(reportId);
 
-    areAllReportsSelected = !reportIds.every((reportId) => listOfSelectedReports.contains(reportId));
+    areAllReportsSelected = !reportIds.every((reportId) => listOfSelectedReportIds.contains(reportId));
 
     notifyListeners();
   }
 
   selectAllReports(List<int> _reportIds) {
     bool _areAllReportsSelected = false;
-    _areAllReportsSelected = _reportIds.every((reportId) => listOfSelectedReports.contains(reportId));
+    _areAllReportsSelected = _reportIds.every((reportId) => listOfSelectedReportIds.contains(reportId));
 
-    listOfSelectedReports.clear();
+    listOfSelectedReportIds.clear();
 
     if (!_areAllReportsSelected)
-      listOfSelectedReports.addAll(_reportIds);
+      listOfSelectedReportIds.addAll(_reportIds);
     else
-      listOfSelectedReports.clear();
+      listOfSelectedReportIds.clear();
 
     areAllReportsSelected = _areAllReportsSelected;
 
+    notifyListeners();
+  }
+
+  clearSelectedReports(){
+    listOfSelectedReportIds.clear();
     notifyListeners();
   }
 

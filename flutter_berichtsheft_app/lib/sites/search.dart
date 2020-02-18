@@ -57,7 +57,7 @@ class _SearchState extends State<Search> {
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context).listOfSelectedReports;
+    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context).listOfSelectedReportIds;
     return Site(
       siteRoute: "/search",
       title: "Search",
@@ -70,13 +70,13 @@ class _SearchState extends State<Search> {
             // Delete reports button
             UIButton(
               onPressed: () {
-                bool areReportsSelected = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports.length > 0;
+                bool areReportsSelected = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReportIds.length > 0;
                 Provider.of<MessageProvider>(context, listen: false).showMessage(
                   true,
                   messageText: areReportsSelected ? "Are you sure, you want to delete selected reports?" : "There are no selected reports",
                   okButton: areReportsSelected
                       ? () {
-                          _api.deleteReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReports);
+                          _api.deleteReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReportIds);
                         }
                       : null,
                 );
@@ -212,7 +212,7 @@ class _SearchState extends State<Search> {
                       scrollDirection: Axis.vertical,
                       itemBuilder: (_, int index) => ReportListTile(
                           reportId: _listOfReports[index]["r_id"],
-                          isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReports.contains(_listOfReports[index]["r_id"]) ? true : false,
+                          isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReportIds.contains(_listOfReports[index]["r_id"]) ? true : false,
                           date: _listOfReports[index]["date"],
                           hours: _listOfReports[index]["hours"].toString(),
                           reportText: _listOfReports[index]["text"]),

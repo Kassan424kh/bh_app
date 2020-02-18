@@ -46,7 +46,7 @@ class ReportListTile extends StatelessWidget {
                   children: <Widget>[
                     Text("Select"),
                     Text(
-                      " all " + Provider.of<ReportsProvider>(context).listOfSelectedReports.length.toString(),
+                      " all " + Provider.of<ReportsProvider>(context).listOfSelectedReportIds.length.toString(),
                       style: TextStyle(color: Colors.transparent),
                     ),
                   ],
