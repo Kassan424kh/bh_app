@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Feb 13, 2020 at 04:25 PM
+-- Generation Time: Feb 19, 2020 at 05:11 PM
 -- Server version: 8.0.18
 -- PHP Version: 7.1.23
 
@@ -86,13 +86,6 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 --
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`u_id`, `first_and_last_name`, `email`, `birthday`, `u_password`, `roll`, `is_new_user`) VALUES
-(29, 'Khalil Khalil', 'k.khalil@satzmedia.de', '', 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imsua2hhbGlsQHNhdHptZWRpYS5kZSIsInBhc3N3b3JkIjoiSGVpOGNodXIifQ.GrRAn-_IwjLWTjCU3_x3DkIK4nfXs-7liqVXZeKBRTw', 0, 1);
-
---
 -- Indexes for dumped tables
 --
 
@@ -107,6 +100,7 @@ ALTER TABLE `duplicated_reports`
 --
 ALTER TABLE `reports`
     ADD PRIMARY KEY (`r_id`);
+ALTER TABLE `reports` ADD FULLTEXT KEY `text` (`text`);
 
 --
 -- Indexes for table `trainees`
@@ -134,7 +128,7 @@ ALTER TABLE `duplicated_reports`
 -- AUTO_INCREMENT for table `reports`
 --
 ALTER TABLE `reports`
-    MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+    MODIFY `r_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=975;
 
 --
 -- AUTO_INCREMENT for table `trainees`
@@ -146,7 +140,7 @@ ALTER TABLE `trainees`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-    MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+    MODIFY `u_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

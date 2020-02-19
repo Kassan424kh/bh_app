@@ -16,21 +16,21 @@ mysql = MySQL(app)
 
 class Database:
     # User Functions
-    def get_user(id=-1, email="", password="") -> dict:
+    def get_user(u_id=-1, email="", password="") -> dict:
 
         if id == -1 and email == "" and password == "":
             print("Your should insert id, email or password to search after user!")
-            return
+            return {}
         elif email == "" and password != "":
             print("Your should insert the email to get user data!")
-            return
+            return {}
 
         id_query = ""
         email_query = ""
         password_query = ""
 
-        if id != -1:
-            id_query = "`u_id` = '{}'".format(id)
+        if u_id != -1:
+            id_query = "`u_id` = '{}'".format(str(u_id))
         else:
             id_query = "False"
         if email != "":
@@ -127,7 +127,7 @@ class Database:
         return Database.get_trainees_data(u_id=user.get("u_id"))
 
     # Reports Functions
-    def get_reports(u_id, text = "",start_date="", end_date="", get_all=False, are_deleted=False) -> list:
+    def get_reports(u_id, text="", start_date="", end_date="", get_all=False, are_deleted=False) -> list:
         list_of_reports = []
         if get_all:
             list_of_reports = Database.list_requests(
@@ -161,8 +161,10 @@ class Database:
         list_of_reports = []
         if u_id is not None:
             list_of_reports = Database.list_requests(
-                "SELECT * FROM reports WHERE MATCH(text) AGAINST ('{1}' IN NATURAL LANGUAGE MODE) AND `u_id` = {0}".format(
-                    u_id, searched_texts))
+                """
+                    SELECT * FROM reports 
+                    WHERE MATCH(text) AGAINST ('{1}' IN NATURAL LANGUAGE MODE) AND `u_id` = {0}
+                """.format(u_id, searched_texts))
         return list_of_reports
 
     def get_report(r_id) -> dict:

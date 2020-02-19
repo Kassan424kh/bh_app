@@ -28,6 +28,7 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
   RenderBox _renderBoxOfTheSite;
   String openedSite = "/";
   DateTime _now;
+  List<dynamic> _foundReportsList = [];
 
   AnimationController _animationController;
   Animation _showSiteOpacity;
@@ -50,7 +51,6 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
       try {
         if (Provider.of<StylingProvider>(context, listen: false).showSitesCardComponentHeight != _renderBoxOfTheSite.size.height) {
           Provider.of<StylingProvider>(context, listen: false).updateHeightOfShowSitesCardComponent(_renderBoxOfTheSite.size.height);
-        }else{
         }
       } catch (e) {
         timer.cancel();
@@ -62,7 +62,6 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback(_renderBox);
-
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: (Styling.durationAnimation).round()),

@@ -46,15 +46,17 @@ def authUser(email="", password=""):
         c.bind()
         c.search("dc=intern,dc=satzmedia,dc=de", AUTH_INFORMATION, attributes=ALL_ATTRIBUTES)
 
-        indexOFUserDistinguishedName = str(c.entries[0]).index("distinguishedName: ") + len("distinguishedName: ")
-        user_cn = str(c.entries[0])[indexOFUserDistinguishedName:].splitlines()[0]
+        try:
+            indexOFUserDistinguishedName = str(c.entries[0]).index("distinguishedName: ") + len("distinguishedName: ")
+            user_cn = str(c.entries[0])[indexOFUserDistinguishedName:].splitlines()[0]
 
-        indexOFUserMail = str(c.entries[0]).index("mail: ") + len("mail: ")
-        user_mail = str(c.entries[0])[indexOFUserMail:].splitlines()[0]
+            indexOFUserMail = str(c.entries[0]).index("mail: ") + len("mail: ")
+            user_mail = str(c.entries[0])[indexOFUserMail:].splitlines()[0]
 
-        indexOFUserName = str(c.entries[0]).index("name: ") + len("name: ")
-        user_name = str(c.entries[0])[indexOFUserName:].splitlines()[0]
-
+            indexOFUserName = str(c.entries[0]).index("name: ") + len("name: ")
+            user_name = str(c.entries[0])[indexOFUserName:].splitlines()[0]
+        except IndexError as error:
+            abort(400, message="Login failed")
         if user_mail == email:
             authUserConnection = Connection(
                 server,

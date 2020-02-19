@@ -310,7 +310,7 @@ class API {
     }
   }
 
-  Future<Map<dynamic, dynamic>> search(String searchedText) async {
+  Future<List<dynamic>> search(String searchedText) async {
 
     try {
       Map<String, dynamic> _valuesData = {};
@@ -321,21 +321,21 @@ class API {
         options: Options(headers: _headers),
         onReceiveProgress: showDownloadProgress,
       );
-      Map<dynamic, dynamic> data = response.data;
-      if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
+      var data = response.data;
+      if (response.statusCode == 201) {
         _updateShowingReports(context);
-        Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
-        Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Cannt fined any report");
       } else if (data.containsKey("message")) {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
         dio.clear();
-        return null;
+        return [];
       }
       dio.clear();
+      Provider.of<ReportsProvider>(context, listen: false).setListOfFoundReports(data);
       return data;
     } catch (e) {
       catchErrorMessage(e);
-      return null;
+      print(e);
+      return [];
     }
   }
 

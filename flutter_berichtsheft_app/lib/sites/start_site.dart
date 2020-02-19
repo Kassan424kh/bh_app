@@ -65,7 +65,7 @@ class _StartSiteState extends State<StartSite> {
                               width: constraints.maxWidth - (constraints.maxWidth * 15 / 100),
                               height: _showCardComponentHeight,
                               onEnd: () {
-                                if (["/", "/home", "/deleted-reports", "/draft-reports"].contains(Provider.of<NavigateProvider>(context, listen: false).nowOpenedSite))
+                                if (["/", "/home", "/deleted-reports", "/draft-reports", "/search"].contains(Provider.of<NavigateProvider>(context, listen: false).nowOpenedSite))
                                   Provider.of<ReportsProvider>(context, listen: false).updateShowingReports(true);
                               },
                               margin: EdgeInsets.symmetric(vertical: 10),

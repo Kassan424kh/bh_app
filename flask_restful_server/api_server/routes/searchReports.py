@@ -11,8 +11,12 @@ class SearchReports(Resource):
         parser.add_argument('searchedText', required=True, type=str)
 
         args = parser.parse_args()
-        u_id = Database.search_reports(
+
+        print("user_id:", data["userData"].get("userId"), "Searched after:", args.get("searchedText"))
+
+        list_of_found_reports = Database.search_reports(
             u_id=data["userData"].get("userId"),
             searched_texts=args.get("searchedText"),
         )
-        return Database.get_user(u_id), 201
+
+        return list_of_found_reports, 201

@@ -19,6 +19,7 @@ class _NavigationButtonsState extends State<NavigationButtons> {
   _updateShowingReports(BuildContext context){
     Provider.of<ReportsProvider>(context, listen: false).updateShowingReports(false);
     Provider.of<ReportsProvider>(context, listen: false).clearSelectedReports();
+    Provider.of<ReportsProvider>(context, listen: false).clearListOfFoundReports();
     Provider.of<ReportsProvider>(context, listen: false).selectAllReports([]);
     _api.clearClient();
   }
@@ -44,11 +45,13 @@ class _NavigationButtonsState extends State<NavigationButtons> {
           shrinkWrap: true,
           children: <Widget>[
             SearchInputField(onTap: (){
-              _updateShowingReports(context);
-              Provider.of<NavigateProvider>(context, listen: false).goToSite("/search");
+              if (Provider.of<NavigateProvider>(context, listen: false).nowOpenedSite != "/search"){
+                _updateShowingReports(context);
+                Provider.of<NavigateProvider>(context, listen: false).goToSite("/search");
+              }
             },
-              onSubmitted: (String v){
-                print(v);
+              onSubmitted: (searchText) {
+                _api.search(searchText);
               },
             ),
             NavigationButton(

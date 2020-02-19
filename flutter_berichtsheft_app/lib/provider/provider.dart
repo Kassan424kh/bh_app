@@ -55,10 +55,20 @@ class StylingProvider extends ChangeNotifier {
 
 class ReportsProvider extends ChangeNotifier {
   List<int> reportIds = [];
+  List listOfFoundReports= [];
 
   setReportsIds(List<int> _reportIds) {
     reportIds.clear();
     reportIds.addAll(_reportIds);
+  }
+
+  setListOfFoundReports (List foundReports){
+    listOfFoundReports = foundReports;
+    notifyListeners();
+  }
+  clearListOfFoundReports (){
+    listOfFoundReports = [];
+    notifyListeners();
   }
 
   List<int> listOfSelectedReportIds = [];
@@ -92,7 +102,7 @@ class ReportsProvider extends ChangeNotifier {
   }
 
   clearSelectedReports(){
-    listOfSelectedReportIds.clear();
+    listOfSelectedReportIds = [];
     notifyListeners();
   }
 

@@ -1,14 +1,12 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/api/api.dart';
-import 'package:flutter_berichtsheft_app/components/null_image.dart';
-import 'package:flutter_berichtsheft_app/components/report_list_tile.dart';
+import 'package:flutter_berichtsheft_app/components/reports_data_table.dart';
 import 'package:flutter_berichtsheft_app/components/site.dart';
 import 'package:flutter_berichtsheft_app/components/ui_button.dart';
 import 'package:flutter_berichtsheft_app/components/ui_date_picker.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
+import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 
@@ -22,24 +20,37 @@ class _SearchState extends State<Search> {
   DateTime _toDate = DateTime.now();
   DateFormat _dateFormat = DateFormat("dd-MM-yyyy");
   API _api;
-  List<dynamic> _listOfReports = [];
+  List<dynamic> _listOfFoundReports = [];
+
+  bool _isUpdated = false;
+  int _updatingTime = 0;
+
+  _setListOfReportsIds(list) {
+    try {
+      Provider.of<ReportsProvider>(context, listen: false).setReportsIds(list);
+    } catch (e) {
+    }
+  }
+
+  _getReports() {
+    List<dynamic> foundReports = Provider.of<ReportsProvider>(context).listOfFoundReports;
+    print(foundReports);
+    setState(() {
+      _isUpdated = false;
+      _updatingTime = 0;
+      _listOfFoundReports.clear();
+      _listOfFoundReports.addAll(foundReports);
+    });
+
+    List<int> _listOfReportsIds = [];
+    for (var i = 0; i < foundReports.length; i++) _listOfReportsIds.add(foundReports[i]["r_id"]);
+    _setListOfReportsIds(_listOfReportsIds);
+  }
 
   @override
   void initState() {
     super.initState();
-
-    setState(() {
-      _listOfReports.clear();
-      _api = API(context: context);
-    });
-    Timer(Duration(milliseconds: 50), () {
-      /*_api.reports.then((reports) {
-
-      });*/
-      setState(() {
-        _listOfReports = [];
-      });
-    });
+    _api = API(context: context);
   }
 
   @override
@@ -51,13 +62,20 @@ class _SearchState extends State<Search> {
 
   @override
   void didChangeDependencies() {
+    if (!_isUpdated && _updatingTime <= 2) {
+      _getReports();
+      setState(() {
+        _isUpdated = true;
+        _updatingTime++;
+      });
+    }
     super.didChangeDependencies();
   }
 
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context).listOfSelectedReportIds;
+
     return Site(
       siteRoute: "/search",
       title: "Search",
@@ -67,7 +85,7 @@ class _SearchState extends State<Search> {
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            // Delete reports button
+            // delete reports button
             UIButton(
               onPressed: () {
                 bool areReportsSelected = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReportIds.length > 0;
@@ -76,7 +94,13 @@ class _SearchState extends State<Search> {
                   messageText: areReportsSelected ? "Are you sure, you want to delete selected reports?" : "There are no selected reports",
                   okButton: areReportsSelected
                       ? () {
-                          _api.deleteReports(Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReportIds);
+                          List<int> _listOfSelectedReportIds = Provider.of<ReportsProvider>(context, listen: false).listOfSelectedReportIds;
+                          _api.deleteReports(_listOfSelectedReportIds).then((permanentlyDeleted) {
+                            if (permanentlyDeleted) {
+                              _listOfFoundReports.removeWhere((report) => _listOfSelectedReportIds.contains(report["r_id"]));
+                              Provider.of<ReportsProvider>(context, listen: false).clearSelectedReports();
+                            }
+                          });
                         }
                       : null,
                 );
@@ -130,101 +154,10 @@ class _SearchState extends State<Search> {
           ],
         ),
         SizedBox(height: 20),
-        Container(
-          height: 50,
-          color: _selectedTheme[ElementStylingParameters.primaryColor],
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              UIButton(
-                isActive: true,
-                onPressed: () {
-                  List<int> _listOfReportsIds = [];
-                  for (var i = 0; i < _listOfReports.length; i++) _listOfReportsIds.add(_listOfReports[i]["r_id"]);
-                  Provider.of<ReportsProvider>(context, listen: false).selectAllReports(_listOfReportsIds);
-                },
-                leftWidget: Icon(
-                  Icons.check_box,
-                  color: _selectedTheme[Provider.of<ReportsProvider>(context).areAllReportsSelected ? ElementStylingParameters.primaryAccentColor : ElementStylingParameters.headerTextColor],
-                ),
-                text: "Select all " + _listOfSelectedReports.length.toString(),
-              ),
-              SizedBox(width: 20),
-              UIButton(
-                isActive: true,
-                disableButtonEffects: true,
-                onPressed: () {},
-                leftWidget: Text(
-                  "|",
-                  style: TextStyle(
-                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
-                  ),
-                ),
-                text: "Date",
-              ),
-              SizedBox(width: 20),
-              UIButton(
-                isActive: true,
-                disableButtonEffects: true,
-                onPressed: () {},
-                leftWidget: Text(
-                  "|",
-                  style: TextStyle(
-                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
-                  ),
-                ),
-                text: "Hours",
-              ),
-              SizedBox(width: 20),
-              UIButton(
-                isActive: true,
-                disableButtonEffects: true,
-                onPressed: () {},
-                leftWidget: Text(
-                  "|",
-                  style: TextStyle(
-                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
-                  ),
-                ),
-                text: "Report text",
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 20),
-        AnimatedCrossFade(
-          duration: Duration(milliseconds: (Styling.durationAnimation / 4).round()),
-          firstCurve: Curves.easeOutCubic,
-          secondCurve: Curves.easeOutCubic,
-          firstChild: AnimatedContainer(
-            duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
-            curve: Curves.easeOutCubic,
-            constraints: BoxConstraints(maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfReports.length * 60 > 600 ? 600 : _listOfReports.length * 60).toDouble() : 0),
-            child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
-                ? Scrollbar(
-                    child: ListView.builder(
-                      itemCount: _listOfReports.length,
-                      cacheExtent: 10,
-                      itemExtent: 60,
-                      reverse: true,
-                      addAutomaticKeepAlives: true,
-                      physics: AlwaysScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (_, int index) => ReportListTile(
-                          reportId: _listOfReports[index]["r_id"],
-                          isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReportIds.contains(_listOfReports[index]["r_id"]) ? true : false,
-                          date: _listOfReports[index]["date"],
-                          hours: _listOfReports[index]["hours"].toString(),
-                          reportText: _listOfReports[index]["text"]),
-                    ),
-                  )
-                : Container(),
-          ),
-          secondChild: NullImage(
-            image: _selectedTheme[SitesIcons.nullFoundReports],
-          ),
-          crossFadeState: _listOfReports.length > 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-        ),
+        ReportsDataTable(
+          listOfReports: Provider.of<ReportsProvider>(context).listOfFoundReports,
+          nullSiteIcon: SitesIcons.nullFoundReports,
+        )
       ],
     );
   }

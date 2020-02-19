@@ -62,7 +62,7 @@ def importReportsFromRedmineApiServerToDB(key, u_id) -> int:
                     ) == 0
                     if foundDuplicationBetweenThisAndInDBReport:
                         Database.set_report(
-                            u_id= str(u_id),
+                            u_id= u_id,
                             hours=report.get("hours"),
                             date=report.get("spent_on"),
                             text=report.get("comments").replace("'", "\""),

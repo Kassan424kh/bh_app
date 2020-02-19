@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/api/api.dart';
-import 'package:flutter_berichtsheft_app/components/null_image.dart';
-import 'package:flutter_berichtsheft_app/components/report_list_tile.dart';
+import 'package:flutter_berichtsheft_app/components/reports_data_table.dart';
 import 'package:flutter_berichtsheft_app/components/site.dart';
 import 'package:flutter_berichtsheft_app/components/ui_button.dart';
 import 'package:flutter_berichtsheft_app/components/ui_date_picker.dart';
@@ -71,19 +70,12 @@ class _DeletedReportsState extends State<DeletedReports> {
         _updatingTime++;
       });
     }
-
     super.didChangeDependencies();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
-    final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context).listOfSelectedReportIds;
     return Site(
       siteRoute: "/deleted-reports",
       title: "Deleted reports",
@@ -103,7 +95,6 @@ class _DeletedReportsState extends State<DeletedReports> {
               withoutLeftWidgetSpace: true,
             ),
             SizedBox(width: 20),
-
             // Permanently delete reports button
             UIButton(
               onPressed: () {
@@ -173,102 +164,7 @@ class _DeletedReportsState extends State<DeletedReports> {
           ],
         ),
         SizedBox(height: 20),
-        Container(
-          height: 50,
-          color: _selectedTheme[ElementStylingParameters.primaryColor],
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              UIButton(
-                isActive: true,
-                onPressed: () {
-                  List<int> _listOfReportsIds = [];
-                  for (var i = 0; i < _listOfDeletedReports.length; i++) _listOfReportsIds.add(_listOfDeletedReports[i]["r_id"]);
-                  Provider.of<ReportsProvider>(context, listen: false).selectAllReports(_listOfReportsIds);
-                },
-                leftWidget: Icon(
-                  Icons.check_box,
-                  color: _selectedTheme[Provider.of<ReportsProvider>(context).areAllReportsSelected ? ElementStylingParameters.primaryAccentColor : ElementStylingParameters.headerTextColor],
-                ),
-                text: "Select all " + _listOfSelectedReports.length.toString(),
-              ),
-              SizedBox(width: 20),
-              UIButton(
-                isActive: true,
-                disableButtonEffects: true,
-                onPressed: () {},
-                leftWidget: Text(
-                  "|",
-                  style: TextStyle(
-                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
-                  ),
-                ),
-                text: "Date",
-              ),
-              SizedBox(width: 20),
-              UIButton(
-                isActive: true,
-                disableButtonEffects: true,
-                onPressed: () {},
-                leftWidget: Text(
-                  "|",
-                  style: TextStyle(
-                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
-                  ),
-                ),
-                text: "Hours",
-              ),
-              SizedBox(width: 20),
-              UIButton(
-                isActive: true,
-                disableButtonEffects: true,
-                onPressed: () {},
-                leftWidget: Text(
-                  "|",
-                  style: TextStyle(
-                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
-                  ),
-                ),
-                text: "Report text",
-              ),
-            ],
-          ),
-        ),
-        SizedBox(height: 20),
-        AnimatedCrossFade(
-          duration: Duration(milliseconds: (Styling.durationAnimation / 4).round()),
-          firstCurve: Curves.easeOutCubic,
-          secondCurve: Curves.easeOutCubic,
-          firstChild: AnimatedContainer(
-            duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
-            curve: Curves.easeOutCubic,
-            constraints: BoxConstraints(
-                maxHeight: Provider.of<ReportsProvider>(context).showReportsAfterLoad ? (_listOfDeletedReports.length * 60 > 600 ? 600 : _listOfDeletedReports.length * 60).toDouble() : 0),
-            child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
-                ? Scrollbar(
-                    child: ListView.builder(
-                      itemCount: _listOfDeletedReports.length,
-                      cacheExtent: 10,
-                      itemExtent: 60,
-                      reverse: true,
-                      addAutomaticKeepAlives: true,
-                      physics: AlwaysScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      itemBuilder: (_, int index) => ReportListTile(
-                          reportId: _listOfDeletedReports[index]["r_id"],
-                          isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReportIds.contains(_listOfDeletedReports[index]["r_id"]) ? true : false,
-                          date: _listOfDeletedReports[index]["date"],
-                          hours: _listOfDeletedReports[index]["hours"].toString(),
-                          reportText: _listOfDeletedReports[index]["text"]),
-                    ),
-                  )
-                : Container(),
-          ),
-          secondChild: NullImage(
-            image: _selectedTheme[SitesIcons.nullDeletedReports],
-          ),
-          crossFadeState: _listOfDeletedReports.length > 0 ? CrossFadeState.showFirst : CrossFadeState.showSecond,
-        ),
+        ReportsDataTable(listOfReports: _listOfDeletedReports,nullSiteIcon: SitesIcons.nullDeletedReports,)
       ],
     );
   }
