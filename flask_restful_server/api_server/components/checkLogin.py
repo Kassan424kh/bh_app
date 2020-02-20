@@ -3,7 +3,6 @@ import functools
 import jwt
 from flask import request
 from flask_restful import abort
-
 from ..db.database import Database
 from ..db.ldapServerConnection import authUser
 
@@ -17,6 +16,8 @@ def login_required(method):
 
         _password = {"email": email, "password": password}
         _encryptedPassword = jwt.encode(_password, "password", "HS256").decode('UTF-8')
+
+        print(_encryptedPassword)
 
         user = {}
         is_user_logged_in = False

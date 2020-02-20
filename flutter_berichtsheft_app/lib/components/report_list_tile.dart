@@ -45,15 +45,15 @@ class ReportListTile extends StatelessWidget {
                         color: _selectedTheme[isSelected ? ElementStylingParameters.headerTextColor : ElementStylingParameters.primaryColor],
                       ),
                       //hiddenText: true,
-                      text: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: <Widget>[
-                          Text("Select"),
-                          Text(
-                            " all " + Provider.of<ReportsProvider>(context).listOfSelectedReportIds.length.toString(),
+                      text: RichText(
+                        text: TextSpan(children: [
+                          TextSpan(text: "Select"),
+                          TextSpan(
+                            text: " all " + Provider.of<ReportsProvider>(context).listOfSelectedReportIds.length.toString(),
                             style: TextStyle(color: Colors.transparent),
                           ),
-                        ],
+
+                        ]),
                       ),
                     ),
                   ),

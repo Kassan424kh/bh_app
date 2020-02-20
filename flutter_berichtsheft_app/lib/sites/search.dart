@@ -6,7 +6,6 @@ import 'package:flutter_berichtsheft_app/components/ui_button.dart';
 import 'package:flutter_berichtsheft_app/components/ui_date_picker.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/intl.dart';
 

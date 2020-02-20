@@ -32,4 +32,4 @@ api.add_resource(RevertReports, "/revert-reports")
 api.add_resource(ImportFromReports, "/import-from-redmine")
 
 if __name__ == '__main__':
-    app.run(port=6666, host="0.0.0.0")
+    app.run(port=5000, host="0.0.0.0")

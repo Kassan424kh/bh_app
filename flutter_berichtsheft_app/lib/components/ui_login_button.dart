@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
-import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
-import 'package:vector_math/vector_math_64.dart' show radians;
 
 class UILoginButton extends StatelessWidget{
   final onPressed;

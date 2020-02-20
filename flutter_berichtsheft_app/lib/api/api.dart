@@ -11,13 +11,13 @@ class API {
   final BuildContext context;
   var dio = Dio();
 
-  void clearClient () {
+  void clearClient() {
     dio.clear();
   }
 
   void _updateShowingReports(BuildContext context, {bool clearSelectedReports = true}) {
     Provider.of<ReportsProvider>(context, listen: false).updateShowingReports(false);
-    if (clearSelectedReports){
+    if (clearSelectedReports) {
       Provider.of<ReportsProvider>(context, listen: false).clearSelectedReports();
       Provider.of<ReportsProvider>(context, listen: false).selectAllReports([]);
     }
@@ -33,27 +33,27 @@ class API {
 
   API({Key key, this.context});
 
-  final String url = "http://0.0.0.0:6666";
+  final String url = "http://192.168.2.211:5000";
   Map<String, String> _headers = {"email": MyLoginData.email, "password": MyLoginData.password};
 
   void showDownloadProgress(received, total) {
     if (total != -1) {
-      try{
+      try {
         Provider.of<LoadingProgress>(context, listen: false).updateLoginStatus(received / total * 100);
-      }catch(e){
+      } catch (e) {
         print(e);
       }
     }
   }
 
-  void catchErrorMessage(e){
-    try{
+  void catchErrorMessage(e) {
+    print(e);
+    try {
       if (e.response.statusCode == 404)
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
       else
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: e.response.data["message"]);
-    }catch(e){
-    }
+    } catch (e) {}
     dio.clear();
   }
 
@@ -90,9 +90,8 @@ class API {
 
   /// userData attributes are [birthday, roll, is_trainees, typeTraining, startTrainingDate, endTrainingDate]
   Future<Map<dynamic, dynamic>> addDataToNewUser(Map<dynamic, dynamic> newUserData) async {
-
     try {
-      var response = await dio.get("${url}/update-report${_valuesToLinkQueryParameter(newUserData)}", options: Options(headers: _headers), onReceiveProgress: showDownloadProgress);
+      var response = await dio.get("$url/update-report${_valuesToLinkQueryParameter(newUserData)}", options: Options(headers: _headers), onReceiveProgress: showDownloadProgress);
       Map<dynamic, dynamic> data = response.data;
       if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
         _updateShowingReports(context);
@@ -112,12 +111,11 @@ class API {
   }
 
   Future<List<dynamic>> get reports async {
-
     try {
       var data = [];
       await dio
           .get(
-        "${url}/get-reports",
+        "$url/get-reports",
         options: Options(headers: _headers),
         onReceiveProgress: showDownloadProgress,
       )
@@ -128,15 +126,15 @@ class API {
       return data;
     } catch (e) {
       catchErrorMessage(e);
+      print(e);
       return [];
     }
   }
 
   Future<List<dynamic>> get deletedReports async {
-
     try {
       var response = await dio.get(
-        "${url}/get-deleted-reports",
+        "$url/get-deleted-reports",
         options: Options(headers: _headers),
         onReceiveProgress: showDownloadProgress,
       );
@@ -151,10 +149,9 @@ class API {
   }
 
   Future<Map<dynamic, dynamic>> createNewReport(Map<dynamic, dynamic> reportData) async {
-
     try {
       var response = await dio.get(
-        "${url}/create-new-report${_valuesToLinkQueryParameter(reportData)}",
+        "$url/create-new-report${_valuesToLinkQueryParameter(reportData)}",
         options: Options(headers: _headers),
         onReceiveProgress: showDownloadProgress,
       );
@@ -177,12 +174,11 @@ class API {
   }
 
   Future<Map<dynamic, dynamic>> updateReport(int reportID, Map<dynamic, dynamic> newReportData) async {
-
     try {
       newReportData["reportId"] = reportID;
 
       var response = await dio.get(
-        "${url}/update-report${_valuesToLinkQueryParameter(newReportData)}",
+        "$url/update-report${_valuesToLinkQueryParameter(newReportData)}",
         options: Options(headers: _headers),
         onReceiveProgress: showDownloadProgress,
       );
@@ -205,7 +201,6 @@ class API {
   }
 
   Future<Map<dynamic, dynamic>> deleteReport(int reportId, {bool deleteForever = false}) async {
-
     try {
       Map<String, dynamic> _valuesData = {};
       _valuesData["reportId"] = reportId;
@@ -218,7 +213,7 @@ class API {
       });
 
       var response = await dio.get(
-        "${url}/delete-report${values.substring(0, values.length - 1)}",
+        "$url/delete-report${values.substring(0, values.length - 1)}",
         options: Options(headers: _headers),
         onReceiveProgress: showDownloadProgress,
       );
@@ -254,7 +249,7 @@ class API {
       });
 
       var response = await dio.get(
-        "${url}/delete-reports${values.substring(0, values.length - 1)}",
+        "$url/delete-reports${values.substring(0, values.length - 1)}",
         options: Options(headers: _headers),
         onReceiveProgress: showDownloadProgress,
       );
@@ -275,7 +270,6 @@ class API {
   }
 
   Future revertReports(List<int> reportIds) async {
-
     try {
       Map<String, dynamic> _valuesData = {};
       _valuesData["reportIds"] = reportIds;
@@ -287,13 +281,13 @@ class API {
       });
 
       var response = await dio.get(
-        "${url}/revert-reports${values.substring(0, values.length - 1)}",
+        "$url/revert-reports${values.substring(0, values.length - 1)}",
         options: Options(headers: _headers),
         onReceiveProgress: showDownloadProgress,
       );
 
       Map<dynamic, dynamic> data = await response.data;
-      if ((data != null || data.keys.length > 0) && await response.statusCode == 201) {
+      if ((data != null || data.keys.length > 0) && response.statusCode == 201) {
         _updateShowingReports(context);
         Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: data["message"]);
@@ -311,13 +305,12 @@ class API {
   }
 
   Future<List<dynamic>> search(String searchedText) async {
-
     try {
       Map<String, dynamic> _valuesData = {};
       _valuesData["searchedText"] = searchedText;
 
       var response = await dio.get(
-        "${url}/search${_valuesToLinkQueryParameter(_valuesData)}",
+        "$url/search${_valuesToLinkQueryParameter(_valuesData)}",
         options: Options(headers: _headers),
         onReceiveProgress: showDownloadProgress,
       );
@@ -334,19 +327,17 @@ class API {
       return data;
     } catch (e) {
       catchErrorMessage(e);
-      print(e);
       return [];
     }
   }
 
   Future<Map<dynamic, dynamic>> importFromRedmine(String key) async {
-
     try {
       Map<String, dynamic> _valuesData = {};
       _valuesData["key"] = key;
 
       var response = await dio.get(
-        "${url}/import-from-redmine${_valuesToLinkQueryParameter(_valuesData)}",
+        "$url/import-from-redmine${_valuesToLinkQueryParameter(_valuesData)}",
         options: Options(headers: _headers),
         onReceiveProgress: showDownloadProgress,
       );
@@ -368,5 +359,4 @@ class API {
       return null;
     }
   }
-
 }

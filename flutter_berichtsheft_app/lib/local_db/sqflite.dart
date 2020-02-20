@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -38,13 +37,13 @@ class Reports {
 }
 
 class Trainees {
-  final int id, u_id;
+  final int id, uId;
   final int typeTraining;
   final String startDate, endDate;
 
   Trainees({
     this.id,
-    this.u_id,
+    this.uId,
     this.typeTraining,
     this.startDate,
     this.endDate,

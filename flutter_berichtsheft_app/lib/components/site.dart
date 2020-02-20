@@ -27,14 +27,10 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
   GlobalKey _homeSiteGKey = GlobalKey();
   RenderBox _renderBoxOfTheSite;
   String openedSite = "/";
-  DateTime _now;
-  List<dynamic> _foundReportsList = [];
 
   AnimationController _animationController;
   Animation _showSiteOpacity;
   Animation _showSitePosition;
-
-  double _width = 0;
 
   bool stopUpdateSize = false;
 

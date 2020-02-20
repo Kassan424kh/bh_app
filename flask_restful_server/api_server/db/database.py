@@ -1,3 +1,4 @@
+from MySQLdb._exceptions import OperationalError
 from flask_mysqldb import MySQL
 from flask_restful import abort
 
@@ -163,7 +164,7 @@ class Database:
             list_of_reports = Database.list_requests(
                 """
                     SELECT * FROM reports 
-                    WHERE MATCH(text) AGAINST ('{1}' IN NATURAL LANGUAGE MODE) AND `u_id` = {0}
+                    WHERE (UPPER(text) LIKE UPPER('%{1}%') OR MATCH(text) AGAINST ('{1}' IN NATURAL LANGUAGE MODE)) AND `u_id` = {0}
                 """.format(u_id, searched_texts))
         return list_of_reports
 
@@ -234,25 +235,34 @@ class Database:
 
     # Default DB Functions
     def one_request(query) -> dict:
-        cur = mysql.connection.cursor()
-        cur.execute(query)
-        request = cur.fetchone()
-        cur.close()
-        return request
+        try:
+            cur = mysql.connection.cursor()
+            cur.execute(query)
+            request = cur.fetchone()
+            cur.close()
+            return request
+        except OperationalError:
+            abort(400, message="Failed connect to DB!!!")
 
     def list_requests(query) -> list:
-        cur = mysql.connection.cursor()
-        cur.execute(query)
-        requests = cur.fetchall()
-        cur.close()
-        return requests
+        try:
+            cur = mysql.connection.cursor()
+            cur.execute(query)
+            requests = cur.fetchall()
+            cur.close()
+            return requests
+        except OperationalError:
+            abort(400, message="Failed connect to DB!!!")
 
     def insert_into_or_update_or_delete(query, type="") -> int:
-        cur = mysql.connection.cursor()
-        cur.execute(query)
-        new_inserted_data_id = mysql.connection.insert_id()
-        mysql.connection.commit()
-        if type == "deleting":
-            new_inserted_data_id = -1
-        cur.close()
-        return new_inserted_data_id
+        try:
+            cur = mysql.connection.cursor()
+            cur.execute(query)
+            new_inserted_data_id = mysql.connection.insert_id()
+            mysql.connection.commit()
+            if type == "deleting":
+                new_inserted_data_id = -1
+            cur.close()
+            return new_inserted_data_id
+        except OperationalError:
+            abort(400, message="Failed connect to DB!!!")

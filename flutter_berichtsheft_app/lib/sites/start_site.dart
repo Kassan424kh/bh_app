@@ -6,7 +6,6 @@ import 'package:flutter_berichtsheft_app/components/message.dart';
 import 'package:flutter_berichtsheft_app/components/navigation/navigation.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/routes/routes.dart';
-import 'package:flutter_berichtsheft_app/sites/import_reports.dart';
 import 'package:flutter_berichtsheft_app/sites/login.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
 import 'package:provider/provider.dart';
@@ -19,16 +18,15 @@ class StartSite extends StatefulWidget {
 class _StartSiteState extends State<StartSite> {
   bool _showLoginComponents = LoginProvider().isLoggedIn ? false : true;
   bool _showNavigationComponents = LoginProvider().isLoggedIn ? true : false;
-  bool _loadListOfReports = LoginProvider().isLoggedIn ? true : false;
 
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     bool _isLoggedIn = Provider.of<LoginProvider>(context).isLoggedIn;
     Size size = MediaQuery.of(context).size;
-    double _showCardComponentWidth = Provider.of<StylingProvider>(context).showSitesCardComponentWidth;
+    //double _showCardComponentWidth = Provider.of<StylingProvider>(context).showSitesCardComponentWidth;
     double _showCardComponentHeight = Provider.of<StylingProvider>(context).showSitesCardComponentHeight;
-    double _progress = Provider.of<LoadingProgress>(context).loadingProgress;
+    //double _progress = Provider.of<LoadingProgress>(context).loadingProgress;
     return Container(
       width: size.width,
       height: size.height,
