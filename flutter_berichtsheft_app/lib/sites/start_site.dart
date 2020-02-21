@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_berichtsheft_app/components/app_logo.dart';
 import 'package:flutter_berichtsheft_app/components/message.dart';
 import 'package:flutter_berichtsheft_app/components/navigation/navigation.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
@@ -27,16 +28,35 @@ class _StartSiteState extends State<StartSite> {
     //double _showCardComponentWidth = Provider.of<StylingProvider>(context).showSitesCardComponentWidth;
     double _showCardComponentHeight = Provider.of<StylingProvider>(context).showSitesCardComponentHeight;
     //double _progress = Provider.of<LoadingProgress>(context).loadingProgress;
+    print(size.width);
     return Container(
       width: size.width,
       height: size.height,
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
+          Positioned.fill(
+            top: 0,
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Container(
+                height: 60,
+                width: size.width,
+                alignment: Alignment.centerLeft,
+                child: Hero(
+                  tag: "navigationLogo",
+                  child: AppLogo(
+                    fit: BoxFit.fitHeight,
+                    padding: EdgeInsets.all(10),
+                  ),
+                ),
+              ),
+            ),
+          ),
           AnimatedPositioned(
             duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
             curve: Curves.easeInOutCubic,
-            left: _isLoggedIn && _showNavigationComponents ? 350 : 350 * 70 / 100,
+            left: size.width <= 1400 ? 0 : _isLoggedIn && _showNavigationComponents ? 350 : 350 * 70 / 100,
             child: AnimatedOpacity(
               opacity: _isLoggedIn && _showNavigationComponents ? 1 : 0,
               duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
@@ -46,7 +66,7 @@ class _StartSiteState extends State<StartSite> {
               },
               child: _showNavigationComponents
                   ? Container(
-                      width: size.width - 350,
+                      width: size.width <= 1400 ? size.width : size.width - 350,
                       height: size.height,
                       child: Align(
                         alignment: Alignment.center,
@@ -103,7 +123,7 @@ class _StartSiteState extends State<StartSite> {
           AnimatedAlign(
             duration: Duration(milliseconds: Styling.durationAnimation),
             curve: Curves.easeInOutCubic,
-            alignment: _isLoggedIn ? Alignment.centerLeft : Alignment.center,
+            alignment: _isLoggedIn ? Alignment.centerLeft.add(Alignment(0, 0)) : Alignment.center,
             child: AnimatedContainer(
               duration: Duration(milliseconds: Styling.durationAnimation),
               curve: Curves.easeInOutCubic,

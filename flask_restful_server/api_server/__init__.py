@@ -4,6 +4,7 @@ from flask_cors import CORS
 from flask_restful import Api
 
 app = Flask(__name__)
+app.config["SECRET_KEY"]="ولك حلو عني يكفي هكر"
 api = Api(app)
 CORS(app)
 

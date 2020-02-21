@@ -50,8 +50,9 @@ class _NavigationButtonsState extends State<NavigationButtons> {
                 Provider.of<NavigateProvider>(context, listen: false).goToSite("/search");
               }
             },
-              onSubmitted: (searchText) {
-                _api.search(searchText);
+              onSubmitted: (String searchText) {
+                if (searchText.replaceAll(" ", "") != "") _api.search(searchText);
+                else Provider.of<ReportsProvider>(context, listen: false).setListOfFoundReports([]);
               },
             ),
             NavigationButton(

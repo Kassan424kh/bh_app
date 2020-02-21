@@ -53,7 +53,8 @@ class API {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
       else
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: e.response.data["message"]);
-    } catch (e) {}
+    } catch (e) {
+    }
     dio.clear();
   }
 
@@ -63,7 +64,7 @@ class API {
         url,
         onReceiveProgress: showDownloadProgress,
         options: Options(headers: {"email": email, "password": password}),
-      );
+      ).timeout(Duration(seconds: 3));
 
       _headers["email"] = email;
       _headers["password"] = password;

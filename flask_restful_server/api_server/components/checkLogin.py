@@ -1,7 +1,7 @@
 import functools
 
 import jwt
-from flask import request
+from flask import request, session
 from flask_restful import abort
 from ..db.database import Database
 from ..db.ldapServerConnection import authUser
@@ -13,11 +13,13 @@ def login_required(method):
     def wrapper(self):
         email = request.headers.get('email', '')
         password = request.headers.get('password', '')
+        if "test" not in session:
+            session["test"] = "hallo"
+        else:
+            print(session["test"])
 
         _password = {"email": email, "password": password}
         _encryptedPassword = jwt.encode(_password, "password", "HS256").decode('UTF-8')
-
-        print(_encryptedPassword)
 
         user = {}
         is_user_logged_in = False

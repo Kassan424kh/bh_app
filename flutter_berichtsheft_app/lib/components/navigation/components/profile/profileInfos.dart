@@ -22,8 +22,11 @@ class _ProfileInfosState extends State<ProfileInfos> {
           mainAxisSize: MainAxisSize.min,
           direction: Axis.vertical,
           children: <Widget>[
-            AppLogo(
-              padding: EdgeInsets.all(20),
+            Hero(
+              tag: "navigationLogo",
+              child: AppLogo(
+                padding: EdgeInsets.all(20),
+              ),
             ),
             ProfileImage(),
             ProfileName(),

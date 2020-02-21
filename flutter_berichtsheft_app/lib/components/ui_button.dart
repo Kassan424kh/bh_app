@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 class UIButton extends StatelessWidget {
   final text;
   final Widget leftWidget;
-  final bool isActive, hiddenText, withoutLeftWidgetSpace, disableButtonEffects;
+  final bool isActive, hiddenText, withoutLeftWidgetSpace, disableButtonEffects, paddingLeft, paddingRight;
   final onPressed, onLongPress;
   final Color textColor;
   final MainAxisAlignment itemsAlignment;
@@ -20,6 +20,8 @@ class UIButton extends StatelessWidget {
     this.hiddenText = false,
     this.disableButtonEffects = false,
     this.withoutLeftWidgetSpace = false,
+    this.paddingLeft = true,
+    this.paddingRight = true,
     this.textColor,
     this.onLongPress,
     this.itemsAlignment = MainAxisAlignment.center,
@@ -39,21 +41,27 @@ class UIButton extends StatelessWidget {
         onLongPress: onLongPress,
         splashColor: disableButtonEffects ? Colors.transparent : null,
         highlightColor: disableButtonEffects ? Colors.transparent : null,
-        padding: EdgeInsets.symmetric(horizontal: text == null && leftWidget != null && withoutLeftWidgetSpace ? 0 : 20),
+
+        padding: EdgeInsets.only(
+          right: text == null && leftWidget != null && withoutLeftWidgetSpace ? 0 : paddingRight ? 20 : 0,
+          left: text == null && leftWidget != null && withoutLeftWidgetSpace ? 0 : paddingLeft ? 20 : 0,
+        ),
         child: Row(
           mainAxisAlignment: itemsAlignment,
+          mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             leftWidget != null ? leftWidget : Container(),
-            SizedBox(width: leftWidget != null && !withoutLeftWidgetSpace ? 10 : 0),
+            (paddingLeft && text != null) && leftWidget != null ? SizedBox(width: 10) : Container(),
             text != null
                 ? text is String
-                    ? Text(
-                        text,
-                        maxLines: 10,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(color: hiddenText ? Colors.transparent : null),
-                      )
-                    : text
+                ? Text(
+              text,
+              maxLines: 10,
+              overflow: TextOverflow.ellipsis,
+              textAlign: TextAlign.left,
+              style: TextStyle(color: hiddenText ? Colors.transparent : null),
+            )
+                : text
                 : Container(),
           ],
         ),

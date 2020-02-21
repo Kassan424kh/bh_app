@@ -5,10 +5,12 @@ import 'package:provider/provider.dart';
 
 class AppLogo extends StatelessWidget {
   final EdgeInsets padding;
+  final BoxFit fit;
 
   AppLogo({
     Key key,
     this.padding,
+    this.fit = BoxFit.fitWidth,
   }) : super(key: key);
 
   @override
@@ -19,7 +21,7 @@ class AppLogo extends StatelessWidget {
       margin: padding,
       child: Image.asset(
         _selectedTheme[SitesIcons.logoImage],
-        fit: BoxFit.fitWidth,
+        fit: fit,
       ),
     );
   }

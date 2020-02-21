@@ -33,28 +33,29 @@ class ReportListTile extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Flexible(
-                    fit: FlexFit.tight,
-                    flex: 1,
                     child: UIButton(
                       onPressed: () {
                         Provider.of<ReportsProvider>(context, listen: false).addReportToSelectingList(reportId);
                       },
+                      paddingLeft: true,
+                      paddingRight: false,
                       itemsAlignment: MainAxisAlignment.start,
                       leftWidget: Icon(
                         Icons.check_box,
                         color: _selectedTheme[isSelected ? ElementStylingParameters.headerTextColor : ElementStylingParameters.primaryColor],
                       ),
-                      //hiddenText: true,
-                      text: RichText(
-                        text: TextSpan(children: [
-                          TextSpan(text: "Select"),
-                          TextSpan(
-                            text: " all " + Provider.of<ReportsProvider>(context).listOfSelectedReportIds.length.toString(),
-                            style: TextStyle(color: Colors.transparent),
-                          ),
-
-                        ]),
-                      ),
+                    ),
+                  ),
+                  Flexible(
+                    fit: FlexFit.tight,
+                    flex: 2,
+                    child: UIButton(
+                      onPressed: () {},
+                      paddingLeft: true,
+                      paddingRight: false,
+                      itemsAlignment: MainAxisAlignment.start,
+                      disableButtonEffects: true,
+                      text: date,
                     ),
                   ),
                   Flexible(
@@ -62,43 +63,21 @@ class ReportListTile extends StatelessWidget {
                     flex: 1,
                     child: UIButton(
                       onPressed: () {},
+                      paddingLeft: false,
+                      paddingRight: false,
                       itemsAlignment: MainAxisAlignment.start,
                       disableButtonEffects: true,
-                      leftWidget: Text(
-                        "|",
-                        style: TextStyle(
-                          color: _selectedTheme[ElementStylingParameters.headerTextColor],
-                        ),
-                      ),
-                      text: date,
+                      text: "⌇ " + hours,
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: UIButton(
-                      onPressed: () {},
-                      itemsAlignment: MainAxisAlignment.start,
-                      disableButtonEffects: true,
-                      leftWidget: Text(
-                        "|",
-                        style: TextStyle(
-                          color: _selectedTheme[ElementStylingParameters.headerTextColor],
-                        ),
-                      ),
-                      text: hours,
-                    ),
-                  ),
-                  Expanded(
-                    flex: 5,
+                  Flexible(
+                    fit: FlexFit.tight,
+                    flex: 7,
                     child: UIButton(
                       itemsAlignment: MainAxisAlignment.start,
+                      paddingLeft: true,
+                      paddingRight: false,
                       onPressed: () {},
-                      leftWidget: Text(
-                        "|",
-                        style: TextStyle(
-                          color: _selectedTheme[ElementStylingParameters.headerTextColor],
-                        ),
-                      ),
                       text: Expanded(
                         child: Text(
                           reportText.substring(0, (reportText.length > 120 ? 120 : reportText.length)) + (reportText.length > 120 ? " ..." : ""),
