@@ -13,7 +13,7 @@ class LoadingProgress with ChangeNotifier{
 }
 
 class LoginProvider with ChangeNotifier {
-  bool isLoggedIn = false;
+  bool isLoggedIn = true;
 
   void updateLoginStatus(bool status) {
     isLoggedIn = status;

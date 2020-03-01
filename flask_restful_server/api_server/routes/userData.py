@@ -7,6 +7,5 @@ class UserData(Resource):
     parser = reqparse.RequestParser()
     @login_required
     def get(self, data):
-        session["test"] = "asdfasdf"
         print(session["test"])
         return data, 201, {'Access-Control-Allow-Origin': '*'}

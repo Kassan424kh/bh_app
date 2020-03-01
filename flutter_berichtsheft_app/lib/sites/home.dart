@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/api/api.dart';
 import 'package:flutter_berichtsheft_app/components/reports_data_table.dart';
 import 'package:flutter_berichtsheft_app/components/site.dart';
 import 'package:flutter_berichtsheft_app/components/ui_button.dart';
 import 'package:flutter_berichtsheft_app/components/ui_date_picker.dart';
+import 'package:flutter_berichtsheft_app/pdf_converter/pdf_page.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
 import 'package:provider/provider.dart';
@@ -83,7 +83,9 @@ class _HomeState extends State<Home> {
 
             // print reports button
             UIButton(
-              onPressed: () {},
+              onPressed: () async {
+                await PdfConverter.converter();
+              },
               leftWidget: Icon(Icons.print),
               isActive: true,
               withoutLeftWidgetSpace: true,

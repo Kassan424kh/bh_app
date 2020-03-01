@@ -33,7 +33,7 @@ class API {
 
   API({Key key, this.context});
 
-  final String url = "http://192.168.2.211:5000";
+  final String url = "http://0.0.0.0:5000";
   Map<String, String> _headers = {"email": MyLoginData.email, "password": MyLoginData.password};
 
   void showDownloadProgress(received, total) {
@@ -53,18 +53,18 @@ class API {
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: "Failed Server connection!!!");
       else
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: e.response.data["message"]);
-    } catch (e) {
-    }
+    } catch (e) {}
     dio.clear();
   }
 
   Future<bool> login(email, password) async {
     try {
-      var response = await dio.get(
-        url,
-        onReceiveProgress: showDownloadProgress,
-        options: Options(headers: {"email": email, "password": password}),
-      ).timeout(Duration(seconds: 3));
+      var response = await dio
+          .get(
+            url,
+            onReceiveProgress: showDownloadProgress,
+            options: Options(headers: {"email": email, "password": password}),
+          );
 
       _headers["email"] = email;
       _headers["password"] = password;

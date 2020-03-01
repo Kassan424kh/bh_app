@@ -28,7 +28,6 @@ class _StartSiteState extends State<StartSite> {
     //double _showCardComponentWidth = Provider.of<StylingProvider>(context).showSitesCardComponentWidth;
     double _showCardComponentHeight = Provider.of<StylingProvider>(context).showSitesCardComponentHeight;
     //double _progress = Provider.of<LoadingProgress>(context).loadingProgress;
-    print(size.width);
     return Container(
       width: size.width,
       height: size.height,

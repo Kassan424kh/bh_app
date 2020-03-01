@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/sites/start_site.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
-import 'package:jose/jose.dart';
 import 'package:provider/provider.dart';
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
