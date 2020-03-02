@@ -17,18 +17,17 @@ mysql = MySQL(app)
 
 class Database:
     # User Functions
-    def get_user(u_id=-1, email="", password="") -> dict:
+    def get_user(u_id=-1, email="") -> dict:
 
-        if id == -1 and email == "" and password == "":
-            print("Your should insert id, email or password to search after user!")
+        if id == -1 and email == "":
+            print("Your should insert id, email to search after user!")
             return {}
-        elif email == "" and password != "":
+        elif email == "":
             print("Your should insert the email to get user data!")
             return {}
 
         id_query = ""
         email_query = ""
-        password_query = ""
 
         if u_id != -1:
             id_query = "`u_id` = '{}'".format(str(u_id))
@@ -38,28 +37,19 @@ class Database:
             email_query = "`email` = '{}'".format(email)
         else:
             email_query = "True"
-        if password != "":
-            password_query = "AND `u_password` = '{}'".format(password)
-        else:
-            password_query = "AND True"
 
         user = Database.one_request(
-            "SELECT * FROM users WHERE {0} OR {1} {2};".format(id_query, email_query, password_query))
+            "SELECT * FROM users WHERE {0} OR {1};".format(id_query, email_query))
 
         return user
 
-    def create_user(first_and_last_name, email, birthday, password, roll) -> int:
+    def create_user(first_and_last_name, email, birthday, roll) -> int:
         new_created_user_id = Database.insert_into_or_update_or_delete(
-            "INSERT INTO `users` (`u_id`, `first_and_last_name`, `email`, `birthday`, `u_password`, `roll`) VALUES (NULL, '{0}', '{1}', '{2}', '{3}', '{4}');".format(
-                first_and_last_name, email, birthday, password, roll))
+            "INSERT INTO `users` (`u_id`, `first_and_last_name`, `email`, `birthday`, `roll`) VALUES (NULL, '{0}', '{1}', '{2}', '{3}');".format(
+                first_and_last_name, email, birthday, roll))
         return new_created_user_id
 
-    def update_user_password(u_id, new_password) -> int:
-        updated_user_id = Database.insert_into_or_update_or_delete(
-            "UPDATE `users` SET `u_password` = '{0}' WHERE `users`.`u_id` = {1};".format(new_password, u_id))
-        return updated_user_id
-
-    def add_data_to_new_user(u_id, birthday, typeTraining, startTrainingDate, endTrainingDate, roll=0,
+    def add_data_to_new_user(u_id, birthday, typeTraining, startTrainingDate, endTrainingDate,
                              is_trainees=False) -> int:
 
         user = Database.get_user(u_id)
@@ -73,11 +63,16 @@ class Database:
             )
 
         Database.insert_into_or_update_or_delete(
-            query="UPDATE `users` SET `birthday` = '{1}', `is_new_user` = '{2}', `roll` = '{3}' WHERE `users`.`u_id` = {0};".format(
+            query="""
+                UPDATE `users` SET 
+                    `birthday` = '{1}', 
+                    `is_new_user` = '{2}'
+                WHERE 
+                    `users`.`u_id` = {0};
+             """.format(
                 user.get("u_id"),
                 birthday,
-                False,
-                roll
+                0
             )
         )
 
@@ -100,7 +95,13 @@ class Database:
                     user.get("u_id"), typeTraining, startTrainingDate, endTrainingDate
                 )
             )
-
+        elif Database.get_trainees_data(user.get("u_id")) is not None and not user.get("is_new_user"):
+            Database.update_user_training_data(
+                u_id=u_id,
+                typeTraining=typeTraining,
+                startTrainingDate=startTrainingDate,
+                endTrainingDate=endTrainingDate
+            )
         return Database.get_trainees_data(u_id=user.get("u_id"))
 
     def update_user_training_data(u_id, typeTraining="", startTrainingDate="", endTrainingDate="") -> dict:
@@ -242,7 +243,7 @@ class Database:
             cur.close()
             return request
         except OperationalError:
-            abort(400, message="Failed connect to DB!!!")
+            abort(400, message="[DB-442345] Failed connect to DB!!!")
 
     def list_requests(query) -> list:
         try:
@@ -252,7 +253,7 @@ class Database:
             cur.close()
             return requests
         except OperationalError:
-            abort(400, message="Failed connect to DB!!!")
+            abort(400, message="[DB-449865] Failed connect to DB!!!")
 
     def insert_into_or_update_or_delete(query, type="") -> int:
         try:
@@ -265,4 +266,4 @@ class Database:
             cur.close()
             return new_inserted_data_id
         except OperationalError:
-            abort(400, message="Failed connect to DB!!!")
+            abort(400, message="[DB-423465] Failed connect to DB!!!")

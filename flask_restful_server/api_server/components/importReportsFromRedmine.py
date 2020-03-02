@@ -1,7 +1,8 @@
 import requests
-import datetime
 from flask_restful import abort
+
 from ..db.database import Database
+
 
 def importReportsFromRedmineApiServerToDB(key, u_id) -> int:
     if key == "":

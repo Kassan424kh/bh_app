@@ -47,11 +47,7 @@ class _LoginState extends State<Login> {
 
   void _login(BuildContext context) {
     if (!_emailValidate && !_passwordValidate)
-      _api.login(_email, _password).then((bool value) {
-        try {
-          Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(value);
-        } catch (e) {}
-      });
+      _api.login(_email, _password);
   }
 
   @override

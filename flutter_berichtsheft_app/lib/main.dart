@@ -3,7 +3,7 @@ import 'package:flutter_berichtsheft_app/MyApp.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
   return runApp(Main());
 }
 

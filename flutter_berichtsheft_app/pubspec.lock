@@ -113,6 +113,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  crypted_preferences:
+    dependency: "direct main"
+    description:
+      name: crypted_preferences
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2"
   crypto:
     dependency: transitive
     description:

@@ -6,15 +6,23 @@ import 'package:provider/provider.dart';
 class UISwitchListTile extends StatelessWidget {
   final bool value;
   final onChanged;
+  final String text;
+  final double width;
 
-  UISwitchListTile({Key key, this.onChanged, this.value}):super(key:key);
+  UISwitchListTile({
+    Key key,
+    this.onChanged,
+    this.value,
+    this.text = "Multi Days",
+    this.width = 200,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     return Container(
       height: 50,
-      width: 200,
+      width: width,
       margin: EdgeInsets.only(left: 50),
       child: SwitchListTile(
           activeColor: _selectedTheme[ElementStylingParameters.headerTextColor],
@@ -23,7 +31,7 @@ class UISwitchListTile extends StatelessWidget {
           activeTrackColor: (_selectedTheme[ElementStylingParameters.headerTextColor] as Color).withOpacity(_selectedTheme[ElementStylingParameters.buttonsBackgroundColorOpacity]),
           onChanged: onChanged,
           value: value,
-          title: Text("Multi Days", style: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor]))),
+          title: Text(text, style: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor]))),
     );
   }
 }

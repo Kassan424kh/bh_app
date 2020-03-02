@@ -25,6 +25,7 @@ dependencies:
   pdf: ^1.5.0
   printing: ^3.1.0
   js: ^0.6.1+1
+  crypted_preferences: ^0.0.2
 
 dev_dependencies:
   flutter_test:

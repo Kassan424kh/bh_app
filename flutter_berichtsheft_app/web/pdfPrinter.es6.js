@@ -54,7 +54,7 @@ const createNewPage = (doc, data) => {
     var lengthOfTextLines = 0
     data.berichte.map(function (report, index) {
         var _index = index + 1
-        var splitTitle = doc.splitTextToSize("=> " + report.text, 155);
+        var splitTitle = doc.splitTextToSize(report.text, 155);
         doc.setFontType('normal').text(17, marginTop + (space * (5.5 + (index === 0 ? 0 : lengthOfTextLines))), splitTitle)
         doc.setFontType('normal').text(177, marginTop + (space * (5.5 + (index === 0 ? 0 : lengthOfTextLines))), "10")
 

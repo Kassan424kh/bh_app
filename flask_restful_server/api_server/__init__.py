@@ -3,11 +3,13 @@ from flask import Flask
 from flask_cors import CORS
 from flask_restful import Api
 
+
+
 app = Flask(__name__)
 app.config["SECRET_KEY"]="ولك حلو عني يكفي هكر"
 api = Api(app)
 CORS(app)
-
+from api_server.routes.login import Login
 from api_server.routes.addDataToNewUser import AddDataToNewUser
 from api_server.routes.createNewReport import CreateNewReport
 from api_server.routes.deleteReport import DeleteReport
@@ -21,6 +23,7 @@ from api_server.routes.userData import UserData
 from api_server.routes.importFromRedmine import ImportFromReports
 
 api.add_resource(UserData, "/")
+api.add_resource(Login, "/login")
 api.add_resource(AddDataToNewUser, "/add-data-to-new-user")
 api.add_resource(GetReports, "/get-reports")
 api.add_resource(GetDeletedReports, "/get-deleted-reports")

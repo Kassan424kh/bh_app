@@ -1,6 +1,8 @@
-from flask_restful import Resource, Api, reqparse, abort
+from flask_restful import Resource, reqparse
+
 from ..components.checkLogin import login_required
 from ..db.database import Database
+
 
 class AddDataToNewUser(Resource):
     parser = reqparse.RequestParser()
@@ -9,7 +11,6 @@ class AddDataToNewUser(Resource):
     def get(self, data):
         parser = reqparse.RequestParser()
         parser.add_argument('birthday', required=True, type=str)
-        parser.add_argument('roll', required=True, type=str)
         parser.add_argument('is_trainees', required=True, type=bool)
         parser.add_argument('typeTraining', type=str, default="")
         parser.add_argument('startTrainingDate', type=str, default="")
@@ -19,11 +20,10 @@ class AddDataToNewUser(Resource):
         Database.add_data_to_new_user(
             u_id=data.get("userData").get("userId"),
             birthday=args.get("birthday"),
-            roll=args.get("roll"),
             is_trainees=args.get("is_trainees"),
             typeTraining=args.get("typeTraining"),
             startTrainingDate=args.get("startTrainingDate"),
             endTrainingDate=args.get("endTrainingDate"),
         )
 
-        return data
+        return Database.get_trainees_data(data.get("userData").get("userId")) is not None

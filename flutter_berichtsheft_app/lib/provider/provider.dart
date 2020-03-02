@@ -13,7 +13,7 @@ class LoadingProgress with ChangeNotifier{
 }
 
 class LoginProvider with ChangeNotifier {
-  bool isLoggedIn = true;
+  bool isLoggedIn = false;
 
   void updateLoginStatus(bool status) {
     isLoggedIn = status;
@@ -115,12 +115,14 @@ class ReportsProvider extends ChangeNotifier {
 }
 
 class NavigateProvider extends ChangeNotifier {
-  String nowOpenedSite = "/home";
+  String nowOpenedSite = "/";
   bool isNavigatedOrOnStart = false;
 
   List<String> listOfVisitedSites = [];
 
   goToSite(String newSite) {
+
+
     if (nowOpenedSite != newSite) {
       listOfVisitedSites.add(nowOpenedSite);
       nowOpenedSite = newSite;
