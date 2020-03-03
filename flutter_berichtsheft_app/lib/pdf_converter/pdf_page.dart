@@ -1,12 +1,9 @@
-import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart';
-import 'package:http/http.dart' as http;
-import 'package:printing/printing.dart';
 import 'dart:convert';
 
 // ignore: avoid_web_libraries_in_flutter
-import 'dart:js' as js;
+//import 'dart:js' as js;
 
 class PdfConverter {
   static Future<List<int>> converter() async {
@@ -37,7 +34,7 @@ class PdfConverter {
       ],
     };
 
-    js.context.callMethod('ready', [json.encode(data)]);
+    //js.context.callMethod('ready', [json.encode(data)]);
 
     return pdf.document.save();
   }

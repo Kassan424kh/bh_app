@@ -95,6 +95,7 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     List<Widget> _siteWidgets = <Widget>[
       Align(
         alignment: Alignment.centerLeft,
@@ -108,7 +109,6 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
     _siteWidgets.addAll(widget.children);
 
     final double _showSitesCardComponentWidth = Provider.of<StylingProvider>(context, listen:false).showSitesCardComponentWidth;
-
     return Positioned(
       right: _showSitePosition.value,
       child: Opacity(
@@ -116,10 +116,9 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
         child: Container(
           key: _homeSiteGKey,
           width: _showSitesCardComponentWidth,
-          padding: EdgeInsets.only(left: 60, top: 60, bottom: widget.children.length != 0 ? 60 : 0),
-          child: ListView(
-            physics: NeverScrollableScrollPhysics(),
-            shrinkWrap: true,
+          padding: EdgeInsets.only(left: size.width <= Styling.tabletSize ? 0: 60, top: 60, bottom: widget.children.length != 0 ? 60 : 0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               Column(
                 mainAxisSize: MainAxisSize.min,

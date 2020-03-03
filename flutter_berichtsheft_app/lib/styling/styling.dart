@@ -68,5 +68,6 @@ class Styling {
 
   static int durationAnimation = 500;
 
-  static double biggestPhoneSize = 577.0;
+  static double tabletSize = 1400;
+  static double phoneSize = 577.0;
 }

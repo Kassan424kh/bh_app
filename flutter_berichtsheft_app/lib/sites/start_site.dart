@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/components/app_logo.dart';
 import 'package:flutter_berichtsheft_app/components/message.dart';
 import 'package:flutter_berichtsheft_app/components/navigation/navigation.dart';
+import 'package:flutter_berichtsheft_app/components/ui_circle_button.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/routes/routes.dart';
 import 'package:flutter_berichtsheft_app/sites/login.dart';
@@ -28,34 +29,51 @@ class _StartSiteState extends State<StartSite> {
     //double _showCardComponentWidth = Provider.of<StylingProvider>(context).showSitesCardComponentWidth;
     double _showCardComponentHeight = Provider.of<StylingProvider>(context).showSitesCardComponentHeight;
     //double _progress = Provider.of<LoadingProgress>(context).loadingProgress;
+    bool _openNavigation = Provider.of<NavigationProvider>(context).isOpen;
     return Container(
       width: size.width,
       height: size.height,
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          Positioned.fill(
+          size.width <= Styling.tabletSize ? Positioned.fill(
             top: 0,
             child: Align(
               alignment: Alignment.topCenter,
               child: Container(
                 height: 60,
-                width: size.width,
+                width: size.width - (size.width * (size.width <= Styling.tabletSize ? 10 : 15) / 100),
                 alignment: Alignment.centerLeft,
-                child: Hero(
-                  tag: "navigationLogo",
-                  child: AppLogo(
-                    fit: BoxFit.fitHeight,
-                    padding: EdgeInsets.all(10),
-                  ),
+                margin: EdgeInsets.only(top: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    !_openNavigation
+                        ? Hero(
+                            tag: "openNaviButton",
+                            child: UICircleButton(
+                              icon: Icons.short_text,
+                              onClick: () {
+                                Provider.of<NavigationProvider>(context, listen: false).openNavigation(true);
+                              },
+                              toolTipMessage: "Open menu",
+                              color: _selectedTheme[ElementStylingParameters.headerTextColor],
+                            ),
+                          )
+                        : Container(),
+                    AppLogo(
+                      fit: BoxFit.fitHeight,
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                    ),
+                  ],
                 ),
               ),
             ),
-          ),
+          ) : Container(),
           AnimatedPositioned(
             duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
             curve: Curves.easeInOutCubic,
-            left: size.width <= 1400 ? 0 : _isLoggedIn && _showNavigationComponents ? 350 : 350 * 70 / 100,
+            left: size.width <= Styling.tabletSize ? 0 : _isLoggedIn && _showNavigationComponents ? 350 : 350 * 70 / 100,
             child: AnimatedOpacity(
               opacity: _isLoggedIn && _showNavigationComponents ? 1 : 0,
               duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
@@ -65,13 +83,13 @@ class _StartSiteState extends State<StartSite> {
               },
               child: _showNavigationComponents
                   ? Container(
-                      width: size.width <= 1400 ? size.width : size.width - 350,
+                      width: size.width <= Styling.tabletSize ? size.width : size.width - 350,
                       height: size.height,
                       child: Align(
                         alignment: Alignment.center,
                         child: LayoutBuilder(
                           builder: (BuildContext context, BoxConstraints constraints) {
-                            double width = constraints.maxWidth - (constraints.maxWidth * 15 / 100);
+                            double width = constraints.maxWidth - (constraints.maxWidth * (size.width <= Styling.tabletSize ? 15 : 15) / 100);
                             Timer(Duration(milliseconds: 10), () {
                               if (_isLoggedIn && _showNavigationComponents && Provider.of<StylingProvider>(context, listen: false).showSitesCardComponentWidth != width)
                                 Provider.of<StylingProvider>(context, listen: false).updateWidthOfShowSitesCardComponent(width);
@@ -79,13 +97,13 @@ class _StartSiteState extends State<StartSite> {
                             return AnimatedContainer(
                               duration: Duration(milliseconds: (Styling.durationAnimation / 4).round()),
                               curve: Curves.easeOutCubic,
-                              width: constraints.maxWidth - (constraints.maxWidth * 15 / 100),
+                              width: constraints.maxWidth - (constraints.maxWidth * (size.width <= Styling.tabletSize ? 10 : 15) / 100),
                               height: _showCardComponentHeight,
                               onEnd: () {
                                 if (["/", "/home", "/deleted-reports", "/draft-reports", "/search"].contains(Provider.of<NavigateProvider>(context, listen: false).nowOpenedSite))
                                   Provider.of<ReportsProvider>(context, listen: false).updateShowingReports(true);
                               },
-                              margin: EdgeInsets.symmetric(vertical: 10),
+                              margin: size.width <= Styling.tabletSize ? EdgeInsets.only(bottom: 10, top: 60) : EdgeInsets.symmetric(vertical: 10),
                               decoration: BoxDecoration(
                                 color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
                                 boxShadow: [
@@ -122,7 +140,8 @@ class _StartSiteState extends State<StartSite> {
           AnimatedAlign(
             duration: Duration(milliseconds: Styling.durationAnimation),
             curve: Curves.easeInOutCubic,
-            alignment: _isLoggedIn ? Alignment.centerLeft.add(Alignment(0, 0)) : Alignment.center,
+            alignment:
+                _isLoggedIn ? Alignment.centerLeft.add(Alignment(size.width <= Styling.tabletSize && _isLoggedIn && _showNavigationComponents && !_openNavigation ? -5 : 0, 0)) : Alignment.center,
             child: AnimatedContainer(
               duration: Duration(milliseconds: Styling.durationAnimation),
               curve: Curves.easeInOutCubic,

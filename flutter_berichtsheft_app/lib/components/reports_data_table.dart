@@ -22,8 +22,9 @@ class ReportsDataTable extends StatelessWidget {
     final _selectedTheme = Provider.of<StylingProvider>(context, listen: false).selectedTheme;
     final List<int> _listOfSelectedReports = Provider.of<ReportsProvider>(context).listOfSelectedReportIds;
     double _showCardComponentWidth = Provider.of<StylingProvider>(context).showSitesCardComponentWidth;
+    final size = MediaQuery.of(context).size;
     return Container(
-      width: _showCardComponentWidth - 60 < 0 ? 0 : _showCardComponentWidth - 60,
+      width: _showCardComponentWidth - (size.width <= Styling.tabletSize ? 0: 60) < 0 ? 0 : _showCardComponentWidth -  (size.width <= Styling.tabletSize ? 0: 60),
       child: Column(children: <Widget>[
         Container(
           height: 50,

@@ -25,7 +25,7 @@ class _ProfileInfosState extends State<ProfileInfos> {
             Hero(
               tag: "navigationLogo",
               child: AppLogo(
-                padding: EdgeInsets.all(20),
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 40),
               ),
             ),
             ProfileImage(),

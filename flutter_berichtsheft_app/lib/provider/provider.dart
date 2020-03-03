@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
 
-class LoadingProgress with ChangeNotifier{
+class LoadingProgress with ChangeNotifier {
   double loadingProgress = 0;
 
   void updateLoginStatus(double progress) {
@@ -20,6 +20,16 @@ class LoginProvider with ChangeNotifier {
     notifyListeners();
   }
 }
+
+class NavigationProvider with ChangeNotifier {
+  bool isOpen = false;
+
+  void openNavigation(bool status) {
+    isOpen = status;
+    notifyListeners();
+  }
+}
+
 class UserData with ChangeNotifier {
   String userName = "";
 
@@ -47,6 +57,7 @@ class StylingProvider extends ChangeNotifier {
     showSitesCardComponentHeight = newHeight;
     notifyListeners();
   }
+
   updateWidthOfShowSitesCardComponent(double newWidth) {
     showSitesCardComponentWidth = newWidth;
     notifyListeners();
@@ -55,18 +66,19 @@ class StylingProvider extends ChangeNotifier {
 
 class ReportsProvider extends ChangeNotifier {
   List<int> reportIds = [];
-  List listOfFoundReports= [];
+  List listOfFoundReports = [];
 
   setReportsIds(List<int> _reportIds) {
     reportIds.clear();
     reportIds.addAll(_reportIds);
   }
 
-  setListOfFoundReports (List foundReports){
+  setListOfFoundReports(List foundReports) {
     listOfFoundReports = foundReports;
     notifyListeners();
   }
-  clearListOfFoundReports (){
+
+  clearListOfFoundReports() {
     listOfFoundReports = [];
     notifyListeners();
   }
@@ -101,7 +113,7 @@ class ReportsProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  clearSelectedReports(){
+  clearSelectedReports() {
     listOfSelectedReportIds = [];
     notifyListeners();
   }
@@ -121,8 +133,6 @@ class NavigateProvider extends ChangeNotifier {
   List<String> listOfVisitedSites = [];
 
   goToSite(String newSite) {
-
-
     if (nowOpenedSite != newSite) {
       listOfVisitedSites.add(nowOpenedSite);
       nowOpenedSite = newSite;
@@ -154,7 +164,7 @@ class MessageProvider extends ChangeNotifier {
     messageTexts = messageText;
     messageShowStatus = 0;
     typeOfMessage = type;
-    Timer(Duration(milliseconds: 10), (){
+    Timer(Duration(milliseconds: 10), () {
       this.messageOkButton = okButton;
       notifyListeners();
     });
@@ -178,7 +188,7 @@ class MessageProvider extends ChangeNotifier {
       });
       closeMessage = false;
       messageShowStatus = 0;
-      if (!_timer.isActive)messageTexts = "Message text faild!!!";
+      if (!_timer.isActive) messageTexts = "Message text faild!!!";
       typeOfMessage = "good";
       messageOkButton = null;
       notifyListeners();
@@ -186,5 +196,3 @@ class MessageProvider extends ChangeNotifier {
     notifyListeners();
   }
 }
-
-

@@ -34,6 +34,9 @@ class Main extends StatelessWidget {
         ChangeNotifierProvider<LoadingProgress>(
           create: (_) => LoadingProgress(),
         ),
+        ChangeNotifierProvider<NavigationProvider>(
+          create: (_) => NavigationProvider(),
+        ),
       ],
       child: Consumer<NavigateProvider>(
         builder: (_, settings, child) {
