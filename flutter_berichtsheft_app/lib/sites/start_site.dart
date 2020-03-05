@@ -145,9 +145,24 @@ class _StartSiteState extends State<StartSite> {
             child: AnimatedContainer(
               duration: Duration(milliseconds: Styling.durationAnimation),
               curve: Curves.easeInOutCubic,
-              color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
+
               width: _isLoggedIn ? 350 : 300,
               height: _isLoggedIn ? size.height : 375,
+              decoration: BoxDecoration(
+                color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
+                boxShadow: [
+                  size.width <= Styling.tabletSize && _isLoggedIn && _showNavigationComponents && _openNavigation ?
+                  BoxShadow(
+                    color: _selectedTheme[ElementStylingParameters.boxShadowColor],
+                    offset: Offset(15, 20),
+                    blurRadius: 50,
+                  ): BoxShadow(
+                    color: Colors.transparent,
+                    offset: Offset(0, 0),
+                    blurRadius: 0,
+                  ),
+                ],
+              ),
               margin: EdgeInsets.all(10),
               child: Align(
                 alignment: Alignment.center,
