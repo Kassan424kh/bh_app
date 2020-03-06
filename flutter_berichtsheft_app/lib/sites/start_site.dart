@@ -36,40 +36,42 @@ class _StartSiteState extends State<StartSite> {
       child: Stack(
         fit: StackFit.expand,
         children: <Widget>[
-          size.width <= Styling.tabletSize ? Positioned.fill(
-            top: 0,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                height: 60,
-                width: size.width - (size.width * (size.width <= Styling.tabletSize ? 10 : 15) / 100),
-                alignment: Alignment.centerLeft,
-                margin: EdgeInsets.only(top: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    !_openNavigation
-                        ? Hero(
-                            tag: "openNaviButton",
-                            child: UICircleButton(
-                              icon: Icons.short_text,
-                              onClick: () {
-                                Provider.of<NavigationProvider>(context, listen: false).openNavigation(true);
-                              },
-                              toolTipMessage: "Open menu",
-                              color: _selectedTheme[ElementStylingParameters.headerTextColor],
-                            ),
-                          )
-                        : Container(),
-                    AppLogo(
-                      fit: BoxFit.fitHeight,
-                      padding: EdgeInsets.symmetric(vertical: 10),
+          size.width <= Styling.tabletSize
+              ? Positioned.fill(
+                  top: 0,
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Container(
+                      height: 60,
+                      width: size.width - (size.width * (size.width <= Styling.tabletSize ? 10 : 15) / 100),
+                      alignment: Alignment.centerLeft,
+                      margin: EdgeInsets.only(top: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          !_openNavigation
+                              ? Hero(
+                                  tag: "openNaviButton",
+                                  child: UICircleButton(
+                                    icon: Icons.short_text,
+                                    onClick: () {
+                                      Provider.of<NavigationProvider>(context, listen: false).openNavigation(true);
+                                    },
+                                    toolTipMessage: "Open menu",
+                                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
+                                  ),
+                                )
+                              : Container(),
+                          AppLogo(
+                            fit: BoxFit.fitHeight,
+                            padding: EdgeInsets.symmetric(vertical: 10),
+                          ),
+                        ],
+                      ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-          ) : Container(),
+                  ),
+                )
+              : Container(),
           AnimatedPositioned(
             duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
             curve: Curves.easeInOutCubic,
@@ -145,22 +147,22 @@ class _StartSiteState extends State<StartSite> {
             child: AnimatedContainer(
               duration: Duration(milliseconds: Styling.durationAnimation),
               curve: Curves.easeInOutCubic,
-
               width: _isLoggedIn ? 350 : 300,
               height: _isLoggedIn ? size.height : 375,
               decoration: BoxDecoration(
                 color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
                 boxShadow: [
-                  size.width <= Styling.tabletSize && _isLoggedIn && _showNavigationComponents && _openNavigation ?
-                  BoxShadow(
-                    color: _selectedTheme[ElementStylingParameters.boxShadowColor],
-                    offset: Offset(15, 20),
-                    blurRadius: 50,
-                  ): BoxShadow(
-                    color: Colors.transparent,
-                    offset: Offset(0, 0),
-                    blurRadius: 0,
-                  ),
+                  size.width <= Styling.tabletSize && _isLoggedIn && _showNavigationComponents && _openNavigation
+                      ? BoxShadow(
+                          color: _selectedTheme[ElementStylingParameters.boxShadowColor],
+                          offset: Offset(15, 20),
+                          blurRadius: 50,
+                        )
+                      : BoxShadow(
+                          color: Colors.transparent,
+                          offset: Offset(0, 0),
+                          blurRadius: 0,
+                        ),
                 ],
               ),
               margin: EdgeInsets.all(10),

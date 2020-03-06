@@ -3,6 +3,14 @@
   <component name="ChangeListManager">
     <list default="true" id="e61e2f2e-5d2c-403b-a6e8-b0dc5c2cff2b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api_server/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_server/__init__.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api_server/db/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/api_server/db/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/pdf_converter/pdf_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/pdf_converter/pdf_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/start_site.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/start_site.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/styling/styling.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/styling/styling.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/web/pdfPrinter.es6.js" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/web/pdfPrinter.es6.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -72,93 +80,103 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api_server/routes/addDataToNewUser.py">
+        <entry file="file://$PROJECT_DIR$/api_server/__init__.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="345">
+              <caret line="16" column="46" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
               <folding>
-                <element signature="e#0#44#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api_server/db/database.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1305">
-              <caret line="49" column="34" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
-              <folding>
-                <element signature="e#0#48#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api_server/db/__init__.py">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api_server/components/importReportsFromRedmine.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api_server/components/importReportsFromJsonObject.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="58">
-              <caret line="2" selection-start-line="2" selection-end-line="2" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api_server/components/checkLogin.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="26" column="25" selection-start-line="26" selection-start-column="25" selection-end-line="26" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#16#0" expanded="true" />
+                <element signature="e#47#70#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/api_server/routes/login.py">
+        <entry file="file://$PROJECT_DIR$/api_server/db/database.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-371">
-              <caret line="16" column="84" selection-start-line="16" selection-start-column="84" selection-end-line="16" selection-end-column="84" />
+            <state relative-caret-position="780">
+              <caret line="181" column="24" lean-forward="true" selection-start-line="181" selection-start-column="24" selection-end-line="181" selection-end-column="24" />
               <folding>
-                <element signature="e#0#15#0" expanded="true" />
+                <element signature="e#480#1162#0" />
+                <element signature="e#521#602#0" />
+                <element signature="e#641#718#0" />
+                <element signature="e#0#56#1" />
+                <element signature="e#1244#1549#0" />
+                <element signature="e#0#162#0" />
+                <element signature="e#81#162#0" />
+                <element signature="e#88#162#0" />
+                <element signature="e#1711#2411#0" />
+                <element signature="e#1779#2006#0" />
+                <element signature="e#2076#2280#0" />
+                <element signature="e#17#213#0" />
+                <element signature="e#2487#2623#0" />
+                <element signature="e#0#49#1" />
+                <element signature="e#2727#3726#0" />
+                <element signature="e#3007#3325#0" />
+                <element signature="e#0#164#0" />
+                <element signature="e#83#164#0" />
+                <element signature="e#90#164#0" />
+                <element signature="e#3441#3661#0" />
+                <element signature="e#3844#4743#0" />
+                <element signature="e#3904#4043#0" />
+                <element signature="e#4270#4677#0" />
+                <element signature="e#4331#4677#0" />
+                <element signature="e#4367#4677#0" />
+                <element signature="e#0#95#0" />
+                <element signature="e#4883#6198#0" />
+                <element signature="e#4936#5084#0" />
+                <element signature="e#0#80#1" />
+                <element signature="e#5230#6146#0" />
+                <element signature="e#5205#5584#0" />
+                <element signature="e#5301#5551#0" />
+                <element signature="e#25#252#1" />
+                <element signature="e#5619#6078#0" />
+                <element signature="e#5681#6029#0" />
+                <element signature="e#25#380#1" />
+                <element signature="e#6265#6645#0" />
+                <element signature="e#6327#6614#0" />
+                <element signature="e#6385#6584#0" />
+                <element signature="e#21#206#1" />
+                <element signature="e#6689#6919#0" />
+                <element signature="e#0#52#2" />
+                <element signature="e#7041#7982#0" />
+                <element signature="e#7272#7380#0" />
+                <element signature="e#7470#7582#0" />
+                <element signature="e#0#256#0" />
+                <element signature="e#121#256#0" />
+                <element signature="e#128#256#0" />
+                <element signature="e#8049#8450#0" />
+                <element signature="e#8099#8179#0" />
+                <element signature="e#8244#8430#0" />
+                <element signature="e#8276#8430#0" />
+                <element signature="e#0#93#0" />
+                <element signature="e#8516#9253#0" />
+                <element signature="e#8654#9149#0" />
+                <element signature="e#8690#8881#0" />
+                <element signature="e#0#76#0" />
+                <element signature="e#8916#9149#0" />
+                <element signature="e#0#50#0" />
+                <element signature="e#9300#9727#0" />
+                <element signature="e#9438#9623#0" />
+                <element signature="e#0#77#0" />
+                <element signature="e#9800#10070#0" />
+                <element signature="e#9817#9967#0" />
+                <element signature="e#10118#10390#0" />
+                <element signature="e#10135#10287#0" />
+                <element signature="e#10464#10889#0" />
+                <element signature="e#10481#10786#0" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api_server/config.json">
+        <entry file="file://$PROJECT_DIR$/api_server/routes/getReports.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="58">
-              <caret line="2" column="32" selection-start-line="2" selection-start-column="30" selection-end-line="2" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/api_server/db/ldapServerConnection.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="25" column="4" selection-start-line="25" selection-start-column="4" selection-end-line="25" selection-end-column="4" />
+            <state relative-caret-position="235">
+              <caret line="9" column="32" lean-forward="true" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
               <folding>
-                <element signature="e#0#14#0" expanded="true" />
+                <element signature="e#0#34#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -227,16 +245,16 @@
         <option value="$PROJECT_DIR$/api_server/routes/revertReports.py" />
         <option value="$PROJECT_DIR$/api_server/routes/importFromRedmine.py" />
         <option value="$PROJECT_DIR$/api_server/routes/searchReports.py" />
-        <option value="$PROJECT_DIR$/api_server/db/database.py" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/api_server/db/config.json" />
         <option value="$PROJECT_DIR$/api_server/config.json" />
-        <option value="$PROJECT_DIR$/api_server/__init__.py" />
         <option value="$PROJECT_DIR$/api_server/routes/userData.py" />
         <option value="$PROJECT_DIR$/api_server/routes/addDataToNewUser.py" />
         <option value="$PROJECT_DIR$/api_server/components/importReportsFromRedmine.py" />
         <option value="$PROJECT_DIR$/api_server/components/checkLogin.py" />
         <option value="$PROJECT_DIR$/api_server/routes/login.py" />
+        <option value="$PROJECT_DIR$/api_server/__init__.py" />
+        <option value="$PROJECT_DIR$/api_server/db/database.py" />
       </list>
     </option>
   </component>
@@ -256,7 +274,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -273,12 +290,25 @@
               <item name="flask_restful_server" type="b2602c69:ProjectViewProjectNode" />
               <item name="flask_restful_server" type="462c0819:PsiDirectoryNode" />
               <item name="api_server" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flask_restful_server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flask_restful_server" type="462c0819:PsiDirectoryNode" />
+              <item name="api_server" type="462c0819:PsiDirectoryNode" />
+              <item name="db" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="flask_restful_server" type="b2602c69:ProjectViewProjectNode" />
+              <item name="flask_restful_server" type="462c0819:PsiDirectoryNode" />
+              <item name="api_server" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
     </panes>
   </component>
@@ -415,12 +445,13 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="207818000" />
+    <option name="totallyTimeSpent" value="209426000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1920" y="0" width="1920" height="1080" extended-state="0" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11075612" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.111821085" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -468,7 +499,7 @@
     <SUITE FILE_PATH="coverage/flask_restful_server$Flask.coverage" NAME="Flask (api.py) Coverage Results" MODIFIED="1579933623224" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_server_app_py_.coverage" NAME="Flask (api_server) Coverage Results" MODIFIED="1581330470257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_server_app_py___1_.coverage" NAME="Flask (api_server/app.py) (1) Coverage Results" MODIFIED="1581093103967" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_server_.coverage" NAME="Flask (api_server) Coverage Results" MODIFIED="1583421506156" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_server_.coverage" NAME="Flask (api_server) Coverage Results" MODIFIED="1583483359189" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$APPLICATION_CONFIG_DIR$/consoles/db/675a6dcd-7124-4726-bdf0-9501be9ba880/console.sql">
@@ -583,10 +614,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/api_server/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="24" column="19" lean-forward="true" selection-start-line="24" selection-start-column="19" selection-end-line="24" selection-end-column="19" />
+        <state relative-caret-position="345">
+          <caret line="16" column="46" selection-start-line="16" selection-start-column="46" selection-end-line="16" selection-end-column="46" />
           <folding>
-            <element signature="e#46#69#0" expanded="true" />
+            <element signature="e#47#70#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -636,16 +667,6 @@
           <caret line="20" column="21" selection-start-line="20" selection-start-column="14" selection-end-line="20" selection-end-column="21" />
           <folding>
             <element signature="e#0#51#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api_server/routes/getReports.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="10" column="48" lean-forward="true" selection-start-line="10" selection-start-column="48" selection-end-line="10" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#34#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -709,16 +730,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api_server/db/database.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="49" column="34" selection-start-line="49" selection-start-column="34" selection-end-line="49" selection-end-column="34" />
-          <folding>
-            <element signature="e#0#48#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api_server/db/__init__.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -771,6 +782,93 @@
           <caret line="16" column="84" selection-start-line="16" selection-start-column="84" selection-end-line="16" selection-end-column="84" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api_server/routes/getReports.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="9" column="32" lean-forward="true" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api_server/db/database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="780">
+          <caret line="181" column="24" lean-forward="true" selection-start-line="181" selection-start-column="24" selection-end-line="181" selection-end-column="24" />
+          <folding>
+            <element signature="e#480#1162#0" />
+            <element signature="e#521#602#0" />
+            <element signature="e#641#718#0" />
+            <element signature="e#0#56#1" />
+            <element signature="e#1244#1549#0" />
+            <element signature="e#0#162#0" />
+            <element signature="e#81#162#0" />
+            <element signature="e#88#162#0" />
+            <element signature="e#1711#2411#0" />
+            <element signature="e#1779#2006#0" />
+            <element signature="e#2076#2280#0" />
+            <element signature="e#17#213#0" />
+            <element signature="e#2487#2623#0" />
+            <element signature="e#0#49#1" />
+            <element signature="e#2727#3726#0" />
+            <element signature="e#3007#3325#0" />
+            <element signature="e#0#164#0" />
+            <element signature="e#83#164#0" />
+            <element signature="e#90#164#0" />
+            <element signature="e#3441#3661#0" />
+            <element signature="e#3844#4743#0" />
+            <element signature="e#3904#4043#0" />
+            <element signature="e#4270#4677#0" />
+            <element signature="e#4331#4677#0" />
+            <element signature="e#4367#4677#0" />
+            <element signature="e#0#95#0" />
+            <element signature="e#4883#6198#0" />
+            <element signature="e#4936#5084#0" />
+            <element signature="e#0#80#1" />
+            <element signature="e#5230#6146#0" />
+            <element signature="e#5205#5584#0" />
+            <element signature="e#5301#5551#0" />
+            <element signature="e#25#252#1" />
+            <element signature="e#5619#6078#0" />
+            <element signature="e#5681#6029#0" />
+            <element signature="e#25#380#1" />
+            <element signature="e#6265#6645#0" />
+            <element signature="e#6327#6614#0" />
+            <element signature="e#6385#6584#0" />
+            <element signature="e#21#206#1" />
+            <element signature="e#6689#6919#0" />
+            <element signature="e#0#52#2" />
+            <element signature="e#7041#7982#0" />
+            <element signature="e#7272#7380#0" />
+            <element signature="e#7470#7582#0" />
+            <element signature="e#0#256#0" />
+            <element signature="e#121#256#0" />
+            <element signature="e#128#256#0" />
+            <element signature="e#8049#8450#0" />
+            <element signature="e#8099#8179#0" />
+            <element signature="e#8244#8430#0" />
+            <element signature="e#8276#8430#0" />
+            <element signature="e#0#93#0" />
+            <element signature="e#8516#9253#0" />
+            <element signature="e#8654#9149#0" />
+            <element signature="e#8690#8881#0" />
+            <element signature="e#0#76#0" />
+            <element signature="e#8916#9149#0" />
+            <element signature="e#0#50#0" />
+            <element signature="e#9300#9727#0" />
+            <element signature="e#9438#9623#0" />
+            <element signature="e#0#77#0" />
+            <element signature="e#9800#10070#0" />
+            <element signature="e#9817#9967#0" />
+            <element signature="e#10118#10390#0" />
+            <element signature="e#10135#10287#0" />
+            <element signature="e#10464#10889#0" />
+            <element signature="e#10481#10786#0" />
           </folding>
         </state>
       </provider>

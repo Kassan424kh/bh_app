@@ -66,7 +66,7 @@ class Styling {
 
   static var selectedTheme = lightTheme;
 
-  static int durationAnimation = 500;
+  static int durationAnimation = 350;
 
   static double tabletSize = 1400;
   static double phoneSize = 577.0;

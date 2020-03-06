@@ -1,6 +1,7 @@
 from MySQLdb._exceptions import OperationalError
 from flask_mysqldb import MySQL
 from flask_restful import abort
+from operator import itemgetter
 
 from api_server import app
 
@@ -129,8 +130,9 @@ class Database:
         return Database.get_trainees_data(u_id=user.get("u_id"))
 
     # Reports Functions
-    def get_reports(u_id, text="", start_date="", end_date="", get_all=False, are_deleted=False) -> list:
+    def get_reports(u_id, start_date="", end_date="", get_all=False, are_deleted=False) -> list:
         list_of_reports = []
+        sorted_list_of_reports = []
         if get_all:
             list_of_reports = Database.list_requests(
                 "SELECT * FROM `reports` WHERE `u_id` = {0} AND deleted = {1};".format(u_id, are_deleted))
@@ -157,7 +159,7 @@ class Database:
                     """.format(u_id, start_date, end_date, are_deleted))
         else:
             print("Please select start and end date, to get your reports")
-        return list_of_reports
+        return sorted(list_of_reports, key=itemgetter("date"), reverse=True)
 
     def search_reports(u_id, searched_texts="") -> list:
         list_of_reports = []
@@ -167,7 +169,7 @@ class Database:
                     SELECT * FROM reports 
                     WHERE (UPPER(text) LIKE UPPER('%{1}%') OR MATCH(text) AGAINST ('{1}' IN NATURAL LANGUAGE MODE)) AND `u_id` = {0}
                 """.format(u_id, searched_texts))
-        return list_of_reports
+        return sorted(list_of_reports, key=itemgetter("date"), reverse=True)
 
     def get_report(r_id) -> dict:
         report = None
