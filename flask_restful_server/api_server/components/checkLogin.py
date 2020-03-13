@@ -17,7 +17,7 @@ def login_required(method):
         access_token = request.headers.get('access-token', '')
         if access_token  == "":
             abort(401, message='Please login again')
-        with open('{}/api_server/config.json'.format(cwd), 'r') as f:
+        with open('{}/api_server/config.json'.format(cwd), 'r', encoding="utf8") as f:
             app_configs = json.load(f)
             try:
                 decoded_user_data = decode(access_token, app_configs.get("ACCESS_TOKEN_KEY"), "HS256")
