@@ -44,27 +44,47 @@ class MobileHeader extends StatelessWidget {
                         children: <Widget>[
                           UICircleButton(
                             icon: Container(
-                              height: 20,
+                              height: 25,
                               width: 35,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
-                                textDirection: TextDirection.rtl,
                                 children: <Widget>[
                                   Container(
-                                    height: 2,
-                                    margin: EdgeInsets.only(left: 10),
-                                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
+                                    height: 6,
+                                    color: _selectedTheme[ElementStylingParameters.primaryColor],
+                                    child: Center(
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(horizontal: 5),
+                                        height: 0.6,
+                                        color: _selectedTheme[ElementStylingParameters.headerTextColor],
+                                      ),
+                                    ),
                                   ),
                                   Container(
-                                    height: 2,
-                                    margin: EdgeInsets.only(left: 10),
-                                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
+                                    height: 6,
+                                    margin: EdgeInsets.only(left: 5),
+                                    color: _selectedTheme[ElementStylingParameters.primaryColor],
+                                    child: Center(
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(horizontal: 5),
+                                        height: 0.6,
+                                        color: _selectedTheme[ElementStylingParameters.headerTextColor],
+                                      ),
+                                    ),
                                   ),
                                   Container(
-                                    height: 2,
-                                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
+                                    height: 6,
+                                    margin: EdgeInsets.only(left: 5),
+                                    color: _selectedTheme[ElementStylingParameters.primaryColor],
+                                    child: Center(
+                                      child: Container(
+                                        margin: EdgeInsets.symmetric(horizontal: 5),
+                                        height: 0.6,
+                                        color: _selectedTheme[ElementStylingParameters.headerTextColor],
+                                      ),
+                                    ),
                                   )
                                 ],
                               ),
