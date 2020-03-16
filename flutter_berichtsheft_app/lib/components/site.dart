@@ -45,8 +45,10 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
   _setSiteSize(context) {
     Timer.periodic(Duration(milliseconds: 0), (timer) {
       try {
+
         if (Provider.of<StylingProvider>(context, listen: false).showSitesCardComponentHeight != _renderBoxOfTheSite.size.height) {
-          Provider.of<StylingProvider>(context, listen: false).updateHeightOfShowSitesCardComponent(_renderBoxOfTheSite.size.height);
+          Provider.of<StylingProvider>(context, listen: false).updateHeightOfShowSitesCardComponent(_renderBoxOfTheSite.size
+              .height);
         }
       } catch (e) {
         timer.cancel();
