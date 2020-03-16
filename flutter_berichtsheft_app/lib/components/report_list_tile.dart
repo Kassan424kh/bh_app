@@ -1,9 +1,12 @@
+import 'dart:ffi';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/components/ui_button.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
 import 'package:provider/provider.dart';
+import 'package:unicode/unicode.dart' as unicode;
 
 class ReportListTile extends StatelessWidget {
   final String date, hours, reportText;
@@ -21,6 +24,7 @@ class ReportListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     return Column(
       mainAxisSize: MainAxisSize.min,
@@ -48,7 +52,7 @@ class ReportListTile extends StatelessWidget {
                   ),
                   Flexible(
                     fit: FlexFit.tight,
-                    flex: 2,
+                    flex: size.width > Styling.phoneSize ? 2 : 3,
                     child: UIButton(
                       onPressed: () {},
                       paddingLeft: true,
@@ -60,7 +64,7 @@ class ReportListTile extends StatelessWidget {
                   ),
                   Flexible(
                     fit: FlexFit.tight,
-                    flex: 1,
+                    flex: size.width > Styling.phoneSize ? 1 : 2,
                     child: UIButton(
                       onPressed: () {},
                       paddingLeft: false,
@@ -70,33 +74,86 @@ class ReportListTile extends StatelessWidget {
                       text: "⌇ " + hours,
                     ),
                   ),
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 7,
-                    child: UIButton(
-                      itemsAlignment: MainAxisAlignment.start,
-                      paddingLeft: true,
-                      paddingRight: false,
-                      onPressed: () {},
-                      text: Expanded(
-                        child: Text(
-                          reportText.substring(0, (reportText.length > 120 ? 120 : reportText.length)) + (reportText.length > 120 ? " ..." : ""),
-                          maxLines: 1,
-                          style: TextStyle(
-                            height: 1.3,
-                            fontWeight: FontWeight.w300,
-                            fontStyle: FontStyle.italic,
-                            fontSize: 15,
-                            color: _selectedTheme == Styling.lightTheme ? Colors.black : Colors.white,
+                  size.width > Styling.phoneSize
+                      ? Flexible(
+                          fit: FlexFit.tight,
+                          flex: 7,
+                          child: UIButton(
+                            itemsAlignment: MainAxisAlignment.start,
+                            paddingLeft: true,
+                            paddingRight: false,
+                            onPressed: () {},
+                            text: Expanded(
+                              child: Text(
+                                reportText.substring(0, (reportText.length > 120 ? 120 : reportText.length)) + (reportText.length > 120 ? " ..." : ""),
+                                maxLines: 1,
+                                style: TextStyle(
+                                  height: 1.3,
+                                  fontWeight: FontWeight.w300,
+                                  fontStyle: FontStyle.italic,
+                                  fontSize: 15,
+                                  color: _selectedTheme == Styling.lightTheme ? Colors.black : Colors.white,
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
+                        )
+                      : Container(),
                 ],
               ),
             );
           }),
+        ),
+        Container(
+          child: size.width < Styling.phoneSize
+              ? LayoutBuilder(builder: (context, constraints) {
+                  return size.width < Styling.phoneSize
+                      ? Row(
+                          children: <Widget>[
+                            Container(
+                              width: constraints.maxWidth,
+                              child: UIButton(
+                                itemsAlignment: MainAxisAlignment.start,
+                                paddingLeft: true,
+                                paddingRight: false,
+                                onPressed: () {},
+                                text: Expanded(
+                                  child: Row(
+                                    children: <Widget>[
+                                      Icon(
+                                        Icons.subdirectory_arrow_right,
+                                        size: 20,
+                                        color: _selectedTheme[ElementStylingParameters.inputHintTextColor],
+                                      ),
+                                      SizedBox(
+                                        width: 20,
+                                      ),
+                                      Expanded(
+                                        child: Text(
+                                          reportText.substring(0, (reportText.length > 100 ? 90 : reportText.length)) + (reportText.length > 120 || "\n".allMatches(reportText).length > 1? " ..." : ""),
+                                          maxLines: 1,
+                                          style: TextStyle(
+                                            height: 1.3,
+                                            fontWeight: FontWeight.w300,
+                                            fontStyle: FontStyle.italic,
+                                            fontSize: 15,
+                                            color: _selectedTheme == Styling.lightTheme ? Colors.black : Colors.white,
+                                          ),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 40,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+                      : Container();
+                })
+              : Container(),
         ),
       ],
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/components/null_image.dart';
 import 'package:flutter_berichtsheft_app/components/report_list_tile.dart';
@@ -24,7 +25,7 @@ class ReportsDataTable extends StatelessWidget {
     double _showCardComponentWidth = Provider.of<StylingProvider>(context).showSitesCardComponentWidth;
     final size = MediaQuery.of(context).size;
     return Container(
-      width: _showCardComponentWidth - (size.width <= Styling.tabletSize ? 0: 60) < 0 ? 0 : _showCardComponentWidth -  (size.width <= Styling.tabletSize ? 0: 60),
+      width: _showCardComponentWidth - (size.width <= Styling.tabletSize ? 0 : 60) < 0 ? 0 : _showCardComponentWidth - (size.width <= Styling.tabletSize ? 0 : 60),
       child: Column(children: <Widget>[
         Container(
           height: 50,
@@ -56,7 +57,7 @@ class ReportsDataTable extends StatelessWidget {
                   ),
                   Flexible(
                     fit: FlexFit.tight,
-                    flex: 2,
+                    flex: size.width > Styling.phoneSize ? 2 : 3,
                     child: UIButton(
                       isActive: true,
                       disableButtonEffects: true,
@@ -69,7 +70,7 @@ class ReportsDataTable extends StatelessWidget {
                   ),
                   Flexible(
                     fit: FlexFit.tight,
-                    flex: 1,
+                    flex: size.width > Styling.phoneSize ? 1 : 2,
                     child: UIButton(
                       isActive: true,
                       disableButtonEffects: true,
@@ -80,19 +81,21 @@ class ReportsDataTable extends StatelessWidget {
                       text: "⌇ Hours",
                     ),
                   ),
-                  Flexible(
-                    fit: FlexFit.tight,
-                    flex: 7,
-                    child: UIButton(
-                      isActive: true,
-                      disableButtonEffects: true,
-                      paddingLeft: true,
-                      paddingRight: false,
-                      onPressed: () {},
-                      itemsAlignment: MainAxisAlignment.start,
-                      text: "Report text",
-                    ),
-                  ),
+                  size.width > Styling.phoneSize
+                      ? Flexible(
+                          fit: FlexFit.tight,
+                          flex: 7,
+                          child: UIButton(
+                            isActive: true,
+                            disableButtonEffects: true,
+                            paddingLeft: true,
+                            paddingRight: false,
+                            onPressed: () {},
+                            itemsAlignment: MainAxisAlignment.start,
+                            text: "Report text",
+                          ),
+                        )
+                      : Container(),
                 ],
               ),
             );
@@ -112,12 +115,13 @@ class ReportsDataTable extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: listOfReports.length,
                       cacheExtent: 10,
-                      itemExtent: 60,
+                      itemExtent: size.width > Styling.phoneSize ? 60 : 100,
                       reverse: true,
                       addAutomaticKeepAlives: true,
                       physics: AlwaysScrollableScrollPhysics(),
+                      dragStartBehavior: DragStartBehavior.down,
                       scrollDirection: Axis.vertical,
-                      itemBuilder: (_, int index) => ReportListTile(
+                      itemBuilder: (BuildContext context, int index) => ReportListTile(
                           reportId: listOfReports[index]["r_id"],
                           isSelected: Provider.of<ReportsProvider>(context).listOfSelectedReportIds.contains(listOfReports[index]["r_id"]) ? true : false,
                           date: listOfReports[index]["date"],
