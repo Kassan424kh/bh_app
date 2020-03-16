@@ -44,11 +44,11 @@ class UICircleButton extends StatelessWidget {
             borderRadius: BorderRadius.all(Radius.circular(buttonSize / 2)),
           ),
           onPressed: onClick,
-          child: Icon(
+          child: icon is IconData ? Icon(
             icon,
             color: color,
             size: buttonSize * 40 / 100,
-          ),
+          ): icon,
         ),
       ),
     );

@@ -43,13 +43,38 @@ class MobileHeader extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           UICircleButton(
-                            icon: Icons.menu,
+                            icon: Container(
+                              height: 20,
+                              width: 35,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                textDirection: TextDirection.rtl,
+                                children: <Widget>[
+                                  Container(
+                                    height: 2,
+                                    margin: EdgeInsets.only(left: 10),
+                                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
+                                  ),
+                                  Container(
+                                    height: 2,
+                                    margin: EdgeInsets.only(left: 10),
+                                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
+                                  ),
+                                  Container(
+                                    height: 2,
+                                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
+                                  )
+                                ],
+                              ),
+                            ),
                             onClick: () {
                               Provider.of<NavigationProvider>(context, listen: false).openNavigation(true);
                             },
                             noneBackgroundColor: true,
                             toolTipMessage: "Open menu",
-                            buttonSize: 60,
+                            buttonSize: 70,
                             color: _selectedTheme[ElementStylingParameters.headerTextColor],
                           ),
                           AppLogo(
