@@ -22,7 +22,16 @@ class MobileHeader extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Container(
-                  color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
+                  decoration: BoxDecoration(
+                    color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
+                    boxShadow: [
+                      BoxShadow(
+                        color: _selectedTheme[ElementStylingParameters.boxShadowColor],
+                        offset: Offset(15, 20),
+                        blurRadius: 50,
+                      )
+                    ],
+                  ),
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Container(
@@ -33,19 +42,16 @@ class MobileHeader extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          !isNavigationOpened
-                              ? Hero(
-                                  tag: "openNaviButton",
-                                  child: UICircleButton(
-                                    icon: Icons.short_text,
-                                    onClick: () {
-                                      Provider.of<NavigationProvider>(context, listen: false).openNavigation(true);
-                                    },
-                                    toolTipMessage: "Open menu",
-                                    color: _selectedTheme[ElementStylingParameters.headerTextColor],
-                                  ),
-                                )
-                              : Container(),
+                          UICircleButton(
+                            icon: Icons.menu,
+                            onClick: () {
+                              Provider.of<NavigationProvider>(context, listen: false).openNavigation(true);
+                            },
+                            noneBackgroundColor: true,
+                            toolTipMessage: "Open menu",
+                            buttonSize: 60,
+                            color: _selectedTheme[ElementStylingParameters.headerTextColor],
+                          ),
                           AppLogo(
                             fit: BoxFit.fitHeight,
                             padding: EdgeInsets.symmetric(vertical: 10),

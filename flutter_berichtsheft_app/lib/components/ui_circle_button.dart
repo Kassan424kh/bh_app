@@ -6,6 +6,7 @@ class UICircleButton extends StatelessWidget {
   final onClick;
   final String toolTipMessage;
   final double buttonSize;
+  final bool noneBackgroundColor;
 
   UICircleButton({
     Key key,
@@ -14,6 +15,7 @@ class UICircleButton extends StatelessWidget {
     this.onClick,
     this.toolTipMessage = "",
     this.buttonSize = 51,
+    this.noneBackgroundColor = false,
   }) : super(key: key);
 
   @override
@@ -31,7 +33,7 @@ class UICircleButton extends StatelessWidget {
           disabledElevation: 0,
           focusElevation: 0,
           animationDuration: Duration(milliseconds: 350),
-          color: color.withOpacity(.2),
+          color: noneBackgroundColor ? Colors.transparent : color.withOpacity(.2),
           splashColor: color.withOpacity(.3),
           focusColor: Colors.transparent,
           textColor: Colors.transparent,
