@@ -36,6 +36,7 @@ class ReportsDataTable extends StatelessWidget {
               child: Row(
                 children: <Widget>[
                   Flexible(
+                    flex: size.width > Styling.phoneSize ? 1 : 2,
                     child: UIButton(
                       isActive: true,
                       onPressed: () {

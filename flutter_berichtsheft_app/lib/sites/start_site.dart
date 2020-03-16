@@ -123,59 +123,64 @@ class _StartSiteState extends State<StartSite> {
             isNavigationOpened: _openNavigation,
           ),
           // Login and Left Navigation
-          AnimatedAlign(
+          AnimatedPositioned(
             duration: Duration(milliseconds: Styling.durationAnimation),
             curve: Curves.easeInOutCubic,
-            alignment:
-                _isLoggedIn ? Alignment.centerLeft.add(Alignment(size.width <= Styling.tabletSize && _isLoggedIn && _showNavigationComponents && !_openNavigation ? -5 : 0, 0)) : Alignment.center,
-            child: AnimatedContainer(
+            left: _isLoggedIn ? size.width <= Styling.tabletSize && _isLoggedIn && _showNavigationComponents && !_openNavigation ? -370: 0: null,
+            child: AnimatedAlign(
               duration: Duration(milliseconds: Styling.durationAnimation),
               curve: Curves.easeInOutCubic,
-              width: _isLoggedIn ? 350 : 300,
-              height: _isLoggedIn ? size.height : 375,
-              decoration: BoxDecoration(
-                color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
-                boxShadow: [
-                  size.width <= Styling.tabletSize && _isLoggedIn && _showNavigationComponents && _openNavigation
-                      ? BoxShadow(
-                          color: _selectedTheme[ElementStylingParameters.boxShadowColor],
-                          offset: Offset(15, 20),
-                          blurRadius: 50,
-                        )
-                      : BoxShadow(
-                          color: Colors.transparent,
-                          offset: Offset(0, 0),
-                          blurRadius: 0,
-                        ),
-                ],
-              ),
-              margin: EdgeInsets.all(10),
-              child: Align(
-                alignment: Alignment.center,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: <Widget>[
-                    AnimatedOpacity(
-                      opacity: !_isLoggedIn && _showLoginComponents ? 1 : 0,
-                      duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
-                      curve: Curves.easeInOutCubic,
-                      child: _showLoginComponents ? Login(title: "Login") : Container(),
-                      onEnd: () => setState(() {
-                        _showLoginComponents = _isLoggedIn ? false : true;
-                        _showNavigationComponents = _isLoggedIn ? true : false;
-                      }),
-                    ),
-                    AnimatedOpacity(
-                      opacity: _isLoggedIn && _showNavigationComponents ? 1 : 0,
-                      duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
-                      curve: Curves.easeInOutCubic,
-                      child: _showNavigationComponents ? Navigation() : Container(),
-                      onEnd: () => setState(() {
-                        _showLoginComponents = _isLoggedIn ? false : true;
-                        _showNavigationComponents = _isLoggedIn ? true : false;
-                      }),
-                    ),
+              alignment:
+                  _isLoggedIn ? Alignment.centerLeft : Alignment.center,
+              child: AnimatedContainer(
+                duration: Duration(milliseconds: Styling.durationAnimation),
+                curve: Curves.easeInOutCubic,
+                width: _isLoggedIn ? 350 : 300,
+                height: _isLoggedIn ? size.height : 375,
+                decoration: BoxDecoration(
+                  color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
+                  boxShadow: [
+                    size.width <= Styling.tabletSize && _isLoggedIn && _showNavigationComponents && _openNavigation
+                        ? BoxShadow(
+                            color: _selectedTheme[ElementStylingParameters.boxShadowColor],
+                            offset: Offset(15, 20),
+                            blurRadius: 50,
+                          )
+                        : BoxShadow(
+                            color: Colors.transparent,
+                            offset: Offset(0, 0),
+                            blurRadius: 0,
+                          ),
                   ],
+                ),
+                margin: EdgeInsets.all(10),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Stack(
+                    fit: StackFit.expand,
+                    children: <Widget>[
+                      AnimatedOpacity(
+                        opacity: !_isLoggedIn && _showLoginComponents ? 1 : 0,
+                        duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
+                        curve: Curves.easeInOutCubic,
+                        child: _showLoginComponents ? Login(title: "Login") : Container(),
+                        onEnd: () => setState(() {
+                          _showLoginComponents = _isLoggedIn ? false : true;
+                          _showNavigationComponents = _isLoggedIn ? true : false;
+                        }),
+                      ),
+                      AnimatedOpacity(
+                        opacity: _isLoggedIn && _showNavigationComponents ? 1 : 0,
+                        duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
+                        curve: Curves.easeInOutCubic,
+                        child: _showNavigationComponents ? Navigation() : Container(),
+                        onEnd: () => setState(() {
+                          _showLoginComponents = _isLoggedIn ? false : true;
+                          _showNavigationComponents = _isLoggedIn ? true : false;
+                        }),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

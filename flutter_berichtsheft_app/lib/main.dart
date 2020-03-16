@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_berichtsheft_app/MyApp.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:provider/provider.dart';
@@ -7,7 +8,19 @@ void main() async {
   return runApp(Main());
 }
 
-class Main extends StatelessWidget {
+class Main extends StatefulWidget {
+  @override
+  _MainState createState() => _MainState();
+}
+
+class _MainState extends State<Main> {
+
+  @override
+  void initState() {
+    SystemChrome.setEnabledSystemUIOverlays([]);
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
 

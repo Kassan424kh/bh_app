@@ -44,7 +44,7 @@ class Login(Resource):
 
         encoded_access_token = ""
         if len(user.keys()) > 0 and user.get("email", "") != "":
-            with open('{0}/api_server/config.json'.format(cwd), 'rb', encoding="utf8") as f:
+            with open('{0}/api_server/config.json'.format(cwd), 'rb') as f:
                 app_configs= json.load(f)
                 exp = datetime.datetime.utcnow() + datetime.timedelta(days=app_configs.get("ACTIVATION_EXPIRE_DAYS"))
                 user_token_data = {"email": user.get("email"), 'exp': exp}

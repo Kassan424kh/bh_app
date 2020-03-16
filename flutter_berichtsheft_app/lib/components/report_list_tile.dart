@@ -1,12 +1,9 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/components/ui_button.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
 import 'package:provider/provider.dart';
-import 'package:unicode/unicode.dart' as unicode;
 
 class ReportListTile extends StatelessWidget {
   final String date, hours, reportText;
@@ -37,6 +34,7 @@ class ReportListTile extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Flexible(
+                    flex: size.width > Styling.phoneSize ? 1 : 2,
                     child: UIButton(
                       onPressed: () {
                         Provider.of<ReportsProvider>(context, listen: false).addReportToSelectingList(reportId);

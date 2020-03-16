@@ -34,7 +34,7 @@ class API {
 
   API({Key key, this.context});
 
-  final String url = "http://0.0.0.0:5000";
+  final String url = "http://192.168.0.109:5000";
 
   void showDownloadProgress(received, total) {
     if (total != -1) {

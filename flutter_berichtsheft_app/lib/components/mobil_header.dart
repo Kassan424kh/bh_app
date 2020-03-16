@@ -33,7 +33,7 @@ class MobileHeader extends StatelessWidget {
                     ],
                   ),
                   child: Align(
-                    alignment: Alignment.topCenter,
+                    alignment: Alignment.bottomCenter,
                     child: Container(
                       height: 60,
                       width: size.width - (size.width * (size.width <= Styling.tabletSize ? 10 : 15) / 100),
