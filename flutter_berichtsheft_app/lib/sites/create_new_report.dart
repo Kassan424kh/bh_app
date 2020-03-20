@@ -50,47 +50,51 @@ class _CreateNewReportState extends State<CreateNewReport> {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                SizedBox(width: 50),
-                UIButton(
-                  leftWidget: Text(_areMoreThenOneDay ? "From Date" : "Day Date ", style: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor])),
-                  onPressed: () => UIDatePicker.d(context, _selectedTheme, _areMoreThenOneDay ? _startReportDate : _oneDayReportDate, (DateTime newSelectedDate) {
-                    if (!newSelectedDate.isAfter(DateTime.now()))
-                      setState(() {
-                        if (!_areMoreThenOneDay) {
-                          _oneDayReportDate = newSelectedDate;
-                          _startDate = null;
-                          _endDate = null;
-                          _date = _dateFormat.format(_oneDayReportDate);
-                        } else {
-                          _startReportDate = newSelectedDate;
-                          _date = null;
-                          _startDate = _dateFormat.format(_startReportDate);
-                          if (_startReportDate != null && _startReportDate != _endReportDate && _startReportDate.isAfter(_endReportDate)) _endReportDate = _startReportDate;
-                        }
-                      });
-                  }),
-                  text: (_areMoreThenOneDay ? _startDate : _date) == null ? "Select Date" : _dateFormat.format(_areMoreThenOneDay ? _startReportDate : _oneDayReportDate),
-                  isActive: true,
-                ),
-                _areMoreThenOneDay ? SizedBox(width: 20) : Container(),
-                _areMoreThenOneDay
-                    ? UIButton(
-                        leftWidget: Text("To Date ", style: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor])),
-                        onPressed: () => UIDatePicker.d(context, _selectedTheme, _endReportDate, (DateTime newSelectedDate) {
-                          if (!newSelectedDate.isAfter(DateTime.now()))
-                            setState(() {
-                              _endReportDate = newSelectedDate;
-                              _endDate = _dateFormat.format(_endReportDate);
-                              if (_endReportDate != null && _startReportDate != _endReportDate && _endReportDate.isBefore(_startReportDate)) _startReportDate = _endReportDate;
-                            });
-                        }),
-                        text: _endDate == null ? "Select Date" : _dateFormat.format(_endReportDate),
-                        isActive: true,
-                      )
-                    : Container(),
-              ],
+            Container(
+              height: 50,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  SizedBox(width: 50),
+                  UIButton(
+                    leftWidget: Text(_areMoreThenOneDay ? "From Date" : "Day Date ", style: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor])),
+                    onPressed: () => UIDatePicker.d(context, _selectedTheme, _areMoreThenOneDay ? _startReportDate : _oneDayReportDate, (DateTime newSelectedDate) {
+                      if (!newSelectedDate.isAfter(DateTime.now()))
+                        setState(() {
+                          if (!_areMoreThenOneDay) {
+                            _oneDayReportDate = newSelectedDate;
+                            _startDate = null;
+                            _endDate = null;
+                            _date = _dateFormat.format(_oneDayReportDate);
+                          } else {
+                            _startReportDate = newSelectedDate;
+                            _date = null;
+                            _startDate = _dateFormat.format(_startReportDate);
+                            if (_startReportDate != null && _startReportDate != _endReportDate && _startReportDate.isAfter(_endReportDate)) _endReportDate = _startReportDate;
+                          }
+                        });
+                    }),
+                    text: (_areMoreThenOneDay ? _startDate : _date) == null ? "Select Date" : _dateFormat.format(_areMoreThenOneDay ? _startReportDate : _oneDayReportDate),
+                    isActive: true,
+                  ),
+                  _areMoreThenOneDay ? SizedBox(width: 20) : Container(),
+                  _areMoreThenOneDay
+                      ? UIButton(
+                          leftWidget: Text("To Date ", style: TextStyle(color: _selectedTheme[ElementStylingParameters.inputHintTextColor])),
+                          onPressed: () => UIDatePicker.d(context, _selectedTheme, _endReportDate, (DateTime newSelectedDate) {
+                            if (!newSelectedDate.isAfter(DateTime.now()))
+                              setState(() {
+                                _endReportDate = newSelectedDate;
+                                _endDate = _dateFormat.format(_endReportDate);
+                                if (_endReportDate != null && _startReportDate != _endReportDate && _endReportDate.isBefore(_startReportDate)) _startReportDate = _endReportDate;
+                              });
+                          }),
+                          text: _endDate == null ? "Select Date" : _dateFormat.format(_endReportDate),
+                          isActive: true,
+                        )
+                      : Container(),
+                ],
+              ),
             ),
             SizedBox(height: 20),
             UISwitchListTile(
