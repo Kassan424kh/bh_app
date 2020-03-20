@@ -38,7 +38,6 @@ class MobileHeader extends StatelessWidget {
                       height: 60,
                       width: size.width - (size.width * (size.width <= Styling.tabletSize ? 10 : 15) / 100),
                       alignment: Alignment.centerLeft,
-                      margin: EdgeInsets.symmetric(vertical: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
@@ -97,9 +96,12 @@ class MobileHeader extends StatelessWidget {
                             buttonSize: 70,
                             color: _selectedTheme[ElementStylingParameters.headerTextColor],
                           ),
-                          AppLogo(
-                            fit: BoxFit.fitHeight,
-                            padding: EdgeInsets.symmetric(vertical: 10),
+                          Hero(
+                            tag: "navigationLogo",
+                            child: AppLogo(
+                              fit: BoxFit.fitHeight,
+                              padding: EdgeInsets.symmetric(vertical: 10),
+                            ),
                           ),
                         ],
                       ),

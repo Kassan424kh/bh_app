@@ -4,6 +4,10 @@ import 'package:flutter_berichtsheft_app/styling/styling.dart';
 import 'package:provider/provider.dart';
 
 class ProfileName extends StatelessWidget {
+  final double fontSize;
+
+  ProfileName({Key key, this.fontSize = 30}):super(key: key);
+
   @override
   Widget build(BuildContext context) {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
@@ -15,7 +19,7 @@ class ProfileName extends StatelessWidget {
           Provider.of<UserData>(context).userName,
           style: TextStyle(
             color: _selectedTheme[ElementStylingParameters.headerTextColor],
-            fontSize: 30,
+            fontSize: fontSize,
           ),
         ),
       ),

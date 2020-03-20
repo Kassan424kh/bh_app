@@ -23,6 +23,7 @@ class _MessageState extends State<Message> {
     final bool _isShowMessage = Provider.of<MessageProvider>(context).isShowMessage;
     final int _messageStatus = Provider.of<MessageProvider>(context).messageShowStatus;
     final bool _showMessageOkButton = Provider.of<MessageProvider>(context).messageOkButton != null;
+    final size = MediaQuery.of(context).size;
     return _isShowMessage
         ? Positioned.fill(
             bottom: 0,
@@ -71,6 +72,7 @@ class _MessageState extends State<Message> {
                             children: <Widget>[
                               LayoutBuilder(
                                 builder: (BuildContext context, BoxConstraints constraints) => Container(
+                                  margin: size.width > Styling.tabletSize ? null:  EdgeInsets.only(right: 30),
                                   constraints: BoxConstraints(maxHeight: 5, minWidth: constraints.maxWidth),
                                   decoration: BoxDecoration(
                                     color: (_selectedTheme[ElementStylingParameters.primaryColor] as Color).withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
@@ -83,7 +85,7 @@ class _MessageState extends State<Message> {
                                         duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
                                         curve: Curves.easeOutQuart,
                                         color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
-                                        width: constraints.maxWidth * _messageStatus / 100,
+                                        width: (constraints.maxWidth - 30) * _messageStatus / 100,
                                         height: 5,
                                         alignment: Alignment.centerLeft,
                                       ),
@@ -97,7 +99,9 @@ class _MessageState extends State<Message> {
                             child: AnimatedAlign(
                               duration: Duration(milliseconds: (Styling.durationAnimation).round()),
                               curve: Curves.easeInOutCubic,
-                              alignment: Alignment.topCenter.add(Alignment(0, Provider.of<MessageProvider>(context, listen: false).messageShowingPause ? 0 : -2)),
+                              alignment: size.width > Styling.tabletSize?
+                              Alignment.topCenter.add(Alignment(0, Provider.of<MessageProvider>(context, listen: false).messageShowingPause ? 0 : -2)):
+                              Alignment.topRight.add(Alignment(0.070, -0.32)),
                               child: UICircleButton(
                                 icon: Icons.close,
                                 color: Colors.redAccent,

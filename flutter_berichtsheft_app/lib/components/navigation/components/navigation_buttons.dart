@@ -35,73 +35,69 @@ class _NavigationButtonsState extends State<NavigationButtons> {
   @override
   Widget build(BuildContext context) {
     final String _nowOpendedSite = Provider.of<NavigateProvider>(context).nowOpenedSite;
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints boxConstraints) => Container(
-        margin: EdgeInsets.only(
-          left: 30,
-        ),
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          children: <Widget>[
-            SearchInputField(onTap: (){
-              if (Provider.of<NavigateProvider>(context, listen: false).nowOpenedSite != "/search"){
-                _updateShowingReports(context);
-                Provider.of<NavigateProvider>(context, listen: false).goToSite("/search");
-              }
+    return Container(
+      margin: EdgeInsets.only(
+        left: 30,
+      ),
+      child: ListView(
+        children: <Widget>[
+          SearchInputField(onTap: (){
+            if (Provider.of<NavigateProvider>(context, listen: false).nowOpenedSite != "/search"){
+              _updateShowingReports(context);
+              Provider.of<NavigateProvider>(context, listen: false).goToSite("/search");
+            }
+          },
+            onSubmitted: (String searchText) {
+              if (searchText.replaceAll(" ", "") != "") _api.search(searchText);
+              else Provider.of<ReportsProvider>(context, listen: false).setListOfFoundReports([]);
             },
-              onSubmitted: (String searchText) {
-                if (searchText.replaceAll(" ", "") != "") _api.search(searchText);
-                else Provider.of<ReportsProvider>(context, listen: false).setListOfFoundReports([]);
-              },
-            ),
-            NavigationButton(
-              text: "HOME",
-              icon: OMIcons.home,
-              onPressed: () {
-                _updateShowingReports(context);
-                Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
-              },
-              isActive: _nowOpendedSite == "/home" || _nowOpendedSite == "/" ,
-            ),
-            NavigationButton(
-              text: "Create New",
-              isActive: _nowOpendedSite == "/create-new" ,
-              icon: OMIcons.playlistAdd,
-              onPressed: () {
-                _updateShowingReports(context);
-                Provider.of<NavigateProvider>(context, listen: false).goToSite("/create-new");
-              },
-            ),
-            NavigationButton(
-              text: "Deleted",
-              isActive: _nowOpendedSite == "/deleted-reports",
-              icon: OMIcons.deleteSweep,
-              onPressed: () {
-                _updateShowingReports(context);
-                Provider.of<NavigateProvider>(context, listen: false).goToSite("/deleted-reports");
-              },
-            ),
-            NavigationButton(
-              text: "Draft",
-              isActive: _nowOpendedSite == "/draft-reports",
-              icon: OMIcons.attachment,
-              onPressed: () {
-                _updateShowingReports(context);
-                Provider.of<NavigateProvider>(context, listen: false).goToSite("/draft-reports");
-              },
-            ),
-            NavigationButton(
-              text: "Duplicated Reports",
-              isActive: _nowOpendedSite == "/duplicated-reports",
-              icon: OMIcons.layers,
-              onPressed: () {
-                _updateShowingReports(context);
-                Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
-              },
-            ),
-          ],
-        ),
+          ),
+          NavigationButton(
+            text: "HOME",
+            icon: OMIcons.home,
+            onPressed: () {
+              _updateShowingReports(context);
+              Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
+            },
+            isActive: _nowOpendedSite == "/home" || _nowOpendedSite == "/" ,
+          ),
+          NavigationButton(
+            text: "Create New",
+            isActive: _nowOpendedSite == "/create-new" ,
+            icon: OMIcons.playlistAdd,
+            onPressed: () {
+              _updateShowingReports(context);
+              Provider.of<NavigateProvider>(context, listen: false).goToSite("/create-new");
+            },
+          ),
+          NavigationButton(
+            text: "Deleted",
+            isActive: _nowOpendedSite == "/deleted-reports",
+            icon: OMIcons.deleteSweep,
+            onPressed: () {
+              _updateShowingReports(context);
+              Provider.of<NavigateProvider>(context, listen: false).goToSite("/deleted-reports");
+            },
+          ),
+          NavigationButton(
+            text: "Draft",
+            isActive: _nowOpendedSite == "/draft-reports",
+            icon: OMIcons.attachment,
+            onPressed: () {
+              _updateShowingReports(context);
+              Provider.of<NavigateProvider>(context, listen: false).goToSite("/draft-reports");
+            },
+          ),
+          NavigationButton(
+            text: "Duplicated Reports",
+            isActive: _nowOpendedSite == "/duplicated-reports",
+            icon: OMIcons.layers,
+            onPressed: () {
+              _updateShowingReports(context);
+              Provider.of<NavigateProvider>(context, listen: false).goToSite("/home");
+            },
+          ),
+        ],
       ),
     );
   }

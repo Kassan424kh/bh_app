@@ -135,7 +135,7 @@ class _StartSiteState extends State<StartSite> {
               child: AnimatedContainer(
                 duration: Duration(milliseconds: Styling.durationAnimation),
                 curve: Curves.easeInOutCubic,
-                width: _isLoggedIn ? 350 : 300,
+                width: _isLoggedIn ? size.width > Styling.phoneSize ? 350 : 300 : 300,
                 height: _isLoggedIn ? size.height : 375,
                 decoration: BoxDecoration(
                   color: _selectedTheme[ElementStylingParameters.primaryAccentColor],

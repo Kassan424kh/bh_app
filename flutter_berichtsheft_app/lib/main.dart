@@ -17,7 +17,6 @@ class _MainState extends State<Main> {
 
   @override
   void initState() {
-    SystemChrome.setEnabledSystemUIOverlays([]);
     super.initState();
   }
 

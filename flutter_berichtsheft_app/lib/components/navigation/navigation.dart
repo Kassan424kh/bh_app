@@ -14,30 +14,36 @@ class Navigation extends StatelessWidget {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     return Stack(
       children: <Widget>[
-        Provider.of<NavigationProvider>(context).isOpen ?
-        Padding(
-          padding: const EdgeInsets.all(10),
-          child: Align(
-            alignment: Alignment.topRight,
-            child: Hero(
-              tag: "openNaviButton",
-              child: UICircleButton(
-                icon: Icons.close,
-                onClick: () {
-                  Provider.of<NavigationProvider>(context, listen: false).openNavigation(false);
-                },
-                buttonSize: 40,
-                toolTipMessage: "Close menu",
-                color: _selectedTheme[ElementStylingParameters.logoutButtonColor],
-              ),
-            ),
-          ),
-        ): Container(),
+        Provider.of<NavigationProvider>(context).isOpen
+            ? Padding(
+                padding: const EdgeInsets.all(10),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Hero(
+                    tag: "openNaviButton",
+                    child: UICircleButton(
+                      icon: Icons.close,
+                      onClick: () {
+                        Provider.of<NavigationProvider>(context, listen: false)
+                            .openNavigation(false);
+                      },
+                      buttonSize: 40,
+                      toolTipMessage: "Close menu",
+                      color: _selectedTheme[
+                          ElementStylingParameters.logoutButtonColor],
+                    ),
+                  ),
+                ),
+              )
+            : Container(),
         Column(
           mainAxisSize: MainAxisSize.max,
           children: <Widget>[
             ProfileInfos(),
-            Flexible(fit: FlexFit.loose,flex: 5,child: NavigationButtons()),
+            Expanded(
+              flex: 8,
+              child: NavigationButtons(),
+            ),
           ],
         ),
       ],
