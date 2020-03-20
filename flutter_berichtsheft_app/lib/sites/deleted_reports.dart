@@ -84,6 +84,7 @@ class _DeletedReportsState extends State<DeletedReports> {
         Container(
           height: 50,
           child: ListView(
+            scrollDirection: Axis.horizontal,
             reverse: true,
             children: <Widget>[
               // Revert reports button

@@ -3,21 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="e61e2f2e-5d2c-403b-a6e8-b0dc5c2cff2b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/android/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/android/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/message.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/message.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/mobil_header.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/mobil_header.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/navigation_buttons.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/navigation_buttons.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/profile/components/profile_image.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/profile/components/profile_image.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/profile/components/profile_name.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/profile/components/profile_name.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/profile/profileInfos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/profile/profileInfos.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/navigation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/navigation.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/site.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/site.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/deleted_reports.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/deleted_reports.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/home.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/home.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/start_site.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/start_site.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/loginData" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/loginData" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,7 +201,7 @@
       <workItem from="1584429088667" duration="655000" />
       <workItem from="1584430037987" duration="3961000" />
       <workItem from="1584696061397" duration="1420000" />
-      <workItem from="1584703710176" duration="565000" />
+      <workItem from="1584703710176" duration="1483000" />
     </task>
     <servers />
   </component>
