@@ -28,20 +28,22 @@ class _MyAppState extends State<MyApp> {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       extendBody: true,
-      body: Container(
-        width: screenSize.width,
-        height: screenSize.height,
-        child: Flex(
-          direction: Axis.vertical,
-          children: <Widget>[
-            Expanded(
-              child: AnimatedContainer(
-                duration: Duration(milliseconds: Styling.durationAnimation),
-                color: _selectedTheme[ElementStylingParameters.primaryColor],
-                child: StartSite(),
+      body: SafeArea(
+        child: Container(
+          width: screenSize.width,
+          height: screenSize.height,
+          child: Flex(
+            direction: Axis.vertical,
+            children: <Widget>[
+              Expanded(
+                child: AnimatedContainer(
+                  duration: Duration(milliseconds: Styling.durationAnimation),
+                  color: _selectedTheme[ElementStylingParameters.primaryColor],
+                  child: StartSite(),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
