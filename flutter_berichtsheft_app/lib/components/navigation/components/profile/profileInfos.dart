@@ -34,7 +34,7 @@ class _ProfileInfosState extends State<ProfileInfos> {
                   )
                 : SizedBox(height: 50),
             Row(
-              mainAxisSize: MainAxisSize.max,
+              mainAxisSize: size.width > Styling.tabletSize ? MainAxisSize.min :MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 ProfileImage(),

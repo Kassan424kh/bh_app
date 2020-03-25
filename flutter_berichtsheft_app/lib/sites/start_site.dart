@@ -54,7 +54,7 @@ class _StartSiteState extends State<StartSite> {
                       children: <Widget>[
                         size.width <= Styling.tabletSize && _isLoggedIn
                             ? Container(
-                                height: 90,
+                                height: 60,
                                 width: size.width,
                               )
                             : Container(),
@@ -64,7 +64,7 @@ class _StartSiteState extends State<StartSite> {
                           children: <Widget>[
                             Container(
                               width: size.width <= Styling.tabletSize ? size.width : size.width - 350,
-                              height: size.width <= Styling.tabletSize ? size.height - 100 : size.height,
+                              height: size.width <= Styling.tabletSize ? size.height - 60 : size.height,
                               child: Align(
                                 alignment: Alignment.center,
                                 child: LayoutBuilder(
@@ -136,7 +136,7 @@ class _StartSiteState extends State<StartSite> {
                 duration: Duration(milliseconds: Styling.durationAnimation),
                 curve: Curves.easeInOutCubic,
                 width: _isLoggedIn ? size.width > Styling.phoneSize ? 350 : 300 : 300,
-                height: _isLoggedIn ? size.height : 375,
+                height: _isLoggedIn ? size.height - 20 : 375,
                 decoration: BoxDecoration(
                   color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
                   boxShadow: [

@@ -1,4 +1,3 @@
-import 'package:crypted_preferences/crypted_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/api/api.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
