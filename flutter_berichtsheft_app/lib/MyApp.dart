@@ -37,7 +37,14 @@ class _MyAppState extends State<MyApp> {
               Expanded(
                 child: AnimatedContainer(
                   duration: Duration(milliseconds: Styling.durationAnimation),
-                  color: _selectedTheme[ElementStylingParameters.primaryColor],
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment(0.8, 0.0),
+                      colors: _selectedTheme[ElementStylingParameters.backgroundGradientColors],
+                      tileMode: TileMode.mirror,
+                    ),
+                  ),
                   child: StartSite(),
                 ),
               ),

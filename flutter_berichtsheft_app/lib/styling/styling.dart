@@ -14,6 +14,7 @@ enum ElementStylingParameters {
   lightDarkButtonIcon,
   splashOpacity,
   buttonsBackgroundColorOpacity,
+  backgroundGradientColors,
 }
 
 enum SitesIcons {
@@ -43,6 +44,7 @@ class Styling {
     ElementStylingParameters.lightDarkButtonIcon: OMIcons.wbSunny,
     ElementStylingParameters.splashOpacity: .5,
     ElementStylingParameters.buttonsBackgroundColorOpacity: .1,
+    ElementStylingParameters.backgroundGradientColors: [Color(0xff97F4CF), Color(0xff0090FF)]
   };
   static final darkTheme = {
     ElementStylingParameters.primaryColor: Color(0xff191B24),
@@ -62,6 +64,7 @@ class Styling {
     ElementStylingParameters.lightDarkButtonIcon: OMIcons.brightness2,
     ElementStylingParameters.splashOpacity: .2,
     ElementStylingParameters.buttonsBackgroundColorOpacity: .3,
+    ElementStylingParameters.backgroundGradientColors: [Colors.deepPurpleAccent, Color(0xff0090FF)],
   };
 
   static var selectedTheme = lightTheme;
