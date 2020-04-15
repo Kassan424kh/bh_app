@@ -39,7 +39,7 @@ class _StartSiteState extends State<StartSite> {
           AnimatedPositioned(
             duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
             curve: Curves.easeInOutCubic,
-            left: size.width <= Styling.tabletSize ? 0 : _isLoggedIn && _showNavigationComponents ? 350 : 350 * 70 / 100,
+            left: size.width <= Styling.tabletSizeWidth ? 0 : _isLoggedIn && _showNavigationComponents ? 350 : 350 * 70 / 100,
             child: AnimatedOpacity(
               opacity: _isLoggedIn && _showNavigationComponents ? 1 : 0,
               duration: Duration(milliseconds: (Styling.durationAnimation / 2).round()),
@@ -52,7 +52,7 @@ class _StartSiteState extends State<StartSite> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        size.width <= Styling.tabletSize && _isLoggedIn
+                        size.width <= Styling.tabletSizeWidth && _isLoggedIn
                             ? Container(
                                 height: 60,
                                 width: size.width,
@@ -63,8 +63,8 @@ class _StartSiteState extends State<StartSite> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Container(
-                              width: size.width <= Styling.tabletSize ? size.width : size.width - 350,
-                              height: size.width <= Styling.tabletSize ? size.height - 60 : size.height,
+                              width: size.width <= Styling.tabletSizeWidth ? size.width : size.width - 350,
+                              height: size.width <= Styling.tabletSizeWidth ? size.height - 60 : size.height,
                               child: Align(
                                 alignment: Alignment.center,
                                 child: LayoutBuilder(
@@ -77,7 +77,7 @@ class _StartSiteState extends State<StartSite> {
                                     return AnimatedContainer(
                                       duration: Duration(milliseconds: (Styling.durationAnimation / 4).round()),
                                       curve: Curves.easeOutCubic,
-                                      width: constraints.maxWidth - (constraints.maxWidth * (size.width <= Styling.tabletSize ? 10 : 15) / 100),
+                                      width: constraints.maxWidth - (constraints.maxWidth * (size.width <= Styling.tabletSizeWidth ? 10 : 15) / 100),
                                       height: _showCardComponentHeight,
                                       onEnd: () {
                                         if (["/", "/home", "/deleted-reports", "/draft-reports", "/search"].contains(Provider.of<NavigateProvider>(context, listen: false).nowOpenedSite))
@@ -126,7 +126,7 @@ class _StartSiteState extends State<StartSite> {
           AnimatedPositioned(
             duration: Duration(milliseconds: Styling.durationAnimation),
             curve: Curves.easeInOutCubic,
-            left: _isLoggedIn ? size.width <= Styling.tabletSize && _isLoggedIn && _showNavigationComponents && !_openNavigation ? -370: 0: null,
+            left: _isLoggedIn ? size.width <= Styling.tabletSizeWidth && _isLoggedIn && _showNavigationComponents && !_openNavigation ? -370: 0: null,
             child: AnimatedAlign(
               duration: Duration(milliseconds: Styling.durationAnimation),
               curve: Curves.easeInOutCubic,
@@ -136,11 +136,11 @@ class _StartSiteState extends State<StartSite> {
                 duration: Duration(milliseconds: Styling.durationAnimation),
                 curve: Curves.easeInOutCubic,
                 width: _isLoggedIn ? size.width > Styling.phoneSize ? 350 : 300 : 300,
-                height: _isLoggedIn ? size.height - 20 : 375,
+                height: _isLoggedIn ? size.height : 375,
                 decoration: BoxDecoration(
                   color: _selectedTheme[ElementStylingParameters.primaryAccentColor],
                   boxShadow: [
-                    size.width <= Styling.tabletSize && _isLoggedIn && _showNavigationComponents && _openNavigation
+                    size.width <= Styling.tabletSizeWidth && _isLoggedIn && _showNavigationComponents && _openNavigation
                         ? BoxShadow(
                             color: _selectedTheme[ElementStylingParameters.boxShadowColor],
                             offset: Offset(15, 20),
@@ -153,7 +153,7 @@ class _StartSiteState extends State<StartSite> {
                           ),
                   ],
                 ),
-                margin: EdgeInsets.all(10),
+                margin: EdgeInsets.all(size.width > Styling.tabletSizeWidth ? 10: 0),
                 child: Align(
                   alignment: Alignment.center,
                   child: Stack(

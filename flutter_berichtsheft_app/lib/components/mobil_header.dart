@@ -15,7 +15,7 @@ class MobileHeader extends StatelessWidget {
     final _selectedTheme = Provider.of<StylingProvider>(context).selectedTheme;
     bool _isLoggedIn = Provider.of<LoginProvider>(context).isLoggedIn;
     Size size = MediaQuery.of(context).size;
-    return size.width <= Styling.tabletSize && _isLoggedIn
+    return size.width <= Styling.tabletSizeWidth && _isLoggedIn
         ? Positioned.fill(
             top: 0,
             child: Column(
@@ -36,7 +36,7 @@ class MobileHeader extends StatelessWidget {
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       height: 60,
-                      width: size.width - (size.width * (size.width <= Styling.tabletSize ? 10 : 15) / 100),
+                      width: size.width - (size.width * (size.width <= Styling.tabletSizeWidth ? 10 : 15) / 100),
                       alignment: Alignment.centerLeft,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -44,7 +44,7 @@ class MobileHeader extends StatelessWidget {
                           UICircleButton(
                             icon: Container(
                               height: 25,
-                              width: 35,
+                              width: 40,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 mainAxisSize: MainAxisSize.max,
@@ -56,7 +56,7 @@ class MobileHeader extends StatelessWidget {
                                     child: Center(
                                       child: Container(
                                         margin: EdgeInsets.symmetric(horizontal: 5),
-                                        height: 0.6,
+                                        height: 1,
                                         color: _selectedTheme[ElementStylingParameters.headerTextColor],
                                       ),
                                     ),
@@ -64,11 +64,11 @@ class MobileHeader extends StatelessWidget {
                                   Container(
                                     height: 6,
                                     margin: EdgeInsets.only(left: 5),
-                                    color: _selectedTheme[ElementStylingParameters.primaryColor],
+                                    //color: _selectedTheme[ElementStylingParameters.primaryColor],
                                     child: Center(
                                       child: Container(
                                         margin: EdgeInsets.symmetric(horizontal: 5),
-                                        height: 0.6,
+                                        height: 1,
                                         color: _selectedTheme[ElementStylingParameters.headerTextColor],
                                       ),
                                     ),
@@ -76,11 +76,11 @@ class MobileHeader extends StatelessWidget {
                                   Container(
                                     height: 6,
                                     margin: EdgeInsets.only(left: 5),
-                                    color: _selectedTheme[ElementStylingParameters.primaryColor],
+                                    //color: _selectedTheme[ElementStylingParameters.primaryColor],
                                     child: Center(
                                       child: Container(
                                         margin: EdgeInsets.symmetric(horizontal: 5),
-                                        height: 0.6,
+                                        height: 1,
                                         color: _selectedTheme[ElementStylingParameters.headerTextColor],
                                       ),
                                     ),

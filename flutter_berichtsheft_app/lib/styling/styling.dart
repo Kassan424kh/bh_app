@@ -45,7 +45,7 @@ class Styling {
     ElementStylingParameters.buttonsBackgroundColorOpacity: .1,
   };
   static final darkTheme = {
-    ElementStylingParameters.primaryColor: Color(0xff191B24),
+    ElementStylingParameters.primaryColor: Color(0xff353a42),
     ElementStylingParameters.primaryAccentColor: Colors.black,
     ElementStylingParameters.textColor: Color(0xffBADBF4),
     ElementStylingParameters.headerTextColor: Color(0xff7FC7FF),
@@ -68,6 +68,7 @@ class Styling {
 
   static int durationAnimation = 350;
 
-  static double tabletSize = 1400;
+  static double tabletSizeWidth = 1400;
+  static double tabletSizeHeight = 830;
   static double phoneSize = 1060;
 }

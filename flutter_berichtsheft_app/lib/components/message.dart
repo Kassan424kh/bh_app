@@ -72,7 +72,7 @@ class _MessageState extends State<Message> {
                             children: <Widget>[
                               LayoutBuilder(
                                 builder: (BuildContext context, BoxConstraints constraints) => Container(
-                                  margin: size.width > Styling.tabletSize ? null:  EdgeInsets.only(right: 30),
+                                  margin: size.width > Styling.tabletSizeWidth ? null:  EdgeInsets.only(right: 30),
                                   constraints: BoxConstraints(maxHeight: 5, minWidth: constraints.maxWidth),
                                   decoration: BoxDecoration(
                                     color: (_selectedTheme[ElementStylingParameters.primaryColor] as Color).withOpacity(_selectedTheme[ElementStylingParameters.splashOpacity]),
@@ -99,7 +99,7 @@ class _MessageState extends State<Message> {
                             child: AnimatedAlign(
                               duration: Duration(milliseconds: (Styling.durationAnimation).round()),
                               curve: Curves.easeInOutCubic,
-                              alignment: size.width > Styling.tabletSize?
+                              alignment: size.width > Styling.tabletSizeWidth?
                               Alignment.topCenter.add(Alignment(0, Provider.of<MessageProvider>(context, listen: false).messageShowingPause ? 0 : -2)):
                               Alignment.topRight.add(Alignment(0.070, -0.32)),
                               child: UICircleButton(

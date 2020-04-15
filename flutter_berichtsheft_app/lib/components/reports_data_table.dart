@@ -28,11 +28,11 @@ class ReportsDataTable extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     return Container(
       width: _showCardComponentWidth -
-                  (size.width <= Styling.tabletSize ? 0 : 60) <
+                  (size.width <= Styling.tabletSizeWidth ? 0 : 60) <
               0
           ? 0
           : _showCardComponentWidth -
-              (size.width <= Styling.tabletSize ? 0 : 60),
+              (size.width <= Styling.tabletSizeWidth ? 0 : 60),
       child: Column(children: <Widget>[
         Container(
           height: 50,
@@ -132,9 +132,9 @@ class ReportsDataTable extends StatelessWidget {
             constraints: BoxConstraints(
                 maxHeight:
                     Provider.of<ReportsProvider>(context).showReportsAfterLoad
-                        ? (listOfReports.length * (size.width > Styling.tabletSize ? 60 : 100) > 600
+                        ? (listOfReports.length * (size.width > Styling.tabletSizeWidth ? 60 : 100) > 600
                                 ? 600
-                                : listOfReports.length * (size.width > Styling.tabletSize ? 60 : 100))
+                                : listOfReports.length * (size.width > Styling.tabletSizeWidth ? 60 : 100))
                             .toDouble()
                         : 0),
             child: Provider.of<ReportsProvider>(context).showReportsAfterLoad
@@ -142,7 +142,7 @@ class ReportsDataTable extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: listOfReports.length,
                       cacheExtent: 10,
-                      itemExtent: size.width > Styling.tabletSize ? 60 : 100,
+                      itemExtent: size.width > Styling.tabletSizeWidth ? 60 : 100,
                       reverse: true,
                       addAutomaticKeepAlives: true,
                       physics: AlwaysScrollableScrollPhysics(),

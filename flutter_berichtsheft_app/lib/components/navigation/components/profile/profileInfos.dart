@@ -24,7 +24,7 @@ class _ProfileInfosState extends State<ProfileInfos> {
           mainAxisSize: MainAxisSize.min,
           direction: Axis.vertical,
           children: <Widget>[
-            size.width > Styling.tabletSize
+            size.width > Styling.tabletSizeWidth && size.height > Styling.tabletSizeHeight
                 ? Hero(
                     tag: "navigationLogo",
                     child: AppLogo(
@@ -34,15 +34,15 @@ class _ProfileInfosState extends State<ProfileInfos> {
                   )
                 : SizedBox(height: 50),
             Row(
-              mainAxisSize: size.width > Styling.tabletSize ? MainAxisSize.min :MainAxisSize.max,
+              mainAxisSize: size.width > Styling.tabletSizeWidth && size.height > Styling.tabletSizeHeight ? MainAxisSize.min :MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 ProfileImage(),
-                size.width < Styling.tabletSize
+                size.width < Styling.tabletSizeWidth  || size.height < Styling.tabletSizeHeight
                     ? ProfileName(fontSize: 20) : Container(),
               ],
             ),
-            size.width > Styling.tabletSize
+            size.width > Styling.tabletSizeWidth && size.height > Styling.tabletSizeHeight
                 ? ProfileName()
                 : SizedBox(height: 20),
             BottomButtons(),

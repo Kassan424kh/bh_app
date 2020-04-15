@@ -104,7 +104,7 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
         child: HeaderText(
           text: widget.title,
           fontSize: 40,
-          margin: EdgeInsets.only(bottom: widget.title != "" ? size.width > Styling.tabletSize ? 60 : 30 : 0),
+          margin: EdgeInsets.only(bottom: widget.title != "" ? size.width > Styling.tabletSizeWidth ? 60 : 30 : 0),
         ),
       ),
     ];
@@ -118,7 +118,7 @@ class _SiteState extends State<Site> with SingleTickerProviderStateMixin {
         child: Container(
           key: _homeSiteGKey,
           width: _showSitesCardComponentWidth,
-          padding: EdgeInsets.only(left: size.width <= Styling.tabletSize ? 0: 60, top: size.width > Styling.tabletSize ? 60 : 30, bottom: widget.children.length != 0 ? size.width > Styling.tabletSize ? 60 : 30 : 0),
+          padding: EdgeInsets.only(left: size.width <= Styling.tabletSizeWidth ? 0: 60, top: size.width > Styling.tabletSizeWidth ? 60 : 30, bottom: widget.children.length != 0 ? size.width > Styling.tabletSizeWidth ? 60 : 30 : 0),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[

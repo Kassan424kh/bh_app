@@ -3,29 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="e61e2f2e-5d2c-403b-a6e8-b0dc5c2cff2b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/MyApp.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/MyApp.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/message.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/message.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/mobil_header.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/mobil_header.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/profile/components/profile_image.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/profile/components/profile_image.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/profile/profileInfos.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/navigation/components/profile/profileInfos.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/reports_data_table.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/reports_data_table.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/site.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/components/site.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/start_site.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/sites/start_site.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/AppConfiguration.props" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/FlutterBuild.vcxproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/Runner.rc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/Runner.sln" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/Runner.vcxproj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/Runner.vcxproj.filters" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/flutter/GeneratedPlugins.props" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/flutter/generated_plugin_registrant.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/flutter/generated_plugin_registrant.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/main.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/resource.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/resources/app_icon.ico" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/runner.exe.manifest" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/scripts/bundle_assets_and_deps.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/scripts/prepare_dependencies.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/win32_window.cc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/win32_window.h" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/window_configuration.cpp" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/windows/window_configuration.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/styling/styling.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/lib/styling/styling.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../flutter_berichtsheft_app/pubspec.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,6 +215,8 @@
       <workItem from="1584803934869" duration="307000" />
       <workItem from="1585033928614" duration="935000" />
       <workItem from="1585123756081" duration="1842000" />
+      <workItem from="1585132859064" duration="4123000" />
+      <workItem from="1586622314836" duration="2460000" />
     </task>
     <servers />
   </component>
@@ -236,33 +224,33 @@
     <option name="version" value="1" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="1327" y="763" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1584803774851">
+    <state x="1327" y="763" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1586374714109">
       <screen x="0" y="30" width="3072" height="1698" />
     </state>
-    <state x="1327" y="763" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.30.3072.1698@0.30.3072.1698" timestamp="1584803774851" />
-    <state width="1703" height="769" key="GridCell.Tab.0.bottom" timestamp="1585126997979">
+    <state x="1327" y="763" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.30.3072.1698@0.30.3072.1698" timestamp="1586374714109" />
+    <state width="1491" height="629" key="GridCell.Tab.0.bottom" timestamp="1585139106100">
       <screen x="0" y="30" width="3072" height="1698" />
     </state>
-    <state width="1703" height="769" key="GridCell.Tab.0.bottom/0.30.3072.1698@0.30.3072.1698" timestamp="1585126997979" />
+    <state width="1491" height="629" key="GridCell.Tab.0.bottom/0.30.3072.1698@0.30.3072.1698" timestamp="1585139106100" />
     <state width="807" height="401" key="GridCell.Tab.0.bottom/0.31.2560.1409@0.31.2560.1409" timestamp="1584429142465" />
-    <state width="1703" height="769" key="GridCell.Tab.0.center" timestamp="1585126997979">
+    <state width="1491" height="629" key="GridCell.Tab.0.center" timestamp="1585139106100">
       <screen x="0" y="30" width="3072" height="1698" />
     </state>
-    <state width="1703" height="769" key="GridCell.Tab.0.center/0.30.3072.1698@0.30.3072.1698" timestamp="1585126997979" />
+    <state width="1491" height="629" key="GridCell.Tab.0.center/0.30.3072.1698@0.30.3072.1698" timestamp="1585139106100" />
     <state width="807" height="401" key="GridCell.Tab.0.center/0.31.2560.1409@0.31.2560.1409" timestamp="1584429142464" />
-    <state width="1703" height="769" key="GridCell.Tab.0.left" timestamp="1585126997979">
+    <state width="1491" height="629" key="GridCell.Tab.0.left" timestamp="1585139106100">
       <screen x="0" y="30" width="3072" height="1698" />
     </state>
-    <state width="1703" height="769" key="GridCell.Tab.0.left/0.30.3072.1698@0.30.3072.1698" timestamp="1585126997979" />
+    <state width="1491" height="629" key="GridCell.Tab.0.left/0.30.3072.1698@0.30.3072.1698" timestamp="1585139106100" />
     <state width="807" height="401" key="GridCell.Tab.0.left/0.31.2560.1409@0.31.2560.1409" timestamp="1584429142464" />
-    <state width="1703" height="769" key="GridCell.Tab.0.right" timestamp="1585126997979">
+    <state width="1491" height="629" key="GridCell.Tab.0.right" timestamp="1585139106100">
       <screen x="0" y="30" width="3072" height="1698" />
     </state>
-    <state width="1703" height="769" key="GridCell.Tab.0.right/0.30.3072.1698@0.30.3072.1698" timestamp="1585126997979" />
+    <state width="1491" height="629" key="GridCell.Tab.0.right/0.30.3072.1698@0.30.3072.1698" timestamp="1585139106100" />
     <state width="807" height="401" key="GridCell.Tab.0.right/0.31.2560.1409@0.31.2560.1409" timestamp="1584429142464" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_server_.coverage" NAME="Flask (api_server) Coverage Results" MODIFIED="1585126020201" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/flask_restful_server$Flask__api_server_.coverage" NAME="Flask (api_server) Coverage Results" MODIFIED="1585134117399" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/flask_restful_server$Flask.coverage" NAME="Flask Coverage Results" MODIFIED="1584399605283" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
   </component>
   <component name="masterDetails">
