@@ -128,7 +128,7 @@ class ReportsDataTable extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: listOfReports.length,
                       cacheExtent: 10,
-                      itemExtent: size.width > Styling.tabletSizeWidth ? 60 : 100,
+                      itemExtent: size.width > Styling.tabletSizeWidth ? 70 : 120,
                       reverse: true,
                       addAutomaticKeepAlives: true,
                       physics: AlwaysScrollableScrollPhysics(),

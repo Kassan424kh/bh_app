@@ -26,16 +26,6 @@ class ReportListTile extends StatelessWidget {
     return AnimatedContainer(
       duration: Duration(milliseconds: (Styling.durationAnimation / 4).round()),
       curve: Curves.easeOutCubic,
-      decoration: BoxDecoration(
-        color: _selectedTheme[ElementStylingParameters.primaryColor],
-        boxShadow: [
-          BoxShadow(
-            color: _selectedTheme[ElementStylingParameters.primaryColor],
-            offset: Offset(2, 2),
-            blurRadius: 5,
-          ),
-        ],
-      ),
       margin: EdgeInsets.only(bottom: 20),
       child: Column(
         mainAxisSize: MainAxisSize.min,

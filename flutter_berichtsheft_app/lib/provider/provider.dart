@@ -1,7 +1,10 @@
 import 'dart:async';
+import 'dart:io' show Platform;
 
+import 'package:crypted_preferences/crypted_preferences.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoadingProgress with ChangeNotifier {
   double loadingProgress = 0;
@@ -39,14 +42,58 @@ class UserData with ChangeNotifier {
   }
 }
 
-class StylingProvider extends ChangeNotifier {
-  var selectedTheme = Styling.darkTheme;
+class StylingProvider extends ChangeNotifier  {
+  Future<dynamic> get _appThemePref async {
+    Future<SharedPreferences> sPrefs = SharedPreferences.getInstance();
+    final prefs = await Preferences.preferences(path: "./appConfigs");
+    String appTheme;
+    if (Platform.isAndroid || Platform.isIOS){
+      final SharedPreferences _sPrefs = await sPrefs;
+      if (!_sPrefs.containsKey("appTheme")) {
+        _sPrefs.setString("appTheme", "light");
+      }
+      appTheme = _sPrefs.get("appTheme");
+    }else {
+      if (!prefs.containsKey("appTheme")) {
+        prefs.setString("appTheme", "light");
+      }
+      appTheme = prefs.get("appTheme");
+    }
+    return appTheme;
+  }
 
-  void changeTheme() {
-    if (selectedTheme == Styling.darkTheme)
+  var selectedTheme = Styling.lightTheme;
+
+  StylingProvider(){
+    _appThemePref.then((value) => selectedTheme = value == "light" ? Styling.lightTheme : Styling.darkTheme);
+  }
+
+
+
+
+  void changeTheme() async {
+    Future<SharedPreferences> sPrefs = SharedPreferences.getInstance();
+    final prefs = await Preferences.preferences(path: "./appConfigs");
+    final SharedPreferences _sPrefs = await sPrefs;
+
+    if (selectedTheme == Styling.darkTheme){
       selectedTheme = Styling.lightTheme;
-    else
+      if (Platform.isAndroid || Platform.isIOS) {
+        if (_sPrefs.containsKey("appTheme")) {
+          _sPrefs.setString("appTheme", "light");
+        } else {
+          if (prefs.containsKey("appTheme")) prefs.setString("appTheme", "light");
+        }
+      }
+    }
+    else {
       selectedTheme = Styling.darkTheme;
+      if (Platform.isAndroid || Platform.isIOS) {
+        if (_sPrefs.containsKey("appTheme")) _sPrefs.setString("appTheme", "dark");
+      }else {
+        if (prefs.containsKey("appTheme")) prefs.setString("appTheme", "dark");
+      }
+    }
     notifyListeners();
   }
 

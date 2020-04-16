@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
     Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
       extendBody: true,
+      backgroundColor: _selectedTheme[ElementStylingParameters.primaryAccentColor],
       body: SafeArea(
         child: Container(
           width: screenSize.width,

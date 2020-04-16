@@ -5,10 +5,25 @@ import 'package:flutter_berichtsheft_app/provider/provider.dart';
 import 'package:flutter_berichtsheft_app/styling/styling.dart';
 import 'package:outline_material_icons/outline_material_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class BottomButtons extends StatelessWidget {
+class BottomButtons extends StatefulWidget {
+  @override
+  _BottomButtonsState createState() => _BottomButtonsState();
+}
+
+class _BottomButtonsState extends State<BottomButtons> {
+  Future<SharedPreferences> sPrefs;
   _updateShowingReports(BuildContext context) {
     Provider.of<ReportsProvider>(context, listen: false).updateShowingReports(false);
+  }
+
+  @override
+  void initState() {
+    setState(() {
+      sPrefs = SharedPreferences.getInstance();
+    });
+    super.initState();
   }
 
   @override
@@ -28,6 +43,8 @@ class BottomButtons extends StatelessWidget {
             onClick: () async {
               final prefs = await Preferences.preferences(path: "./loginData");
               prefs.remove("accessToken");
+              final SharedPreferences _sPrefs = await sPrefs;
+              if (Theme.of(context).platform ==  TargetPlatform.android) _sPrefs.remove("accessToken");
               Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(
                 Provider.of<LoginProvider>(context, listen: false).isLoggedIn ? false : true,
               );

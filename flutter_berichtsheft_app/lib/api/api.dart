@@ -5,12 +5,14 @@ import 'package:crypted_preferences/crypted_preferences.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_berichtsheft_app/provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:dio/dio.dart';
 
 class API {
   final BuildContext context;
   var dio = Dio();
+
 
   void clearClient() {
     dio.clear();
@@ -32,9 +34,20 @@ class API {
     return values.substring(0, values.length - 1);
   }
 
+  Future<dynamic> get _accessTokenPref async{
+    Future<SharedPreferences> sPrefs = SharedPreferences.getInstance();
+    final prefs = await Preferences.preferences(path: "./loginData");
+    String accessToken = prefs.get("accessToken");
+    if (Theme.of(context).platform ==  TargetPlatform.android || Theme.of(context).platform ==  TargetPlatform.iOS){
+      final SharedPreferences _sPrefs = await sPrefs;
+      accessToken = _sPrefs.get("accessToken");
+    }
+    return accessToken;
+  }
+
   API({Key key, this.context});
 
-  final String url = "http://0.0.0.0:5000";
+  final String url = "http://192.168.0.109:5000";
 
   void showDownloadProgress(received, total) {
     if (total != -1) {
@@ -57,7 +70,9 @@ class API {
         if (prefs.getKeys().contains("accessToken")) prefs.remove("accessToken");
       } else
         Provider.of<MessageProvider>(context, listen: false).showMessage(true, messageText: e.response.data["message"]);
-    } catch (e) {}
+    } catch (e) {
+      print(e);
+    }
     dio.clear();
   }
 
@@ -69,17 +84,21 @@ class API {
 
   Future login(email, password) async {
     try {
+      Future<SharedPreferences> sPrefs = SharedPreferences.getInstance();
       final prefs = await Preferences.preferences(path: "./loginData");
-      await dio
-          .get(
+      await dio.get(
         "$url/login",
         onReceiveProgress: showDownloadProgress,
         options: Options(headers: {"email": email, "password": password}),
       )
-          .then((loginAccessToken) {
+          .then((loginAccessToken)async {
         loginAgain(loginAccessToken.statusCode);
         userData;
-        prefs.setString('accessToken', json.encode(loginAccessToken.data));
+        if (Theme.of(context).platform ==  TargetPlatform.android || Theme.of(context).platform ==  TargetPlatform.iOS) {
+          final SharedPreferences _sPrefs = await sPrefs;
+          _sPrefs.setString("accessToken", json.encode(loginAccessToken.data));
+        }
+        prefs.setValue('accessToken', loginAccessToken.data);
         Provider.of<LoginProvider>(context, listen: false).updateLoginStatus(true);
       });
       dio.clear();
@@ -91,12 +110,11 @@ class API {
 
   Future<List<dynamic>> get reports async {
     try {
-      final prefs = await Preferences.preferences(path: "./loginData");
       var data = [];
       await dio
           .get(
         "$url/get-reports",
-        options: Options(headers: json.decode(prefs.get("accessToken"))),
+        options: Options(headers: json.decode(await _accessTokenPref)),
         onReceiveProgress: showDownloadProgress,
       )
           .then((response) async {
@@ -115,11 +133,9 @@ class API {
   /// userData attributes are [birthday, roll, is_trainees, typeTraining, startTrainingDate, endTrainingDate]
   Future<Map<dynamic, dynamic>> addDataToNewUser(Map<dynamic, dynamic> newUserData) async {
     try {
-      final prefs = await Preferences.preferences(path: "./loginData");
-
       var response = await dio.get(
         "$url/add-data-to-new-user${_valuesToLinkQueryParameter(newUserData)}",
-        options: Options(headers: prefs.get("accessToken")),
+        options: Options(headers: json.decode(await _accessTokenPref)),
         onReceiveProgress: showDownloadProgress,
       );
       loginAgain(response.statusCode);
@@ -142,12 +158,11 @@ class API {
 
   Future<Map<dynamic, dynamic>> get userData async {
     try {
-      final prefs = await Preferences.preferences(path: "./loginData");
       var data = {};
       await dio
           .get(
         "$url/",
-        options: Options(headers: json.decode(prefs.get("accessToken"))),
+        options: Options(headers: json.decode(await _accessTokenPref)),
         onReceiveProgress: showDownloadProgress,
       )
           .then((response) async {
@@ -173,10 +188,9 @@ class API {
 
   Future<List<dynamic>> get deletedReports async {
     try {
-      final prefs = await Preferences.preferences(path: "./loginData");
       var response = await dio.get(
         "$url/get-deleted-reports",
-        options: Options(headers: json.decode(prefs.get("accessToken"))),
+        options: Options(headers: json.decode(await _accessTokenPref)),
         onReceiveProgress: showDownloadProgress,
       );
       loginAgain(response.statusCode);
@@ -192,10 +206,9 @@ class API {
 
   Future<Map<dynamic, dynamic>> createNewReport(Map<dynamic, dynamic> reportData) async {
     try {
-      final prefs = await Preferences.preferences(path: "./loginData");
       var response = await dio.get(
         "$url/create-new-report${_valuesToLinkQueryParameter(reportData)}",
-        options: Options(headers: json.decode(prefs.get("accessToken"))),
+        options: Options(headers: json.decode(await _accessTokenPref)),
         onReceiveProgress: showDownloadProgress,
       );
       loginAgain(response.statusCode);
@@ -219,12 +232,10 @@ class API {
 
   Future<Map<dynamic, dynamic>> updateReport(int reportID, Map<dynamic, dynamic> newReportData) async {
     try {
-      final prefs = await Preferences.preferences(path: "./loginData");
       newReportData["reportId"] = reportID;
-
       var response = await dio.get(
         "$url/update-report${_valuesToLinkQueryParameter(newReportData)}",
-        options: Options(headers: json.decode(prefs.get("accessToken"))),
+        options: Options(headers: json.decode(await _accessTokenPref)),
         onReceiveProgress: showDownloadProgress,
       );
       loginAgain(response.statusCode);
@@ -248,7 +259,6 @@ class API {
 
   Future<Map<dynamic, dynamic>> deleteReport(int reportId, {bool deleteForever = false}) async {
     try {
-      final prefs = await Preferences.preferences(path: "./loginData");
       Map<String, dynamic> _valuesData = {};
       _valuesData["reportId"] = reportId;
       if (deleteForever) _valuesData["deleteForever"] = deleteForever;
@@ -261,7 +271,7 @@ class API {
 
       var response = await dio.get(
         "$url/delete-report${values.substring(0, values.length - 1)}",
-        options: Options(headers: json.decode(prefs.get("accessToken"))),
+        options: Options(headers: json.decode(await _accessTokenPref)),
         onReceiveProgress: showDownloadProgress,
       );
 
@@ -287,7 +297,6 @@ class API {
 
   Future<bool> deleteReports(List<int> reportIds, {bool permanently = false}) async {
     try {
-      final prefs = await Preferences.preferences(path: "./loginData");
       Map<String, dynamic> _valuesData = {};
       _valuesData["reportIds"] = reportIds;
       if (permanently) _valuesData["permanently"] = permanently;
@@ -300,7 +309,7 @@ class API {
 
       var response = await dio.get(
         "$url/delete-reports${values.substring(0, values.length - 1)}",
-        options: Options(headers: json.decode(prefs.get("accessToken"))),
+        options: Options(headers: json.decode(await _accessTokenPref)),
         onReceiveProgress: showDownloadProgress,
       );
       loginAgain(response.statusCode);
@@ -322,7 +331,6 @@ class API {
 
   Future revertReports(List<int> reportIds) async {
     try {
-      final prefs = await Preferences.preferences(path: "./loginData");
       Map<String, dynamic> _valuesData = {};
       _valuesData["reportIds"] = reportIds;
 
@@ -334,7 +342,7 @@ class API {
 
       var response = await dio.get(
         "$url/revert-reports${values.substring(0, values.length - 1)}",
-        options: Options(headers: json.decode(prefs.get("accessToken"))),
+        options: Options(headers: json.decode(await _accessTokenPref)),
         onReceiveProgress: showDownloadProgress,
       );
       loginAgain(response.statusCode);
@@ -359,13 +367,12 @@ class API {
 
   Future<List<dynamic>> search(String searchedText) async {
     try {
-      final prefs = await Preferences.preferences(path: "./loginData");
       Map<String, dynamic> _valuesData = {};
       _valuesData["searchedText"] = searchedText;
 
       var response = await dio.get(
         "$url/search${_valuesToLinkQueryParameter(_valuesData)}",
-        options: Options(headers: json.decode(prefs.get("accessToken"))),
+        options: Options(headers: json.decode(await _accessTokenPref)),
         onReceiveProgress: showDownloadProgress,
       );
       loginAgain(response.statusCode);
@@ -388,13 +395,12 @@ class API {
 
   Future<Map<dynamic, dynamic>> importFromRedmine(String key) async {
     try {
-      final prefs = await Preferences.preferences(path: "./loginData");
       Map<String, dynamic> _valuesData = {};
       _valuesData["key"] = key;
 
       var response = await dio.get(
         "$url/import-from-redmine${_valuesToLinkQueryParameter(_valuesData)}",
-        options: Options(headers: json.decode(prefs.get("accessToken"))),
+        options: Options(headers: json.decode(await _accessTokenPref)),
         onReceiveProgress: showDownloadProgress,
       );
 
