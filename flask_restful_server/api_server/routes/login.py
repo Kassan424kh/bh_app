@@ -48,7 +48,7 @@ class Login(Resource):
                 app_configs= json.load(f)
                 exp = datetime.datetime.utcnow() + datetime.timedelta(days=app_configs.get("ACTIVATION_EXPIRE_DAYS"))
                 user_token_data = {"email": user.get("email"), 'exp': exp}
-                encoded_access_token = encode(user_token_data, app_configs.get("ACCESS_TOKEN_KEY"), "HS256").decode('UTF-8')
+                encoded_access_token = encode(user_token_data, app_configs.get("ACCESS_TOKEN_KEY"), "HS256")
         if encoded_access_token == "":
             abort(401, message="Can not create token")
 

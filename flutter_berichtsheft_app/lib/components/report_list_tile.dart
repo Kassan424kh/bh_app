@@ -49,7 +49,7 @@ class ReportListTile extends StatelessWidget {
                         itemsAlignment: MainAxisAlignment.start,
                         leftWidget: Icon(
                           Icons.check_box,
-                          color: _selectedTheme[isSelected ? ElementStylingParameters.headerTextColor : ElementStylingParameters.primaryAccentColor],
+                          color: _selectedTheme[isSelected ? ElementStylingParameters.headerTextColor : ElementStylingParameters.primaryColor],
                         ),
                       ),
                     ),
